@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "531827281606",
+    "firebase_url": "https://wahrane-a42eb-default-rtdb.firebaseio.com",
+    "project_id": "wahrane-a42eb",
+    "storage_bucket": "wahrane-a42eb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:531827281606:android:2be0bf544ed86dd256d1c7",
+        "android_client_info": {
+          "package_name": "com.wahrane.dz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "531827281606-p1hhs34srklehtdfn1r597tpp4nk5on2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wahrane.dz",
+            "certificate_hash": "fa42f03ee65f57067cbc164f946389b506817dcc"
+          }
+        },
+        {
+          "client_id": "531827281606-7jj4m2jp30dajf00iqpl7gglrkt60hu0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCiRC6cuJ8Nhk0YWVrj_3AVWNkiuxvoz5o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "531827281606-7jj4m2jp30dajf00iqpl7gglrkt60hu0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
