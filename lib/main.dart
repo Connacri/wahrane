@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
+import 'package:wahrane/pages/PublicHomeLIst.dart';
 import 'package:wahrane/pages/adminLoggedPage.dart';
 import 'package:wahrane/pages/publicLoggedPage.dart';
 import 'package:wahrane/pages/unloggerPublicPage.dart';
@@ -85,7 +86,7 @@ class _verifi_authState extends State<verifi_auth> {
             final userD = snapshot.data!.uid;
             return CheckRole(userD); //MultiProviderWidget();
           } else {
-            return unloggedPublicPage();
+            return unloggedPublicPage(); //publicHomeList(); //
           }
         },
       ));

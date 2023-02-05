@@ -31,7 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
   cloud_firestore: ^4.3.1
-  firebase_messaging: any
+  firebase_messaging: ^14.2.1
   firebase_database: ^10.0.9
   firebase_core: ^2.4.1
   firebase_auth: ^4.2.5
@@ -39,7 +39,7 @@ dependencies:
   google_sign_in: ^5.4.4
   cached_network_image: ^3.2.3
   flutter_slidable: ^2.0.0
-  lottie:
+  lottie: ^2.2.0
   provider: ^6.0.5
   fluttertoast:
   font_awesome_flutter: ^10.3.0
@@ -48,7 +48,14 @@ dependencies:
   shared_preferences: ^2.0.17
   avatar_glow: ^2.0.2
   url_launcher: ^6.1.8
-  carousel_slider:
+  carousel_slider: ^4.2.1
+  image_picker: ^0.8.6+1
+  intl_phone_field: ^3.1.0
+  pretty_qr_code: ^2.0.3
+  ticket_widget: ^0.0.1
+  readmore: ^2.2.0
+  flutterflow_paginate_firestore: ^1.0.3+1
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -62,11 +69,13 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/images/ic_launcher/1024.png"
+  image_path: "assets/images/dolphin-emoji.png"
+# image_path: "assets/images/ic_launcher/1024.png"
   min_sdk_android: 21 # android min sdk min:16, default 21
   web:
     generate: true
-    image_path: "assets/images/ic_launcher/1024.png"
+    image_path: "assets/images/dolphin-emoji.png"
+#    image_path: "assets/images/ic_launcher/1024.png"
     adaptive_icon_foreground: "assets/images/ic_launcher/1024.png"
     background_color: "#hexcode"
     theme_color: "#hexcode"

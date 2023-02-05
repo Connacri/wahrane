@@ -1,55 +1,136 @@
+import 'dart:core';
 import 'dart:math';
 import 'dart:ui';
-import 'package:intl/intl.dart';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:flutterflow_paginate_firestore/paginate_firestore.dart';
 import 'package:flutterflow_paginate_firestore/widgets/bottom_loader.dart';
 import 'package:flutterflow_paginate_firestore/widgets/empty_display.dart';
 import 'package:flutterflow_paginate_firestore/widgets/empty_separator.dart';
 import 'package:flutterflow_paginate_firestore/widgets/initial_loader.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 
 import '../Oauth/AuthPage.dart';
-import '../Oauth/Ogoogle/googleSignInProvider.dart';
-import 'addPost.dart';
 import 'detailItem.dart';
 
-class publicLoggerPage extends StatelessWidget {
-  publicLoggerPage({
-    Key? key,
-    required this.datta,
-  }) : super(key: key);
+class publicHomeList extends StatefulWidget {
+  const publicHomeList({Key? key}) : super(key: key);
 
-  final DocumentSnapshot<Object?>? datta;
+  @override
+  State<publicHomeList> createState() => _publicHomeListState();
+}
+
+class _publicHomeListState extends State<publicHomeList> {
+  late TextTheme textTheme;
+  final navigatorKey = GlobalKey<NavigatorState>();
+  final GlobalKey<FormState> _formKeyQty = GlobalKey<FormState>();
+
+  Color colorRed = Color.fromARGB(255, 213, 2, 2); //Colors.deepPurple;
+  Color colorOrange =
+      Color.fromARGB(255, 255, 95, 0); //Colors.deepOrangeAccent;
+  Color colorGreen = Color.fromARGB(255, 139, 169, 2); //Colors.greenAccent;
+  Color colorBlue = Color.fromARGB(255, 66, 58, 41); //Colors.blueAccent;
+
+  Color color1 = const Color.fromARGB(255, 243, 236, 216);
+  Color color2 = const Color.fromARGB(255, 127, 136, 106);
+  Color color3 = const Color.fromARGB(255, 62, 80, 60);
+  final url = 'https://www.youtube.com/watch?v=ZV5HEqyXmUY';
+  @override
+  void initState() {
+    // getdatata();
+    super.initState();
+
+    // final videoId = YoutubePlayer.convertUrlToId(url);
+    // ControllerYoutube = YoutubePlayerController(
+    //     initialVideoId: videoId!,
+    //     flags: const YoutubePlayerFlags(
+    //       mute: false,
+    //       loop: true,
+    //       autoPlay: false,
+    //     ));
+  }
+
   User? user = FirebaseAuth.instance.currentUser;
+
+  //late YoutubePlayerController ControllerYoutube;
+  // @override
+  // void desativate() {
+  //  ControllerYoutube.pause();
+  //   super.deactivate();
+  // }
+  //
+  // @override
+  // void dispose() {
+  //   ControllerYoutube.dispose();
+  //   super.dispose();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        centerTitle: true,
+        title: Text('Call AdventureGG'),
         actions: [
           IconButton(
+              icon: Icon(
+                Icons.call,
+                color: Colors.green,
+              ),
               onPressed: () async {
-                FirebaseAuth.instance.signOut();
-                final provider =
-                    Provider.of<googleSignInProvider>(context, listen: false);
-                await provider.logouta();
-                // Navigator.of(context).pop();
-                // Navigator.pop(context, true);
-              },
-              icon: Icon(FontAwesomeIcons.signOut)),
+                final Uri launchUrlR =
+                    Uri(scheme: 'Tel', path: ' +971566129156');
+                if (await canLaunchUrl(launchUrlR)) {
+                  await launchUrl(launchUrlR);
+                } else {
+                  print('This Call Cant execute');
+                }
+              }),
           IconButton(
-              onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => stepper_widget(),
-                  )),
-              icon: Icon(FontAwesomeIcons.add)),
+              icon: Icon(
+                FontAwesomeIcons.whatsapp,
+                color: Colors.green,
+              ),
+              onPressed: () async {
+                // final Uri whatsapp = Uri(scheme: 'Tel', path: ' +971566129156');
+                // final Uri whatsappURl_android = Uri(
+                //     scheme: 'Tel',
+                //     path: 'whatsapp://send?phone=+${whatsapp}+&text=hello');
+                //
+                // if (await canLaunchUrl(whatsappURl_android)) {
+                //   await launchUrl(whatsappURl_android);
+                // } else {
+                //   ScaffoldMessenger.of(context).showSnackBar(
+                //       SnackBar(content: new Text("whatsapp no installed")));
+                // }
+
+                var phone = 00971566129156;
+                String msg = 'Hello AdventureGG';
+                var whatsappUrl = "whatsapp://send?phone=${phone}" +
+                    "&text=${Uri.encodeComponent(msg)}";
+
+                final Uri launchUrlRW = Uri(
+                    scheme: 'Tel',
+                    path: "whatsapp://send?phone=${phone}" +
+                        "&text=${Uri.encodeComponent(msg)}");
+                try {
+                  launch(whatsappUrl);
+                } catch (e) {
+                  //To handle error and display error message
+                  print("Unable to open whatsapp");
+                }
+              }),
         ],
       ),
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
         child: PaginateFirestore(
             header: SliverToBoxAdapter(
               child: Column(
@@ -237,7 +318,7 @@ class publicLoggerPage extends StatelessWidget {
                                           children: [
                                             UnsplashAvatar(
                                                 UnsplashUrl: snapshot.data!
-                                                    .docs[index]['avatar']),
+                                                    .docs[index]['userAvatar']),
                                             // Container(
                                             //   width: 90,
                                             //   child: FittedBox(
@@ -275,7 +356,7 @@ class publicLoggerPage extends StatelessWidget {
                                                   snapshot
                                                       .data!
                                                       .docs[index]
-                                                          ['displayName']
+                                                          ['userDisplayName']
                                                       .toString()
                                                       .toUpperCase(),
                                                   style: TextStyle(
@@ -287,7 +368,7 @@ class publicLoggerPage extends StatelessWidget {
                                               ),
                                             ),
                                             snapshot.data!.docs[index]
-                                                        ['role'] ==
+                                                        ['userRole'] ==
                                                     'admin'
                                                 ? ShaderMask(
                                                     blendMode: BlendMode.srcIn,
@@ -306,8 +387,10 @@ class publicLoggerPage extends StatelessWidget {
                                                               .bottomRight,
                                                         ).createShader(bounds),
                                                     child: Text(
-                                                      snapshot.data!
-                                                          .docs[index]['role']
+                                                      snapshot
+                                                          .data!
+                                                          .docs[index]
+                                                              ['userRole']
                                                           .toString()
                                                           .toUpperCase(),
                                                       style: TextStyle(
@@ -318,7 +401,7 @@ class publicLoggerPage extends StatelessWidget {
                                                     ))
                                                 : Text(
                                                     snapshot.data!
-                                                        .docs[index]['role']
+                                                        .docs[index]['userRole']
                                                         .toString()
                                                         .toUpperCase(),
                                                     style: TextStyle(
@@ -402,7 +485,7 @@ class publicLoggerPage extends StatelessWidget {
             shrinkWrap: true,
             isLive: true,
             itemBuilderType: PaginateBuilderType.gridView,
-            query: FirebaseFirestore.instance.collection('Products'),
+            query: FirebaseFirestore.instance.collection('Adventure'),
             //.orderBy('createdAt', descending: true),
             itemBuilder: (BuildContext, DocumentSnapshot, int) {
               var data = DocumentSnapshot[int].data() as Map?;
@@ -415,11 +498,12 @@ class publicLoggerPage extends StatelessWidget {
               return GestureDetector(
                 onDoubleTap: () => Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => SilverdetailItem(
+                    //intex: int,
                     data: data,
                   ),
                 )),
                 onTap: () async {
-                  // await showDetailPublic(data, int);
+                  await showDetailPublic(data, int);
                 },
                 child: Card(
                   margin: const EdgeInsets.all(5),
@@ -443,7 +527,7 @@ class publicLoggerPage extends StatelessWidget {
                           decoration: BoxDecoration(
                             image: DecorationImage(
                               image: CachedNetworkImageProvider(
-                                data!['imageUrls'][0],
+                                'https://firebasestorage.googleapis.com/v0/b/adventure-eb4ca.appspot.com/o/tyres%2Ftyres%20(${randomNumber}).jpg?alt=media&token=291ec2fb-6013-45a0-8513-5611136125cb',
                               ),
                               fit: BoxFit.cover,
                               alignment: Alignment.topCenter,
@@ -479,7 +563,7 @@ class publicLoggerPage extends StatelessWidget {
                             child: Text(
                               NumberFormat.currency(
                                       symbol: 'AED ', decimalDigits: 2)
-                                  .format(data!['price']),
+                                  .format(data!['prixVente']),
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                   //backgroundColor: Colors.black45,
@@ -527,6 +611,99 @@ class publicLoggerPage extends StatelessWidget {
       ),
     );
   }
+
+  openwhatsapp() async {
+    var whatsapp = "+919144040888";
+    var whatsappURl_android =
+        "whatsapp://send?phone=" + whatsapp + "&text=hello";
+
+    // android , web
+    if (await canLaunch(whatsappURl_android)) {
+      await launch(whatsappURl_android);
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: new Text("whatsapp no installed")));
+    }
+  }
+
+  Future showDetailPublic(data, int) => showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          //  backgroundColor: Colors.transparent,
+
+          insetPadding: EdgeInsets.all(10),
+          title: Center(
+            child: Text(
+              'Item : ${data['model'].toString()}'.toUpperCase(),
+              style: TextStyle(
+                fontSize: 15,
+                color: colorBlue, // Colors.orange,
+              ),
+            ),
+          ),
+
+          content: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'codebar : ${data['codebar'].toString()}'.toUpperCase(),
+              ),
+              CachedNetworkImage(
+                imageUrl:
+                    'https://firebasestorage.googleapis.com/v0/b/adventure-eb4ca.appspot.com/o/tyres%2Ftyres%20(${int + 1}).jpg?alt=media&token=b3c6a2c0-c5ad-4433-95f2-60c42ebbc092',
+                fit: BoxFit.cover,
+                errorWidget: (context, url, error) => Image.network(
+                    'https://img1.wsimg.com/isteam/ip/d48b4882-6d43-4aed-ac22-2834c9891797/4.jpg/:/rs=w:1300,h:800'),
+              ),
+              Text(
+                'size : ${data['size'].toString()}'.toUpperCase(),
+              ),
+              Text(
+                'origine : ${data['origine'].toString()}'.toUpperCase(),
+              ),
+              Text(
+                NumberFormat.currency(symbol: 'AED ', decimalDigits: 2)
+                    .format(data!['prixVente']),
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                    //backgroundColor: Colors.black45,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.green,
+                    fontFamily: 'oswald'),
+              ),
+              Text(
+                'Description : ${data['description'].toString()}'.toUpperCase(),
+              ),
+            ],
+          ),
+          actions: [
+            Center(
+              child: TextButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(colorRed),
+                    foregroundColor: MaterialStateProperty.all(colorGreen),
+                    minimumSize: MaterialStateProperty.all(const Size(200, 50)),
+                    shape: MaterialStateProperty.all(
+                      const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero, //.circular(30),
+                      ),
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context, false);
+                  },
+                  child: Text(
+                    'Leave'.toUpperCase(),
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.red.shade100,
+                    ),
+                  )),
+            )
+          ],
+        ),
+      );
 }
 
 class UnsplashSlider extends StatelessWidget {
