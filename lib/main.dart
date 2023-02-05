@@ -135,10 +135,10 @@ class CheckRole extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text('Marhba Bik'),
-                  // ElevatedButton(
-                  //     onPressed: () => Navigator.pushNamedAndRemoveUntil(
-                  //         context, '/', (_) => false),
-                  //     child: Text('aya nebdou')),
+                  ElevatedButton(
+                      onPressed: () => Navigator.pushNamedAndRemoveUntil(
+                          context, '/', (_) => false),
+                      child: Text('aya nebdou')),
                   Padding(
                     padding: const EdgeInsets.all(28.0),
                     child: ElevatedButton.icon(
