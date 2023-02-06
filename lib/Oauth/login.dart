@@ -8,6 +8,7 @@ import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 import '../../main.dart';
+import '../exemple/utils/authentication.dart';
 import 'Ogoogle/googleSignInProvider.dart';
 
 class LoginWidget extends StatefulWidget {
@@ -132,12 +133,21 @@ class _LoginWidgetState extends State<LoginWidget> {
                                       await Provider.of<googleSignInProvider>(
                                           context,
                                           listen: false);
-                                  provider.googleLogin().whenComplete(() =>
-                                      Navigator.of(context).pushAndRemoveUntil(
-                                          MaterialPageRoute(builder: (context) {
-                                        return verifi_auth(); //CheckRole();
-                                      }), ModalRoute.withName('/')));
+
+                                  //  if (user != null) {
+                                  provider.googleLogin().whenComplete(
+                                        () => Navigator.of(context)
+                                            .popUntil((route) => route.isFirst),
+                                      );
+
+                                  // .whenComplete(() =>
+                                  // Navigator.of(context).pushReplacement(
+                                  //   MaterialPageRoute(builder: (context) {
+                                  //     return verifi_auth(); //CheckRole();
+                                  //   }),
+                                  // ));
                                   // (route) => true
+                                  // }
                                 },
                               ), // Google
                               const SizedBox(

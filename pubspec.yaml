@@ -115,4 +115,6 @@ flutter:
     - assets/
     - assets/lotties/
     - assets/images/ic_launcher/1024.png
+    - assets/firebase_logo.png
+    - assets/google_logo.png
 

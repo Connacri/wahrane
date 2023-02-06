@@ -11,6 +11,8 @@ import 'package:wahrane/pages/publicLoggedPage.dart';
 import 'package:wahrane/pages/unloggerPublicPage.dart';
 
 import 'Oauth/Ogoogle/googleSignInProvider.dart';
+import 'exemple/screens/sign_in_screen.dart';
+import 'exemple/widgets/google_sign_in_button.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,12 +41,9 @@ class Materialclass extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => googleSignInProvider(),
-        ),
-      ],
+    return ChangeNotifierProvider(
+      create: (context) => googleSignInProvider(),
+      lazy: true,
       child: MaterialApp(
         locale: const Locale('fr', ''),
         //scaffoldMessengerKey: Utils.messengerKey,
@@ -56,7 +55,8 @@ class Materialclass extends StatelessWidget {
           useMaterial3: true,
           fontFamily: "Oswald",
         ),
-        home: const verifi_auth(),
+        home: //SignInScreen(),
+            verifi_auth(),
       ),
     );
   }
@@ -71,8 +71,7 @@ class verifi_auth extends StatefulWidget {
 
 class _verifi_authState extends State<verifi_auth> {
   @override
-  Widget build(BuildContext context) => Scaffold(
-          body: StreamBuilder<User?>(
+  Widget build(BuildContext context) => StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -89,7 +88,7 @@ class _verifi_authState extends State<verifi_auth> {
             return unloggedPublicPage(); //publicHomeList(); //
           }
         },
-      ));
+      );
 }
 
 class CheckRole extends StatelessWidget {
@@ -119,12 +118,19 @@ class CheckRole extends StatelessWidget {
         // Document exists, retrieve data
         var data = snapshot.data;
         if (data!.exists) {
-          var userRole = data!['role'];
+          var userRole = data['role'];
           // Check user role
           if (userRole == "admin") {
             return adminLoggedPage();
           } else {
-            return publicLoggerPage(
+            return
+                //   Scaffold(
+                //   appBar: AppBar(),
+                //   body: Center(
+                //     child: Text('publicLoggerPage'),
+                //   ),
+                // );
+                publicLoggerPage(
               datta: data,
             );
           }

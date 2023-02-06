@@ -66,7 +66,7 @@ class _adminLoggedPageState extends State<adminLoggedPage> {
                       Provider.of<googleSignInProvider>(context, listen: false);
                   await provider.logouta();
                   // Navigator.of(context).pop();
-                  Navigator.pop(context, true);
+                  // Navigator.pop(context, true);
                 },
               ),
             ),
