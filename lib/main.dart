@@ -5,14 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
-import 'package:wahrane/pages/PublicHomeLIst.dart';
-import 'package:wahrane/pages/adminLoggedPage.dart';
-import 'package:wahrane/pages/publicLoggedPage.dart';
-import 'package:wahrane/pages/unloggerPublicPage.dart';
-
+import 'BottomNavigationBar.dart';
 import 'Oauth/Ogoogle/googleSignInProvider.dart';
-import 'exemple/screens/sign_in_screen.dart';
-import 'exemple/widgets/google_sign_in_button.dart';
+import 'pages/adminLoggedPage.dart';
+import 'pages/unloggerPublicPage.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,8 +17,10 @@ Future<void> main() async {
       );
 
   FlutterNativeSplash.removeAfter(initialization);
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky,
-      overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
+  SystemChrome.setEnabledSystemUIMode(
+    SystemUiMode.edgeToEdge, //.immersiveSticky,
+    //overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]
+  );
   runApp(Materialclass());
 }
 
@@ -43,7 +41,7 @@ class Materialclass extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => googleSignInProvider(),
-      lazy: true,
+      //lazy: true,
       child: MaterialApp(
         locale: const Locale('fr', ''),
         //scaffoldMessengerKey: Utils.messengerKey,
@@ -54,8 +52,20 @@ class Materialclass extends StatelessWidget {
         theme: ThemeData(
           useMaterial3: true,
           fontFamily: "Oswald",
+          primarySwatch: Colors.blue,
+          appBarTheme: AppBarTheme(
+            backwardsCompatibility: false, // 1
+            systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarColor: Colors.transparent,
+            ),
+          ),
         ),
-        home: //SignInScreen(),
+        home:
+            // Scaffold(
+            //   body: Center(
+            //     child: Text('Scaffold Test Statue Bar'),
+            //   ),
+            // ) //SignInScreen(),
             verifi_auth(),
       ),
     );
@@ -123,16 +133,12 @@ class CheckRole extends StatelessWidget {
           if (userRole == "admin") {
             return adminLoggedPage();
           } else {
-            return
-                //   Scaffold(
-                //   appBar: AppBar(),
-                //   body: Center(
-                //     child: Text('publicLoggerPage'),
-                //   ),
-                // );
-                publicLoggerPage(
-              datta: data,
+            return NavigationExample(
+              userDoc: data,
             );
+            //     publicLoggerPage(
+            //   datta: data,
+            // );
           }
         } else
           return Scaffold(

@@ -11,7 +11,7 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:path/path.dart' as Path;
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:wahrane/pages/page_detail.dart';
+import '../pages/page_detail.dart';
 
 class stepper_widget extends StatefulWidget {
   const stepper_widget({Key? key}) : super(key: key);

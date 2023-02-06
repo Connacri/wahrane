@@ -7,7 +7,6 @@ import 'package:pretty_qr_code/pretty_qr_code.dart';
 import 'package:readmore/readmore.dart';
 import 'package:path/path.dart' as Path;
 import 'package:ticket_widget/ticket_widget.dart';
-import 'package:wahrane/pages/publicLoggedPage.dart';
 
 import '../main.dart';
 
