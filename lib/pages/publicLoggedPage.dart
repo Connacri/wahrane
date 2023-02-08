@@ -436,9 +436,7 @@ class publicLoggerPage extends StatelessWidget {
                         idDoc: dataid,
                       ),
                     )),
-                    // onTap: () async {
-                    //   // await showDetailPublic(data, int);
-                    // },
+
                     child: Card(
                       margin: const EdgeInsets.all(5),
                       shape: RoundedRectangleBorder(
@@ -475,31 +473,67 @@ class publicLoggerPage extends StatelessWidget {
                               decoration: BoxDecoration(
                                   color: Colors.black54,
                                   borderRadius: BorderRadius.circular(8)),
-                              padding: const EdgeInsets.all(5.0),
-                              child: Text(
-                                data['category'],
-                                overflow: TextOverflow.fade,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.w500),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.black54,
+                                        borderRadius: BorderRadius.circular(8)),
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: Text(
+                                      data['category'],
+                                      overflow: TextOverflow.fade,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          NumberFormat.compact()
+                                              .format(data['likes']),
+                                          textAlign: TextAlign.end,
+                                          style: TextStyle(
+                                            color: Colors.white70,
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 3,
+                                        ),
+                                        Icon(
+                                          FontAwesomeIcons.eye,
+                                          size: 11,
+                                          color: Colors.white70,
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                             footer: Column(
                               children: [
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.4,
-                                  decoration: BoxDecoration(
-                                      color: Colors.white70,
-                                      borderRadius: BorderRadius.circular(8)),
-                                  padding: const EdgeInsets.all(5.0),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 5),
                                   child: Text(
                                     data['item'],
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
-                                        color: Colors.black,
+                                        color: Colors.white70,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w500),
                                   ),
@@ -529,23 +563,35 @@ class publicLoggerPage extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            child:
-                                // Expanded(child: Icon(Icons.remove_red_eye)),
-                                Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 30, 8, 0),
-                              child: Text(
-                                '${data['likes']} Vu',
-                                textAlign: TextAlign.end,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                ),
-                              ),
+                            child: Center(
+                              child: Text(''),
                             ),
                           ),
                         ],
                       ),
                     ),
+
+                    // child: GridTile(
+                    //   footer: Text(
+                    //     data!['item'],
+                    //     overflow: TextOverflow.ellipsis,
+                    //     style: TextStyle(
+                    //         color: Colors.white,
+                    //         fontSize: 12,
+                    //         fontWeight: FontWeight.w500),
+                    //   ),
+                    //   child: Container(
+                    //     decoration: BoxDecoration(
+                    //       image: DecorationImage(
+                    //         image: CachedNetworkImageProvider(
+                    //           data!['imageUrls'][0],
+                    //         ),
+                    //         fit: BoxFit.cover,
+                    //         alignment: Alignment.topCenter,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                   );
                 }),
           ),
@@ -633,3 +679,8 @@ class UnsplashAvatar extends StatelessWidget {
     );
   }
 }
+
+//
+// '😀 😃 😄 😁 😆 😅 😂 🤣 🥲 ☺️ 😊 😇 🙂 🙃 😉 😌 😍 🥰 😘 😗 😙 😚 😋 😛 😝 😜 🤪 🤨',
+//
+// '🍅 🍑 🍒 🏄‍♂️ 🐻 💖 📙 ',

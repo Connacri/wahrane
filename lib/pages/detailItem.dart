@@ -43,7 +43,7 @@ class SilverdetailItem extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 15),
                       child: Text(
-                        data['code'],
+                        data['code'] ?? 'null',
                         style: TextStyle(
                             fontFamily: 'oswald',
                             color: Colors.white,
@@ -149,14 +149,14 @@ class SilverdetailItem extends StatelessWidget {
                           fontFamily: 'oswald'),
                     ),
                   ),
-                  Padding(
-                    padding: new EdgeInsets.all(20.0),
-                    child: Text(
-                      'Made In ' + data['code'],
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 16, fontFamily: 'oswald'),
-                    ),
-                  ),
+                  // Padding(
+                  //   padding: new EdgeInsets.all(20.0),
+                  //   child: Text(
+                  //     'Made In ' + data['origine'],
+                  //     textAlign: TextAlign.center,
+                  //     style: TextStyle(fontSize: 16, fontFamily: 'oswald'),
+                  //   ),
+                  // ),
                   Padding(
                       padding: new EdgeInsets.symmetric(horizontal: 20.0),
                       child: new Text(
