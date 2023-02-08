@@ -485,7 +485,7 @@ class _publicHomeListState extends State<publicHomeList> {
             shrinkWrap: true,
             isLive: true,
             itemBuilderType: PaginateBuilderType.gridView,
-            query: FirebaseFirestore.instance.collection('Adventure'),
+            query: FirebaseFirestore.instance.collection('Products'),
             //.orderBy('createdAt', descending: true),
             itemBuilder: (BuildContext, DocumentSnapshot, int) {
               var data = DocumentSnapshot[int].data() as Map?;
@@ -496,15 +496,16 @@ class _publicHomeListState extends State<publicHomeList> {
                   'https://firebasestorage.googleapis.com/v0/b/adventure-eb4ca.appspot.com/o/carre%2Fcarre%20(${int}).jpg?alt=media&token=7347a738-f3f1-431b-a0f2-707238f4f1dc';
 
               return GestureDetector(
-                onDoubleTap: () => Navigator.of(context).push(MaterialPageRoute(
+                onTap: () => Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => SilverdetailItem(
                     //intex: int,
-                    data: data,
+
+                    data: data, idDoc: dataid,
                   ),
                 )),
-                onTap: () async {
-                  await showDetailPublic(data, int);
-                },
+                // onTap: () async {
+                //   await showDetailPublic(data, int);
+                // },
                 child: Card(
                   margin: const EdgeInsets.all(5),
                   shape: RoundedRectangleBorder(

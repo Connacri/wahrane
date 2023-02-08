@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import '../Oauth/Ogoogle/googleSignInProvider.dart';
+import '../services/upload_random.dart';
 
 class Profile extends StatelessWidget {
   const Profile({Key? key}) : super(key: key);
@@ -134,7 +135,29 @@ class Profile extends StatelessWidget {
               },
             ),
           ),
-
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 50, vertical: 50),
+            child: ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                  primary: Colors.blueGrey,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15)),
+                  elevation: 4.0,
+                  minimumSize: const Size.fromHeight(50)),
+              icon: Icon(
+                Icons.cancel,
+                color: Colors.red,
+              ),
+              label: const Text(
+                'upload_random',
+                style: TextStyle(fontSize: 18, color: Colors.white),
+              ),
+              onPressed: () async {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => upload_random()));
+              },
+            ),
+          ),
           // Google
           // IconButton(
           //   icon: const Icon(Icons.logout),

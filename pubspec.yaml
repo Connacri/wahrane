@@ -55,6 +55,7 @@ dependencies:
   ticket_widget: ^0.0.1
   readmore: ^2.2.0
   flutterflow_paginate_firestore: ^1.0.3+1
+  dart_date: ^1.1.1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -69,8 +70,8 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/images/dolphin-emoji.png"
-# image_path: "assets/images/ic_launcher/1024.png"
+#  image_path: "assets/images/dolphin-emoji.png"
+  image_path: "assets/images/ic_launcher/1024.png"
   min_sdk_android: 21 # android min sdk min:16, default 21
   web:
     generate: true
@@ -117,4 +118,5 @@ flutter:
     - assets/images/ic_launcher/1024.png
     - assets/firebase_logo.png
     - assets/google_logo.png
+
 

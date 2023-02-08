@@ -12,7 +12,7 @@ import 'package:flutterflow_paginate_firestore/widgets/bottom_loader.dart';
 import 'package:flutterflow_paginate_firestore/widgets/empty_display.dart';
 import 'package:flutterflow_paginate_firestore/widgets/empty_separator.dart';
 import 'package:flutterflow_paginate_firestore/widgets/initial_loader.dart';
-
+import 'package:intl/intl.dart' as intl;
 import '../Oauth/AuthPage.dart';
 import 'detailItem.dart';
 
@@ -429,15 +429,15 @@ class publicLoggerPage extends StatelessWidget {
                       'https://firebasestorage.googleapis.com/v0/b/adventure-eb4ca.appspot.com/o/carre%2Fcarre%20(${int}).jpg?alt=media&token=7347a738-f3f1-431b-a0f2-707238f4f1dc';
 
                   return GestureDetector(
-                    onDoubleTap: () =>
-                        Navigator.of(context).push(MaterialPageRoute(
+                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => SilverdetailItem(
                         data: data,
+                        idDoc: dataid,
                       ),
                     )),
-                    onTap: () async {
-                      // await showDetailPublic(data, int);
-                    },
+                    // onTap: () async {
+                    //   // await showDetailPublic(data, int);
+                    // },
                     child: Card(
                       margin: const EdgeInsets.all(5),
                       shape: RoundedRectangleBorder(
@@ -479,7 +479,7 @@ class publicLoggerPage extends StatelessWidget {
                                   padding: const EdgeInsets.all(5.0),
                                   child: FittedBox(
                                     child: Text(
-                                      data!['category'],
+                                      data['category'],
                                       overflow: TextOverflow.fade,
                                       style: TextStyle(
                                           color: Colors.white,
@@ -494,9 +494,9 @@ class publicLoggerPage extends StatelessWidget {
                               padding: const EdgeInsets.all(8.0),
                               child: Center(
                                 child: Text(
-                                  NumberFormat.currency(
-                                          symbol: 'AED ', decimalDigits: 2)
-                                      .format(data!['price']),
+                                  NumberFormat.compactCurrency(
+                                          symbol: 'DZ ', decimalDigits: 2)
+                                      .format(data['price']),
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                       //backgroundColor: Colors.black45,
@@ -526,7 +526,7 @@ class publicLoggerPage extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(8)),
                                 padding: const EdgeInsets.all(5.0),
                                 child: Text(
-                                  data['code'],
+                                  data['item'],
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                       color: Colors.white,

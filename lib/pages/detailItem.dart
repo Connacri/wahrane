@@ -1,21 +1,28 @@
 import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../services/FirebaseService.dart';
 import 'PublicHomeLIst.dart';
 
 class SilverdetailItem extends StatelessWidget {
-  const SilverdetailItem({
+  SilverdetailItem({
     Key? key,
     required this.data,
+    required this.idDoc,
   }) : super(key: key);
 
 //  final String UnsplashUrl;
   final Map data;
+  final String idDoc;
   // final int intex;
-
+  final CollectionReference docProducts =
+      FirebaseFirestore.instance.collection("Products");
+  final String userId = FirebaseAuth.instance.currentUser!.uid;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -36,7 +43,7 @@ class SilverdetailItem extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 15),
                       child: Text(
-                        data['code'],
+                        data['type'],
                         style: TextStyle(
                             fontFamily: 'oswald',
                             color: Colors.white,
@@ -173,6 +180,50 @@ class SilverdetailItem extends StatelessWidget {
                           style: new TextStyle(
                               fontSize: 18.0, fontFamily: 'oswald'))),
                 ],
+              ),
+            ),
+            data['userID'] == userId
+                ? SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.all(58.0),
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          // Get the document from Firestore
+                          docProducts
+                              .doc(idDoc)
+                              .get()
+                              .then((documentSnapshot) async {
+                            print(userId);
+                            print(data['userID']);
+                            if (documentSnapshot.exists) {
+                              // Document exists, check if the field is equal to user ID
+                              var data = documentSnapshot;
+                              final String fieldValue = data['userID'];
+                              if (fieldValue == userId) {
+                                await docProducts
+                                    .doc(idDoc)
+                                    .delete()
+                                    .whenComplete(
+                                        () => Navigator.of(context).pop());
+                              }
+                            } else {
+                              print(
+                                  'tu n\'est pas le proprietaire du document');
+                            }
+                          }).catchError((error) {
+                            // Handle the error
+                          });
+                        },
+                        child: Text('Delete'),
+                      ),
+                    ),
+                  )
+                : SliverToBoxAdapter(
+                    child: Container(),
+                  ),
+            SliverToBoxAdapter(
+              child: SizedBox(
+                height: 100,
               ),
             ),
           ],

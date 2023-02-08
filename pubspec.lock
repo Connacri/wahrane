@@ -193,6 +193,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
+  dart_date:
+    dependency: "direct main"
+    description:
+      name: dart_date
+      sha256: a91d4a6140872078008785a208a0d909df31479ba53811a48e632f17fc5bfa4d
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.1"
   email_validator:
     dependency: "direct main"
     description:
@@ -925,6 +933,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.0.1"
+  timeago:
+    dependency: transitive
+    description:
+      name: timeago
+      sha256: "46c128312ab0ea144b146c0ac6426ddd96810efec2de3fccc425d00179cd8254"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.3.0"
   typed_data:
     dependency: transitive
     description:

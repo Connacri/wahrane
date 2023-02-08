@@ -7,9 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:intl_phone_field/intl_phone_field.dart';
-
 import 'package:path/path.dart' as Path;
-import 'package:flutter/cupertino.dart';
+
 import 'package:fluttertoast/fluttertoast.dart';
 import '../pages/page_detail.dart';
 
@@ -36,13 +35,13 @@ class _stepper_widgetState extends State<stepper_widget> {
   final user = FirebaseAuth.instance.currentUser;
   String _typeSelected = '';
   String _locationventeSelected = '';
-
+  late int selectedRadio;
   @override
   void initState() {
     super.initState();
     _typeSelected = '';
     _locationventeSelected = '';
-
+    selectedRadio = 0;
     imgRef = FirebaseFirestore.instance.collection('Products');
     userRef = FirebaseFirestore.instance.collection('Users');
   }
@@ -54,7 +53,7 @@ class _stepper_widgetState extends State<stepper_widget> {
   CollectionReference imgRef = FirebaseFirestore.instance.collection('Post');
 
   late bool isSelected = false;
-
+  late bool isSwitched = false;
   @override
   Widget _buildLocationVente(String locavente) {
     return ElevatedButton.icon(
@@ -168,17 +167,22 @@ class _stepper_widgetState extends State<stepper_widget> {
               }
             },
             onStepContinue: () {
+              // if (currentStep == 0) {
+              //   setState(() => currentStep++);
+              // }
+              // if (currentStep == 1) {
+              //   //  if (_formStepperKey.currentState!.validate()) {
+              //   setState(() => currentStep++);
+              //   //}
+              // }
               if (currentStep != 2) {
-                // final isValid = _formStepperKey.currentState!.validate();
-                // if (!isValid) return;
-
-                setState(() => currentStep++);
-              } else {
-                print('completed');
-                // uploadFile().whenComplete(() =>
-                //     Navigator.push(context, MaterialPageRoute(builder: (_) {
-                //       return main_in();
-                //     })));
+                if (currentStep != 1) {
+                  setState(() => currentStep++);
+                } else {
+                  if (_formStepperKey.currentState!.validate()) {
+                    setState(() => currentStep++);
+                  }
+                }
               }
             },
             onStepCancel:
@@ -210,7 +214,7 @@ class _stepper_widgetState extends State<stepper_widget> {
                                       await Navigator.push(context,
                                           MaterialPageRoute(builder: (_) {
                                         return page_detail(
-                                          code: _codeController.text,
+                                          //   code: _codeController.text,
                                           imagesList: _imagesList,
                                           locationventeSelected:
                                               _locationventeSelected,
@@ -221,8 +225,8 @@ class _stepper_widgetState extends State<stepper_widget> {
                                               _priceController.text,
                                           telContactController:
                                               _telContactController.text,
-                                          generaleController:
-                                              _generaleController.text,
+                                          // generaleController:
+                                          //     _generaleController.text,
                                           descriptionController:
                                               _descriptionController.text,
                                         );
@@ -418,17 +422,6 @@ class _stepper_widgetState extends State<stepper_widget> {
                 ),
                 content: Column(
                   children: <Widget>[
-                    const Text(
-                      'Voulez Vous Mettre Votre Bien en Location ou le Vendre ?',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontFamily: 'oswald', fontSize: 18),
-                    ),
-                    const Text(
-                      ' تريد وضع ممتلكاتك للكراء او للبيع ؟',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'NizarBBCKurdish-Bold', fontSize: 18),
-                    ),
                     Form(
                       key: _formStepperKey,
                       child: Column(
@@ -448,7 +441,7 @@ class _stepper_widgetState extends State<stepper_widget> {
                                 child: _buildLocationVente('Vente'),
                               )),
                             ],
-                          ),
+                          ), // location ou vente
                           Padding(
                             padding: const EdgeInsets.fromLTRB(0, 15, 0, 10),
                             child: SizedBox(
@@ -467,75 +460,80 @@ class _stepper_widgetState extends State<stepper_widget> {
                                 ],
                               ),
                             ),
-                          ),
+                          ), // categorie
                           TextFormField(
-                            controller: _codeController,
-                            decoration: const InputDecoration(
-                              hintText: 'Code',
-                              prefixIcon: Icon(
-                                Icons.abc_rounded,
-                                size: 30,
-                              ),
-                              fillColor: Colors.white,
-                              filled: false,
-//                        contentPadding: EdgeInsets.all(15),
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontSize: 25,
                             ),
-                            validator: (value) =>
-                                value != null && value.length < 6
-                                    ? 'Entrer min 6 characteres.'
-                                    : null,
-                            textInputAction: TextInputAction.next,
-                          ),
-                          const SizedBox(height: 5),
-                          TextFormField(
+                            keyboardType: TextInputType.text,
                             controller: _itemController,
                             decoration: const InputDecoration(
-                              hintText: 'Titre du Produit',
-                              prefixIcon: Icon(
-                                Icons.view_in_ar_rounded,
-                                size: 30,
-                              ),
                               fillColor: Colors.white,
-                              filled: false,
-//                        contentPadding: EdgeInsets.all(15),
+                              hintText: 'Titre du Produit',
+                              border: InputBorder.none,
+                              filled: true,
+                              contentPadding: EdgeInsets.all(15),
                             ),
                             validator: (value) =>
                                 value != null && value.length < 6
                                     ? 'Entrer min 6 characteres.'
                                     : null,
-                            textInputAction: TextInputAction.next,
+                          ), // titre du produit
+                          SizedBox(
+                            height: 10,
                           ),
-                          const SizedBox(height: 5),
                           TextFormField(
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontSize: 25,
+                            ),
                             keyboardType: TextInputType.number,
                             controller: _priceController,
                             decoration: const InputDecoration(
-                              hintText: 'Prix Réel Jour',
-                              prefixIcon: Icon(
-                                Icons.monetization_on_outlined,
-                                size: 30,
-                              ),
                               fillColor: Colors.white,
+                              hintText: 'Prix',
+                              border: InputBorder.none,
                               filled: true,
-                              //contentPadding: EdgeInsets.all(15),
+                              contentPadding: EdgeInsets.all(15),
                             ),
-                            validator: (value) =>
-                                value != null && int.parse(value) < 500
-                                    ? 'Entrer Le Prix Réel'
-                                    : null,
-                            textInputAction: TextInputAction.next,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Prix Réel Jour';
+                              }
+                              return null;
+                            },
+                          ), // prix
+                          SizedBox(
+                            height: 10,
                           ),
-                          const SizedBox(height: 5),
                           IntlPhoneField(
                             controller: _telContactController,
                             decoration: const InputDecoration(
-                                labelText: 'Tel De Contact'
-                                // border: OutlineInputBorder(
-                                //   borderSide: BorderSide(),
-                                // ),
-                                ),
-
+                              fillColor: Colors.white,
+                              hintText: '660 41 45 85',
+                              border: InputBorder.none,
+                              filled: true,
+                              contentPadding: EdgeInsets.all(15),
+                            ),
+                            invalidNumberMessage:
+                                'Entrer Que Ooreddo ou Djezzy ou Mobilis',
                             // disableLengthCheck: true,
+                            validator: (value) {
+                              if (value == null) {
+                                return 'Entrer Ton Numero de Tel';
+                              }
+                              // validate against your regex pattern
+                              RegExp regex = new RegExp(r'^[678][0-9]{8}$');
+                              if (!regex.hasMatch(value as String)) {
+                                return 'Entrer Que Ooreddo ou Djezzy ou Mobilis';
+                              }
+                              return null;
+                            },
+                            style: const TextStyle(
+                              fontSize: 25,
+                            ),
+
                             showDropdownIcon: false,
                             initialCountryCode: 'DZ',
                             onChanged: (phone) {
@@ -543,36 +541,26 @@ class _stepper_widgetState extends State<stepper_widget> {
                             },
                             flagsButtonMargin: EdgeInsets.zero,
                             flagsButtonPadding: const EdgeInsets.only(left: 15),
+                          ), // mobile
+                          SizedBox(
+                            height: 10,
                           ),
-                          const SizedBox(height: 5),
                           TextFormField(
-                            controller: _generaleController,
-                            decoration: const InputDecoration(
-                              hintText: 'Enter Général',
-                              prefixIcon: Icon(
-                                Icons.phone_iphone,
-                                size: 30,
+                              keyboardType: TextInputType.multiline,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                fontSize: 25,
                               ),
-                              fillColor: Colors.white,
-                              filled: true,
-                              // contentPadding: EdgeInsets.all(15),
-                            ),
-                            textInputAction: TextInputAction.next,
-                          ),
-                          const SizedBox(height: 5),
-                          TextFormField(
                               controller: _descriptionController,
                               decoration: const InputDecoration(
-                                hintText: 'Enter Déscription',
-                                prefixIcon: Icon(
-                                  Icons.phone_iphone,
-                                  size: 30,
-                                ),
                                 fillColor: Colors.white,
+                                hintText: 'Ecrire Une Description',
+                                border: InputBorder.none,
                                 filled: true,
-                                // contentPadding: EdgeInsets.all(15),
+                                contentPadding: EdgeInsets.all(15),
                               ),
-                              textInputAction: TextInputAction.next),
+                              textInputAction:
+                                  TextInputAction.next), // description
                         ],
                       ),
                     ),

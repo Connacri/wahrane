@@ -18,9 +18,8 @@ Future<void> main() async {
 
   FlutterNativeSplash.removeAfter(initialization);
   SystemChrome.setEnabledSystemUIMode(
-    SystemUiMode.edgeToEdge, //.immersiveSticky,
-    //overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]
-  );
+      SystemUiMode.edgeToEdge, //.immersiveSticky,
+      overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
   runApp(Materialclass());
 }
 
@@ -81,23 +80,24 @@ class verifi_auth extends StatefulWidget {
 
 class _verifi_authState extends State<verifi_auth> {
   @override
-  Widget build(BuildContext context) => StreamBuilder<User?>(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (snapshot.hasError) {
-            return const Center(child: Text('Probleme de Connexion'));
-          }
-          if (snapshot.hasData) {
-            final userD = snapshot.data!.uid;
-            return CheckRole(userD); //MultiProviderWidget();
-          } else {
-            return unloggedPublicPage(); //publicHomeList(); //
-          }
-        },
+  Widget build(BuildContext context) => Scaffold(
+        body: StreamBuilder<User?>(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context, snapshot) {
+            // if (snapshot.connectionState == ConnectionState.waiting) {
+            //   return const CircularProgressIndicator();
+            // } else
+            if (snapshot.hasError) {
+              return const Center(child: Text('Probleme de Connexion'));
+            }
+            if (snapshot.hasData) {
+              final userD = snapshot.data!.uid;
+              return CheckRole(userD); //MultiProviderWidget();
+            } else {
+              return unloggedPublicPage(); //publicHomeList(); //
+            }
+          },
+        ),
       );
 }
 

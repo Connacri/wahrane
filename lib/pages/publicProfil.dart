@@ -6,6 +6,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wahrane/services/upload_random.dart';
 
 import '../Oauth/Ogoogle/googleSignInProvider.dart';
 
@@ -217,6 +218,7 @@ class publicProfil extends StatelessWidget {
               //     ),
               //   ),
               // ),
+
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: widthR, vertical: 50),
                 child: ElevatedButton.icon(
