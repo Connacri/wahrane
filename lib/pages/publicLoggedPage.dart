@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -445,6 +446,7 @@ class publicLoggerPage extends StatelessWidget {
                       clipBehavior: Clip.antiAliasWithSaveLayer,
                       elevation: 5,
                       child: Stack(
+                        alignment: Alignment.bottomCenter,
                         children: [
                           ShaderMask(
                             shaderCallback: (rect) {
@@ -469,69 +471,74 @@ class publicLoggerPage extends StatelessWidget {
                             ),
                           ),
                           GridTile(
-                            header: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Center(
-                                child: Container(
+                            header: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.black54,
+                                  borderRadius: BorderRadius.circular(8)),
+                              padding: const EdgeInsets.all(5.0),
+                              child: Text(
+                                data['category'],
+                                overflow: TextOverflow.fade,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                            footer: Column(
+                              children: [
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.4,
                                   decoration: BoxDecoration(
-                                      color: Colors.black54,
+                                      color: Colors.white70,
                                       borderRadius: BorderRadius.circular(8)),
                                   padding: const EdgeInsets.all(5.0),
-                                  child: FittedBox(
+                                  child: Text(
+                                    data['item'],
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 8.0),
+                                  child: Center(
                                     child: Text(
-                                      data['category'],
-                                      overflow: TextOverflow.fade,
+                                      data['price'] >= 1000000.00
+                                          ? NumberFormat.compactCurrency(
+                                                  symbol: 'DZ ',
+                                                  decimalDigits: 2)
+                                              .format(data['price'])
+                                          : NumberFormat.currency(
+                                                  symbol: 'DZ ',
+                                                  decimalDigits: 2)
+                                              .format(data['price']),
+                                      overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
+                                          //backgroundColor: Colors.black45,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
                                           color: Colors.white,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500),
+                                          fontFamily: 'oswald'),
                                     ),
                                   ),
                                 ),
-                              ),
+                              ],
                             ),
-                            footer: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Center(
-                                child: Text(
-                                  NumberFormat.compactCurrency(
-                                          symbol: 'DZ ', decimalDigits: 2)
-                                      .format(data['price']),
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      //backgroundColor: Colors.black45,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.amberAccent,
-                                      fontFamily: 'oswald'),
-                                ),
-                              ),
-                            ),
-                            child: Text(
-                              '',
-                              // data['code'],
-                              style: TextStyle(
+                            child:
+                                // Expanded(child: Icon(Icons.remove_red_eye)),
+                                Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 30, 8, 0),
+                              child: Text(
+                                '${data['likes']} Vu',
+                                textAlign: TextAlign.end,
+                                style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                          Positioned(
-                            left: 8,
-                            top: 40,
-                            child: Center(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.black54,
-                                    borderRadius: BorderRadius.circular(8)),
-                                padding: const EdgeInsets.all(5.0),
-                                child: Text(
-                                  data['item'],
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w500),
+                                  fontSize: 12,
                                 ),
                               ),
                             ),
