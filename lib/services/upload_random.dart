@@ -298,7 +298,7 @@ class _upload_randomState extends State<upload_random> {
         userID: randomUserId,
         //'user$number' + randomItem,
         item: randomItem,
-        code: 'invoice$number',
+        //code: 'invoice$number',
         category: randomCat,
         price: prix,
         //'$prix'
@@ -323,7 +323,6 @@ class Post {
   final String userID;
   final String item;
   final String category;
-  final String code;
   final int likes;
   final int price;
   final DateTime createdAt;
@@ -340,7 +339,6 @@ class Post {
     required this.item,
     required this.price,
     required this.category,
-    required this.code,
     required this.likes,
     required this.createdAt,
     required this.imageUrls,
@@ -355,7 +353,6 @@ class Post {
       : this(
           userID: json['userID']! as String,
           item: json['item']! as String,
-          code: json['code']! as String,
           category: json['category']! as String,
           likes: json['likes']! as int,
           price: json['price']! as int,
@@ -375,7 +372,6 @@ class Post {
         'imageUrls': imageUrls,
         'themb': themb,
         "item": item,
-        'code': code,
         'price': price, // + '.00 dzd ',
         'category': category,
         'Description': decription,
