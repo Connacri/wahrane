@@ -511,7 +511,7 @@ class _stepper_widgetState extends State<stepper_widget> {
                             controller: _telContactController,
                             decoration: const InputDecoration(
                               fillColor: Colors.white,
-                              hintText: '660 41 45 85',
+                              hintText: '660 00 00 00',
                               border: InputBorder.none,
                               filled: true,
                               contentPadding: EdgeInsets.all(15),
@@ -522,13 +522,14 @@ class _stepper_widgetState extends State<stepper_widget> {
                             validator: (value) {
                               if (value == null) {
                                 return 'Entrer Ton Numero de Tel';
+                              } else {
+                                // validate against your regex pattern
+                                RegExp regex = new RegExp(r'^[678][0-9]{8}$');
+                                if (!regex.hasMatch(value.toString())) {
+                                  return 'Entrer Que Ooreddo ou Djezzy ou Mobilis';
+                                }
+                                return null;
                               }
-                              // validate against your regex pattern
-                              RegExp regex = new RegExp(r'^[678][0-9]{8}$');
-                              if (!regex.hasMatch(value as String)) {
-                                return 'Entrer Que Ooreddo ou Djezzy ou Mobilis';
-                              }
-                              return null;
                             },
                             style: const TextStyle(
                               fontSize: 25,

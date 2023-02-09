@@ -419,16 +419,36 @@ class publicLoggerPage extends StatelessWidget {
                 shrinkWrap: true,
                 isLive: true,
                 itemBuilderType: PaginateBuilderType.gridView,
-                query: FirebaseFirestore.instance.collection('Products'),
-                //.orderBy('createdAt', descending: true),
+                query: FirebaseFirestore.instance
+                    .collection('Products')
+                    .orderBy('createdAt', descending: true),
                 itemBuilder: (BuildContext, DocumentSnapshot, int) {
                   var data = DocumentSnapshot[int].data() as Map?;
                   String dataid = DocumentSnapshot[int].id;
                   Random random = new Random();
-                  var randomNumber = random.nextInt(37);
+                  var randomNumber = random.nextInt(31);
                   String randomPhoto =
-                      'https://firebasestorage.googleapis.com/v0/b/adventure-eb4ca.appspot.com/o/carre%2Fcarre%20(${int}).jpg?alt=media&token=7347a738-f3f1-431b-a0f2-707238f4f1dc';
-
+                      'https://firebasestorage.googleapis.com/v0/b/wahrane-a42eb.appspot.com/o/pub%2Fpub(${randomNumber}).jpg?alt=media&token=65512912-41f1-4c47-9529-b2124b18cd8f';
+                  if (int % 5 == 0 && int != 0) {
+                    return Card(
+                      margin: const EdgeInsets.all(5),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      elevation: 5,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: CachedNetworkImageProvider(
+                              randomPhoto,
+                            ),
+                            fit: BoxFit.cover,
+                            alignment: Alignment.topCenter,
+                          ),
+                        ),
+                      ),
+                    );
+                  }
                   return GestureDetector(
                     onTap: () => Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => SilverdetailItem(
