@@ -10,7 +10,7 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:path/path.dart' as Path;
 
 import 'package:fluttertoast/fluttertoast.dart';
-import '../pages/page_detail.dart';
+import '../pages/addPost_page_detail.dart';
 
 class stepper_widget extends StatefulWidget {
   const stepper_widget({Key? key}) : super(key: key);

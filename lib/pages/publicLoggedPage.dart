@@ -15,7 +15,7 @@ import 'package:flutterflow_paginate_firestore/widgets/empty_separator.dart';
 import 'package:flutterflow_paginate_firestore/widgets/initial_loader.dart';
 import 'package:intl/intl.dart' as intl;
 import '../Oauth/AuthPage.dart';
-import 'detailItem.dart';
+import 'itemDetails.dart';
 
 class publicLoggerPage extends StatelessWidget {
   publicLoggerPage({
