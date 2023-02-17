@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:wahrane/pages/publicLoggedPage.dart';
 
+import '../2/publicLoggedPage.dart';
+
 class SilverdetailItem extends StatelessWidget {
   SilverdetailItem({
     Key? key,
@@ -324,11 +326,11 @@ class SilverdetailItem extends StatelessWidget {
               : SliverToBoxAdapter(
                   child: Container(),
                 ),
-          // SliverToBoxAdapter(
-          //   child: Container(
-          //     height: 200,
-          //   ),
-          // ),
+          SliverToBoxAdapter(
+            child: Container(
+              height: 100,
+            ),
+          ),
         ],
       ),
     );

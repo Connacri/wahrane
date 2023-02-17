@@ -7,6 +7,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 import 'BottomNavigationBar.dart';
 import 'Oauth/Ogoogle/googleSignInProvider.dart';
+import 'pages/ProvidersPublic.dart';
 import 'pages/adminLoggedPage.dart';
 import 'pages/unloggerPublicPage.dart';
 
@@ -108,8 +109,6 @@ class CheckRole extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CollectionReference users = FirebaseFirestore.instance.collection('Users');
-
     return StreamBuilder<DocumentSnapshot>(
       stream: FirebaseFirestore.instance
           .collection("Users")
@@ -133,9 +132,12 @@ class CheckRole extends StatelessWidget {
           if (userRole == "admin") {
             return adminLoggedPage();
           } else {
-            return NavigationExample(
+            return MyApp(
               userDoc: data,
             );
+            // NavigationExample(
+            //   userDoc: data,
+            // );
             //     publicLoggerPage(
             //   datta: data,
             // );

@@ -265,6 +265,9 @@ class _upload_randomState extends State<upload_random> {
         'oZknAZY63gT13DUTUvnx5NAz83B2',
         'GbrwkfGl0Zg6BO0YewKTBN7H0U02',
         'DA0uLaRQNnhebV6pJmX2ThsYmQe2',
+        'lqkshlkqshflkshf',
+        '12354687976554654',
+        '98764543121',
       ];
 
       String randomCat = (listCat..shuffle()).first;
@@ -286,10 +289,13 @@ class _upload_randomState extends State<upload_random> {
         email: '$randomNames$number@gmail.DZ',
         createdAt: DateTime.now(),
         avatar: 'https://source.unsplash.com/random?sig=$number*3+1',
+        timeline: 'https://source.unsplash.com/random?sig=$number*3',
         displayName: randomNames,
         lastActive: DateTime.now().addYears(-37),
-        role: 'mal',
+        role: 'public',
         state: true,
+        plan: 'free',
+        coins: 0.0,
       );
 
       //userCollection.add(user_a);
@@ -388,31 +394,40 @@ class UserClass {
   final String email;
   final DateTime createdAt;
   final String avatar;
+  final String timeline;
   final String displayName;
   final DateTime lastActive;
   final bool state;
   final String role;
+  final String plan;
+  final double coins;
 
   UserClass({
     required this.id,
     required this.email,
     required this.createdAt,
     required this.avatar,
+    required this.timeline,
     required this.displayName,
     required this.lastActive,
     required this.role,
     required this.state,
+    required this.plan,
+    required this.coins,
   });
   UserClass.fromJson(Map<String, Object?> json)
       : this(
           id: json['id']! as String,
           email: json['email']! as String,
           avatar: json['avatar']! as String,
+          timeline: json['timeline']! as String,
           createdAt: (json['createdAt']! as Timestamp).toDate(),
           displayName: json['displayName']! as String,
           role: json['role']! as String,
           lastActive: (json['lastActive']! as Timestamp).toDate(),
           state: json['state']! as bool,
+          plan: json['plan']! as String,
+          coins: json['coins'] as double,
         );
 
   Map<String, Object?> toJson() => {
@@ -420,9 +435,12 @@ class UserClass {
         'email': email,
         'createdAt': createdAt,
         'avatar': avatar,
+        'timeline': timeline,
         'displayName': displayName,
         'lastActive': lastActive,
         'role': role,
-        'userState': state,
+        'state': state,
+        'plan': plan,
+        'coins': coins,
       };
 }
