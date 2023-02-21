@@ -73,10 +73,14 @@ Future setUserDoc(User userGoo) async {
     'id': userID,
     'email': userEmail,
     'avatar': userAvatar,
+    'timeline': userAvatar,
     'createdAt': Timestamp.now(),
     'displayName': userDisplayName,
     'state': userState,
     'role': userRole,
+    'plan': '',
+    'coins': 0.0,
+    'levelUser': '',
   }, SetOptions(merge: true));
 }
 

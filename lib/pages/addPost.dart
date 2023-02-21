@@ -442,25 +442,25 @@ class _stepper_widgetState extends State<stepper_widget> {
                               )),
                             ],
                           ), // location ou vente
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 15, 0, 10),
-                            child: SizedBox(
-                              height: 35,
-                              child: ListView(
-                                scrollDirection: Axis.horizontal,
-                                children: [
-                                  _buildType('Hotel'),
-                                  const SizedBox(width: 5),
-                                  _buildType('Residence'),
-                                  const SizedBox(width: 5),
-                                  _buildType('Agence'),
-                                  const SizedBox(width: 5),
-                                  _buildType('Autres'),
-                                  const SizedBox(width: 5),
-                                ],
-                              ),
-                            ),
-                          ), // categorie
+                          // Padding(
+                          //   padding: const EdgeInsets.fromLTRB(0, 15, 0, 10),
+                          //   child: SizedBox(
+                          //     height: 35,
+                          //     child: ListView(
+                          //       scrollDirection: Axis.horizontal,
+                          //       children: [
+                          //         _buildType('Hotel'),
+                          //         const SizedBox(width: 5),
+                          //         _buildType('Residence'),
+                          //         const SizedBox(width: 5),
+                          //         _buildType('Agence'),
+                          //         const SizedBox(width: 5),
+                          //         _buildType('Autres'),
+                          //         const SizedBox(width: 5),
+                          //       ],
+                          //     ),
+                          //   ),
+                          // ), // categorie
                           TextFormField(
                             textAlign: TextAlign.center,
                             style: const TextStyle(

@@ -1148,6 +1148,7 @@ class _page_detailState extends State<page_detail> {
       'usersLike': usersLike,
       'dateDebut': DateTime.now().add(const Duration(days: 3)),
       'dateFin': DateTime.now().add(const Duration(days: 11)),
+      'levelItem': '',
     });
     // userRef.doc(user!.uid).set({
     //   'userID': userID,
