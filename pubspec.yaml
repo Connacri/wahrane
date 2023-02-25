@@ -65,17 +65,23 @@ dependencies:
   like_button: ^2.0.5
   timeago: ^3.3.0
   video_player: ^2.4.7
-#  geolocator: ^9.0.2
+  geolocator: ^9.0.2
 #  geocode: ^1.0.2
 #  map_launcher: ^2.4.0
+  open_location_picker: ^0.2.1
   permission_handler: ^10.0.2
   entry: ^0.0.7
   sliding_up_panel2: ^3.2.2
   marquee: ^2.2.3
-#  geocoding: ^2.0.5
+  geocoding: ^2.0.5
   screenshot: ^1.2.3
   share_plus: ^4.4.0
   shimmer: ^2.0.0
+  rename: ^2.1.1
+  flutter_rating_bar: ^4.0.1
+  horizontal_calendar:
+
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -109,7 +115,7 @@ flutter_icons:
 
 flutter_native_splash:
   color: "#ffffff"
-  image: assets/images/icon.png
+  image: assets/images/ic_launcher/1024.png
 
   flutter_lints: ^2.0.1
 

@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.wahrane.dz" "\0"
-            VALUE "FileDescription", "wahrane" "\0"
+            VALUE "FileDescription", "Oran" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "wahrane" "\0"
+            VALUE "InternalName", "Oran" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2023 com.wahrane.dz. All rights reserved." "\0"
             VALUE "OriginalFilename", "wahrane.exe" "\0"
-            VALUE "ProductName", "wahrane" "\0"
+            VALUE "ProductName", "Oran" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

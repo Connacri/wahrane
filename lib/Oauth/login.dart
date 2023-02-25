@@ -8,7 +8,7 @@ import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 import '../../main.dart';
-import '../exemple/utils/authentication.dart';
+
 import 'Ogoogle/googleSignInProvider.dart';
 
 class LoginWidget extends StatefulWidget {

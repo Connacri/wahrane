@@ -2,10 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:wahrane/pages/publicLoggedPage.dart';
-
+import 'package:timeago/timeago.dart' as timeago;
 import '../2/publicLoggedPage.dart';
+import 'ProfileOthers.dart';
 
 class SilverdetailItem extends StatelessWidget {
   SilverdetailItem({
@@ -23,6 +26,7 @@ class SilverdetailItem extends StatelessWidget {
   final String userId = FirebaseAuth.instance.currentUser!.uid;
   @override
   Widget build(BuildContext context) {
+    timeago.setLocaleMessages('fr', timeago.FrMessages());
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
@@ -83,6 +87,20 @@ class SilverdetailItem extends StatelessWidget {
           ),
           SliverToBoxAdapter(
             child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 18),
+              child:
+                  Text(timeago.format(data['createdAt'].toDate(), locale: 'fr'),
+                      textAlign: TextAlign.start,
+                      style: const TextStyle(
+                        color: Colors.black54,
+                        fontWeight: FontWeight.normal,
+                        fontSize: 12,
+                        fontFamily: 'Oswald',
+                      )),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: FutureBuilder<DocumentSnapshot>(
                 future: FirebaseFirestore.instance
@@ -100,37 +118,93 @@ class SilverdetailItem extends StatelessWidget {
                   }
 
                   if (snapshot.connectionState == ConnectionState.done) {
-                    Map<String, dynamic> data =
+                    Map<String, dynamic> dataU =
                         snapshot.data!.data() as Map<String, dynamic>;
-                    return Row(
-                      children: [
-                        Container(
-                          width: 40.0,
-                          height: 40.0,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                          ),
-                          child: CachedNetworkImage(
-                            imageUrl: data['avatar'],
-                            imageBuilder: (context, imageProvider) => Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                    image: imageProvider, fit: BoxFit.cover),
-                              ),
+                    return InkWell(
+                      onTap: () async {
+                        //  Map dataUser = data as Map;
+                        await Navigator.push(context,
+                            MaterialPageRoute(builder: (BuildContext context) {
+                          return ProfileOthers(data: dataU);
+                        }));
+                      },
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 40.0,
+                            height: 40.0,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
                             ),
-                            errorWidget: (context, url, error) =>
-                                Icon(Icons.error),
+                            child: CachedNetworkImage(
+                              imageUrl: dataU['avatar'],
+                              imageBuilder: (context, imageProvider) =>
+                                  Container(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                      image: imageProvider, fit: BoxFit.cover),
+                                ),
+                              ),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          "${data['displayName']} - Email : ${data['email']}",
-                          style: TextStyle(fontSize: 14),
-                        ),
-                      ],
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            "${dataU['displayName']}", // - ${data['email']}",
+                            style: TextStyle(fontSize: 14),
+                          ),
+                          Expanded(
+                              child: SizedBox(
+                            width: 50,
+                          )),
+                          Text(
+                            "+213${data['phone']}", // - ${data['email']}",
+                            style: TextStyle(fontSize: 14),
+                          ),
+                          IconButton(
+                              icon: Icon(
+                                Icons.call,
+                                color: Colors.green,
+                              ),
+                              onPressed: () async {
+                                final Uri launchUrlR = Uri(
+                                    scheme: 'Tel',
+                                    path: '+213${data['phone']}');
+                                if (await canLaunchUrl(launchUrlR)) {
+                                  await launchUrl(launchUrlR);
+                                } else {
+                                  print('This Call Cant execute');
+                                }
+                              }),
+                          IconButton(
+                              icon: Icon(
+                                FontAwesomeIcons.whatsapp,
+                                color: Colors.green,
+                              ),
+                              onPressed: () async {
+                                //var phone = 00971566129156;
+                                String msg = 'Hello Oran';
+                                var whatsappUrl =
+                                    "whatsapp://send?phone=+213${data['phone']}" +
+                                        "&text=${Uri.encodeComponent(msg)}";
+
+                                final Uri launchUrlRW = Uri(
+                                    scheme: 'Tel',
+                                    path: "+213${data['phone']}" +
+                                        "&text=${Uri.encodeComponent(msg)}");
+                                try {
+                                  launch(whatsappUrl);
+                                } catch (e) {
+                                  //To handle error and display error message
+                                  print("Unable to open whatsapp");
+                                }
+                              }),
+                        ],
+                      ),
                     );
                   }
 

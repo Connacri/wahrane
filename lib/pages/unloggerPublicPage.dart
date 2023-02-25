@@ -12,9 +12,15 @@ class unloggedPublicPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 80.0, vertical: 20),
+              child: Image.asset('assets/images/ic_launcher/1024.png'),
+            ),
             Text(
-              'Unlogged Public Page',
-              style: TextStyle(fontSize: 40),
+              'Welcome To Oran\nHabibi',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 40, fontWeight: FontWeight.w300),
             ),
             Padding(
               padding: const EdgeInsets.all(28.0),
@@ -43,7 +49,7 @@ class unloggedPublicPage extends StatelessWidget {
                           decoration: BoxDecoration(
                             image: DecorationImage(
                               image: CachedNetworkImageProvider(
-                                'https://firebasestorage.googleapis.com/v0/b/adventure-eb4ca.appspot.com/o/wall%2Fwall%20(4).jpg?alt=media&token=c5c01dca-4b32-4b9d-88fe-717e976ac2f5',
+                                'https://firebasestorage.googleapis.com/v0/b/adventure-eb4ca.appspot.com/o/wall%2Fwall%20(1).jpg?alt=media&token=c5c01dca-4b32-4b9d-88fe-717e976ac2f5',
                               ),
                               fit: BoxFit.cover,
                               alignment: Alignment.topCenter,
@@ -58,7 +64,7 @@ class unloggedPublicPage extends StatelessWidget {
                                 builder: (context) => AuthPage()));
                           },
                           child: Text(
-                            'Google Sign in',
+                            'Marhaba',
                             style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w500,

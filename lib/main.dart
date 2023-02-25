@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
-import 'BottomNavigationBar.dart';
 import 'Oauth/Ogoogle/googleSignInProvider.dart';
 import 'pages/ProvidersPublic.dart';
 import 'pages/adminLoggedPage.dart';
@@ -18,11 +17,14 @@ Future<void> main() async {
       );
 
   FlutterNativeSplash.removeAfter(initialization);
+  //FlutterNativeSplash.preserve(widgetsBinding: widgetBinding);
   SystemChrome.setEnabledSystemUIMode(
       SystemUiMode.edgeToEdge, //.immersiveSticky,
       overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
   runApp(Materialclass());
 }
+
+//FlutterNativeSplash.remove();
 
 Future initialization(BuildContext? context) async {
   Future.delayed(Duration(seconds: 5));
@@ -150,10 +152,10 @@ class CheckRole extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text('Marhba Bik'),
-                  ElevatedButton(
-                      onPressed: () => Navigator.pushNamedAndRemoveUntil(
-                          context, '/', (_) => false),
-                      child: Text('aya nebdou')),
+                  // ElevatedButton(
+                  //     onPressed: () => Navigator.pushNamedAndRemoveUntil(
+                  //         context, '/', (_) => false),
+                  //     child: Text('aya nebdou')),
                   Padding(
                     padding: const EdgeInsets.all(28.0),
                     child: ElevatedButton.icon(

@@ -65,12 +65,15 @@ Future setUserDoc(User userGoo) async {
   String? userEmail = userGoo.email;
   String? userAvatar = userGoo.photoURL;
   String? userDisplayName = userGoo.displayName;
+  //String? userPhone = userGoo.phoneNumber;
+  //int? phone = int.parse(userPhone!);
   String? userRole = 'public';
   bool userState = true;
 
   userRef.doc(userGoo.uid).set({
     'lastActive': Timestamp.now(),
     'id': userID,
+    'phone': 0, // attention hna
     'email': userEmail,
     'avatar': userAvatar,
     'timeline': userAvatar,
@@ -78,9 +81,10 @@ Future setUserDoc(User userGoo) async {
     'displayName': userDisplayName,
     'state': userState,
     'role': userRole,
-    'plan': '',
+    'plan': 'free',
     'coins': 0.0,
-    'levelUser': '',
+    'levelUser': 'begin',
+    'stars': 0.0,
   }, SetOptions(merge: true));
 }
 

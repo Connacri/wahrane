@@ -62,7 +62,7 @@ class ProfileOthers extends StatelessWidget {
           const SizedBox(height: 10),
           Center(
             child: Text(
-              datauser!['userDisplayName'].toUpperCase(),
+              datauser!['displayName'].toUpperCase(),
               style: const TextStyle(
                   color: Colors.black54,
                   overflow: TextOverflow.ellipsis,
@@ -73,7 +73,7 @@ class ProfileOthers extends StatelessWidget {
           ),
           Center(
             child: Text(
-              datauser!['userEmail'].toUpperCase(),
+              datauser!['email'].toUpperCase(),
               style: const TextStyle(
                 color: Colors.black45,
                 fontWeight: FontWeight.normal,
@@ -87,13 +87,19 @@ class ProfileOthers extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 10),
             child: ElevatedButton.icon(
               onPressed: () {},
-              icon: const Icon(
-                Icons.workspace_premium,
-                color: Colors.amber,
-                size: 40,
-              ),
+              icon: datauser!['plan'] == 'premium'
+                  ? const Icon(
+                      Icons.workspace_premium,
+                      color: Colors.amber,
+                      size: 40,
+                    )
+                  : const Icon(
+                      Icons.workspace_premium,
+                      color: Colors.blueGrey,
+                      size: 40,
+                    ),
               label: Text(
-                'Premium'.toUpperCase(),
+                datauser!['plan'].toUpperCase(),
                 style: const TextStyle(
                   fontWeight: FontWeight.normal,
                   fontFamily: 'Oswald',

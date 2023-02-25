@@ -13,14 +13,20 @@ import 'package:flutterflow_paginate_firestore/paginate_firestore.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
-import 'package:wahrane/pages/insta.dart';
-import 'package:wahrane/pages/instalist.dart';
+import '../2/Hotel/new/globalrooms.dart';
+import 'ProfileOthers.dart';
+import 'insta.dart';
+import 'package:timeago/timeago.dart' as timeago;
+import '../2/Hotel/global_rooms.dart';
+import '../2/Hotel/hotel_charts.dart';
 import '../2/ouedkniss.dart';
 import '../2/publicLoggedPage.dart';
 import '../Oauth/AuthPage.dart';
+import '../services/upload_random.dart';
 import 'Profile.dart';
 import 'addPost.dart';
 import 'itemDetails.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class Collection1Data {
   final List<DocumentSnapshot> documents;
@@ -59,63 +65,64 @@ class Collection2Data {
   //   }
   // }
 
-  Stream<List<UserX>> get users {
+  Stream<List<UserClass>> get users {
     final firestore = FirebaseFirestore.instance;
     final usersRef = firestore.collection('Users');
     return usersRef.snapshots().map((snapshot) {
       return snapshot.docs.map((document) {
-        return UserX.fromSnapshot(document);
+        return UserClass.fromJson(document.data());
+        // return UserClass.fromSnapshot(document);
       }).toList();
     });
   }
 }
 
-class UserX {
-  final String avatar;
-  final double coins;
-  final Timestamp createdAt;
-  final String displayName;
-  final String email;
-  final String id;
-  final Timestamp lastActive;
-  final String levelUser;
-  final String plan;
-  final String role;
-  final bool state;
-  final String timeline;
-
-  UserX({
-    required this.avatar,
-    required this.coins,
-    required this.createdAt,
-    required this.displayName,
-    required this.email,
-    required this.id,
-    required this.lastActive,
-    required this.levelUser,
-    required this.plan,
-    required this.role,
-    required this.state,
-    required this.timeline,
-  });
-
-  factory UserX.fromSnapshot(DocumentSnapshot snapshot) {
-    return UserX(
-      avatar: snapshot['avatar'],
-      coins: snapshot['coins'] as double,
-      createdAt: snapshot['createdAt'] as Timestamp,
-      displayName: snapshot['displayName'],
-      email: snapshot['email'],
-      id: snapshot['id'],
-      lastActive: snapshot['lastActive'] as Timestamp,
-      levelUser: snapshot['levelUser'] as String,
-      plan: snapshot['plan'] as String,
-      role: snapshot['role'],
-      state: snapshot['state'] as bool,
-      timeline: snapshot['timeline'],
-    );
-  }
-}
+// class UserX {
+//   final String avatar;
+//   final double coins;
+//   final Timestamp createdAt;
+//   final String displayName;
+//   final String email;
+//   final String id;
+//   final Timestamp lastActive;
+//   final String levelUser;
+//   final String plan;
+//   final String role;
+//   final bool state;
+//   final String timeline;
+//
+//   UserX({
+//     required this.avatar,
+//     required this.coins,
+//     required this.createdAt,
+//     required this.displayName,
+//     required this.email,
+//     required this.id,
+//     required this.lastActive,
+//     required this.levelUser,
+//     required this.plan,
+//     required this.role,
+//     required this.state,
+//     required this.timeline,
+//   });
+//
+//   factory UserX.fromSnapshot(DocumentSnapshot snapshot) {
+//     return UserX(
+//       avatar: snapshot['avatar'],
+//       coins: snapshot['coins'] as double,
+//       createdAt: snapshot['createdAt'] as Timestamp,
+//       displayName: snapshot['displayName'],
+//       email: snapshot['email'],
+//       id: snapshot['id'],
+//       lastActive: snapshot['lastActive'] as Timestamp,
+//       levelUser: snapshot['levelUser'] as String,
+//       plan: snapshot['plan'] as String,
+//       role: snapshot['role'],
+//       state: snapshot['state'] as bool,
+//       timeline: snapshot['timeline'],
+//     );
+//   }
+// }
 
 class MyApp extends StatelessWidget {
   MyApp({Key? key, required this.userDoc}) : super(key: key);
@@ -186,92 +193,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class bottomNavigation extends StatefulWidget {
-  bottomNavigation({Key? key, required this.userDoc}) : super(key: key);
-  final userDoc;
-
-  @override
-  _bottomNavigationState createState() {
-    return _bottomNavigationState();
-  }
-}
-
-class _bottomNavigationState extends State<bottomNavigation>
-    with AutomaticKeepAliveClientMixin {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  int currentPageIndex = 0;
-  @override
-  Widget build(BuildContext context) {
-    super.build(context);
-    final uusers = Provider.of<Collection2Data>(context);
-    return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          foregroundColor: Colors.transparent,
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (_) {
-              return stepper_widget();
-            }));
-          },
-          child: const Icon(
-            FontAwesomeIcons.add,
-            color: Colors.black54,
-          ),
-        ),
-        bottomNavigationBar: NavigationBar(
-          height: 60,
-          onDestinationSelected: (int index) {
-            setState(() {
-              currentPageIndex = index;
-            });
-          },
-          selectedIndex: currentPageIndex,
-          destinations: <Widget>[
-            NavigationDestination(
-              icon: Icon(FontAwesomeIcons.home),
-              label: 'Home',
-            ),
-            NavigationDestination(
-              icon: Icon(FontAwesomeIcons.list),
-              label: 'Insta',
-            ),
-            NavigationDestination(
-              icon: ClipRRect(
-                  clipBehavior: Clip.hardEdge,
-                  borderRadius: BorderRadius.circular(50),
-                  child: CachedNetworkImage(
-                    imageUrl: widget.userDoc['avatar'],
-                    fit: BoxFit.cover,
-                    height: 30,
-                    width: 30,
-                  )),
-              label: widget.userDoc['displayName'],
-            ),
-          ],
-        ),
-        body: IndexedStack(
-          index: currentPageIndex,
-          children: [
-            homeList(userDoc: widget.userDoc),
-            //ouedkniss(),
-            insta(),
-            Profile(),
-          ],
-        ));
-  }
-
-  @override
-  bool get wantKeepAlive => true;
-}
-
 // class bottomNavigation extends StatefulWidget {
 //   bottomNavigation({Key? key, required this.userDoc}) : super(key: key);
 //   final userDoc;
@@ -282,7 +203,8 @@ class _bottomNavigationState extends State<bottomNavigation>
 //   }
 // }
 //
-// class _bottomNavigationState extends State<bottomNavigation> {
+// class _bottomNavigationState extends State<bottomNavigation>
+//     with AutomaticKeepAliveClientMixin {
 //   @override
 //   void initState() {
 //     super.initState();
@@ -296,59 +218,158 @@ class _bottomNavigationState extends State<bottomNavigation>
 //   int currentPageIndex = 0;
 //   @override
 //   Widget build(BuildContext context) {
+//     super.build(context);
 //     final uusers = Provider.of<Collection2Data>(context);
 //     return Scaffold(
-//       floatingActionButton: FloatingActionButton(
-//         foregroundColor: Colors.transparent,
-//         onPressed: () {
-//           Navigator.push(context, MaterialPageRoute(builder: (_) {
-//             return stepper_widget();
-//           }));
-//         },
-//         child: const Icon(
-//           FontAwesomeIcons.add,
-//           color: Colors.black54,
+//         floatingActionButton: FloatingActionButton(
+//           foregroundColor: Colors.transparent,
+//           onPressed: () {
+//             Navigator.push(context, MaterialPageRoute(builder: (_) {
+//               return stepper_widget();
+//             }));
+//           },
+//           child: const Icon(
+//             FontAwesomeIcons.add,
+//             color: Colors.black54,
+//           ),
 //         ),
-//       ),
-//       bottomNavigationBar: NavigationBar(
-//         height: 60,
-//         onDestinationSelected: (int index) {
-//           setState(() {
-//             currentPageIndex = index;
-//           });
-//         },
-//         selectedIndex: currentPageIndex,
-//         destinations: <Widget>[
-//           NavigationDestination(
-//             icon: Icon(FontAwesomeIcons.home),
-//             label: 'Home',
-//           ),
-//           NavigationDestination(
-//             icon: Icon(FontAwesomeIcons.list),
-//             label: 'Kniss',
-//           ),
-//           NavigationDestination(
-//             icon: ClipRRect(
-//                 clipBehavior: Clip.hardEdge,
-//                 borderRadius: BorderRadius.circular(50),
-//                 child: CachedNetworkImage(
-//                   imageUrl: widget.userDoc['avatar'],
-//                   fit: BoxFit.cover,
-//                   height: 30,
-//                   width: 30,
-//                 )),
-//             label: widget.userDoc['displayName'],
-//           ),
-//         ],
-//       ),
-//       body: <Widget>[
-//         homeList(),
-//         ouedkniss(),
-//         Profile(),
-//       ][currentPageIndex],
-//     );
+//         bottomNavigationBar: NavigationBar(
+//           height: 60,
+//           onDestinationSelected: (int index) {
+//             setState(() {
+//               currentPageIndex = index;
+//             });
+//           },
+//           selectedIndex: currentPageIndex,
+//           destinations: <Widget>[
+//             NavigationDestination(
+//               icon: Icon(FontAwesomeIcons.home),
+//               label: 'Home',
+//             ),
+//             NavigationDestination(
+//               icon: Icon(FontAwesomeIcons.list),
+//               label: 'Insta',
+//             ),
+//             NavigationDestination(
+//               icon: ClipRRect(
+//                   clipBehavior: Clip.hardEdge,
+//                   borderRadius: BorderRadius.circular(50),
+//                   child: CachedNetworkImage(
+//                     imageUrl: widget.userDoc['avatar'],
+//                     fit: BoxFit.cover,
+//                     height: 30,
+//                     width: 30,
+//                   )),
+//               label: widget.userDoc['displayName'],
+//             ),
+//           ],
+//         ),
+//         body: IndexedStack(
+//           index: currentPageIndex,
+//           children: [
+//             homeList(userDoc: widget.userDoc),
+//             //ouedkniss(),
+//             insta(
+//               userDoc: widget.userDoc,
+//             ),
+//             Profile(),
+//           ],
+//         ));
 //   }
+//
+//   @override
+//   bool get wantKeepAlive => true;
 // }
+
+class bottomNavigation extends StatefulWidget {
+  bottomNavigation({Key? key, required this.userDoc}) : super(key: key);
+  final userDoc;
+
+  @override
+  _bottomNavigationState createState() {
+    return _bottomNavigationState();
+  }
+}
+
+class _bottomNavigationState extends State<bottomNavigation> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  int currentPageIndex = 0;
+  @override
+  Widget build(BuildContext context) {
+    final uusers = Provider.of<Collection2Data>(context);
+    return Scaffold(
+      // floatingActionButton:
+      //      FloatingActionButton(
+      //         foregroundColor: Colors.transparent,
+      //         onPressed: () {
+      //           Navigator.push(context, MaterialPageRoute(builder: (_) {
+      //             return stepper_widget();
+      //           }));
+      //         },
+      //         child: const Icon(
+      //           FontAwesomeIcons.add,
+      //           color: Colors.black54,
+      //         ),
+      //       )
+
+      bottomNavigationBar: NavigationBar(
+        height: 60,
+        onDestinationSelected: (int index) {
+          setState(() {
+            currentPageIndex = index;
+          });
+        },
+        selectedIndex: currentPageIndex,
+        destinations: <Widget>[
+          NavigationDestination(
+            icon: Icon(FontAwesomeIcons.home),
+            label: 'Home',
+          ),
+          NavigationDestination(
+            icon: Icon(FontAwesomeIcons.list),
+            label: 'Lives',
+          ),
+          // NavigationDestination(
+          //   icon: Icon(FontAwesomeIcons.hotel),
+          //   label: 'hotel_charts',
+          // ),
+          NavigationDestination(
+            icon: ClipRRect(
+                clipBehavior: Clip.hardEdge,
+                borderRadius: BorderRadius.circular(50),
+                child: CachedNetworkImage(
+                  imageUrl: widget.userDoc['avatar'],
+                  fit: BoxFit.cover,
+                  height: 30,
+                  width: 30,
+                )),
+            label: widget.userDoc['displayName'],
+          ),
+        ],
+      ),
+      body: <Widget>[
+        homeList(
+          userDoc: widget.userDoc,
+        ),
+        insta(
+          userDoc: widget.userDoc,
+        ),
+        //HotelAvailability(),
+        //HotelAvailabilityScreen(),
+        Profile(),
+      ][currentPageIndex],
+    );
+  }
+}
 
 class homeList extends StatelessWidget {
   const homeList({Key? key, required this.userDoc}) : super(key: key);
@@ -366,7 +387,7 @@ class homeList extends StatelessWidget {
     var premiumUsers = uusers.documents
         .where((element) => element['plan'] == 'premium')
         .toList();
-    var itmCarous = iitem.documents
+    var itmCarous = carouss.documents
         // .where((element) => element['levelItem'] == 'carou')
         .toList();
     var itm = iitem.documents
@@ -376,6 +397,20 @@ class homeList extends StatelessWidget {
         .where((element) => element['levelItem'] == 'silver')
         .toList();
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        foregroundColor: Colors.transparent,
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (_) {
+            return stepper_widget(
+              ccollection: 'Products',
+            );
+          }));
+        },
+        child: const Icon(
+          FontAwesomeIcons.add,
+          color: Colors.black54,
+        ),
+      ),
       body: PaginateFirestore(
           header: SliverToBoxAdapter(
             child: Column(
@@ -727,47 +762,40 @@ class homeList extends StatelessWidget {
                     ),
                   ),
                 ), // Caroussel
-
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(vertical: 8.0, horizontal: 40),
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Wallet',
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                color: Colors.brown,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          Text(
-                            'Coins : ',
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                color: Colors.brown,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w300),
-                          ),
-                          Text(
-                            NumberFormat.currency(symbol: '', decimalDigits: 2)
-                                .format(userDoc['coins']),
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                color: Colors.black54,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w400),
-                          ),
-                        ],
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Wallet',
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            color: Colors.brown,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500),
                       ),
-                    ),
+                      Text(
+                        'Coins : ',
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            color: Colors.brown,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w300),
+                      ),
+                      Text(
+                        NumberFormat.currency(symbol: '', decimalDigits: 2)
+                            .format(userDoc['coins']),
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ],
                   ),
-                ),
-
+                ), // wallet
                 Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 20.0, vertical: 10),
@@ -1167,6 +1195,31 @@ class homeList extends StatelessWidget {
                 //     },
                 //   ),
                 // ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(18, 18, 18, 0),
+                  child: Row(
+                    children: [
+                      Text(
+                        'Premium',
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                            fontStyle: FontStyle.italic,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue),
+                      ),
+                      Text(
+                        'Seller',
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                            fontStyle: FontStyle.italic,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black54),
+                      ),
+                    ],
+                  ),
+                ),
                 Container(
                     padding: EdgeInsets.only(left: 6),
                     width: MediaQuery.of(context).size.width,
@@ -1226,7 +1279,7 @@ class homeList extends StatelessWidget {
                                               end: Alignment.bottomRight,
                                             ).createShader(bounds),
                                         child: Text(
-                                          premiumUsers[index]['role']
+                                          premiumUsers[index]['levelUser']
                                               .toString()
                                               .toUpperCase(),
                                           style: TextStyle(
@@ -1234,6 +1287,32 @@ class homeList extends StatelessWidget {
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold),
                                         )),
+                                    Container(
+                                      width: 70,
+                                      child: FittedBox(
+                                        child: RatingBar.builder(
+                                          initialRating: premiumUsers[index]
+                                              ['stars'],
+                                          // double.parse(snapshot
+                                          //     .data!.docs[index]['stars']
+                                          //     .toString()),
+                                          ignoreGestures: true,
+                                          minRating: 1,
+                                          direction: Axis.horizontal,
+                                          allowHalfRating: true,
+                                          itemCount: 5,
+                                          itemPadding: EdgeInsets.symmetric(
+                                              horizontal: 4.0),
+                                          itemBuilder: (context, _) => Icon(
+                                            Icons.star,
+                                            color: Colors.amber,
+                                          ),
+                                          onRatingUpdate: (rating) {
+                                            print(rating);
+                                          },
+                                        ),
+                                      ),
+                                    ),
                                     Container(
                                       width: 70,
                                       height: 25,
@@ -1262,6 +1341,9 @@ class homeList extends StatelessWidget {
                                               (context, imageProvider) =>
                                                   Container(
                                             decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  width: 2,
+                                                  color: Colors.white),
                                               shape: BoxShape.circle,
                                               image: DecorationImage(
                                                   image: imageProvider,
@@ -1418,9 +1500,9 @@ class homeList extends StatelessWidget {
                       //     ),
                       //   ),
                       // ),
-                    )),
+                    )), //Users Premium
                 Padding(
-                  padding: const EdgeInsets.all(18.0),
+                  padding: const EdgeInsets.fromLTRB(18, 18, 18, 0),
                   child: Row(
                     children: [
                       Text(
@@ -1626,7 +1708,6 @@ class homeList extends StatelessWidget {
                     elevation: 5,
                     child: Container(
                       width: MediaQuery.of(context).size.width,
-                      color: Colors.greenAccent,
                       child: Stack(
                         children: [
                           ShaderMask(
@@ -2052,34 +2133,35 @@ class homeList extends StatelessWidget {
               ],
             ),
           ),
-          footer: SliverToBoxAdapter(
-            child: Column(
-              children: [
-                Container(
-                  height: 200.0,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    physics: BouncingScrollPhysics(),
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 16,
-                    itemBuilder: (BuildContext context, int index) {
-                      return UnsplashSlider(
-                        UnsplashUrl:
-                            'https://firebasestorage.googleapis.com/v0/b/adventure-eb4ca.appspot.com/o/mob%2Fmob%20(${index}).jpg?alt=media&token=e307d1db-a16f-42f9-a472-1f3a2f47ee79',
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
+          // footer: SliverToBoxAdapter(
+          //   child: Column(
+          //     children: [
+          //       Container(
+          //         height: 200.0,
+          //         child: ListView.builder(
+          //           shrinkWrap: true,
+          //           physics: BouncingScrollPhysics(),
+          //           scrollDirection: Axis.horizontal,
+          //           itemCount: 16,
+          //           itemBuilder: (BuildContext context, int index) {
+          //             return UnsplashSlider(
+          //               UnsplashUrl:
+          //                   'https://firebasestorage.googleapis.com/v0/b/adventure-eb4ca.appspot.com/o/mob%2Fmob%20(${index}).jpg?alt=media&token=e307d1db-a16f-42f9-a472-1f3a2f47ee79',
+          //             );
+          //           },
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
+
           itemsPerPage: 10000,
           onEmpty: const EmptyDisplay(),
           separator: const EmptySeparator(),
           initialLoader: const InitialLoader(),
           bottomLoader: const BottomLoader(),
           shrinkWrap: true,
-          //isLive: true,
+          isLive: true,
           itemBuilderType: PaginateBuilderType.gridView,
           query: FirebaseFirestore.instance
               .collection('Products')
@@ -2138,6 +2220,7 @@ class homeList extends StatelessWidget {
                 ),
               );
             }
+
             return GestureDetector(
               onTap: () => Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => SilverdetailItem(
@@ -2145,13 +2228,6 @@ class homeList extends StatelessWidget {
                   idDoc: dataid,
                 ),
               )),
-
-              // child: Card(
-              //   margin: const EdgeInsets.all(5),
-              //   shape: RoundedRectangleBorder(
-              //       borderRadius: BorderRadius.circular(10)),
-              //   clipBehavior: Clip.antiAliasWithSaveLayer,
-              //   elevation: 5,
               child: Card(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),
@@ -2239,13 +2315,14 @@ class homeList extends StatelessWidget {
                               ],
                             ),
                           ),
+                          Spacer(),
                           Column(
                             children: [
                               Padding(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 5),
                                 child: Text(
-                                  data['item'],
+                                  data['item'].toString().toUpperCase(),
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                       color: Colors.white70,
@@ -2254,7 +2331,7 @@ class homeList extends StatelessWidget {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(bottom: 8.0),
+                                padding: const EdgeInsets.only(bottom: 0.0),
                                 child: Center(
                                   child: Text(
                                     data['price'] >= 1000000.00
@@ -2275,6 +2352,20 @@ class homeList extends StatelessWidget {
                                         fontFamily: 'oswald'),
                                   ),
                                 ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 5, bottom: 5),
+                                child: Text(
+                                    timeago.format(data['createdAt'].toDate(),
+                                        locale: 'fr'),
+                                    textAlign: TextAlign.start,
+                                    style: const TextStyle(
+                                      color: Colors.white70,
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 12,
+                                      fontFamily: 'Oswald',
+                                    )),
                               ),
                             ],
                           ),
@@ -2375,30 +2466,6 @@ class homeList extends StatelessWidget {
                   ],
                 ),
               ),
-
-              //       ),
-
-              // child: GridTile(
-              //   footer: Text(
-              //     data!['item'],
-              //     overflow: TextOverflow.ellipsis,
-              //     style: TextStyle(
-              //         color: Colors.white,
-              //         fontSize: 12,
-              //         fontWeight: FontWeight.w500),
-              //   ),
-              //   child: Container(
-              //     decoration: BoxDecoration(
-              //       image: DecorationImage(
-              //         image: CachedNetworkImageProvider(
-              //           data!['imageUrls'][0],
-              //         ),
-              //         fit: BoxFit.cover,
-              //         alignment: Alignment.topCenter,
-              //       ),
-              //     ),
-              //   ),
-              // ),
             );
           }),
     );
@@ -2425,39 +2492,125 @@ class UnsplashAvatarProvider extends StatelessWidget {
             );
           }
           var data = snapshot.data?.data();
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  width: 20.0,
-                  height: 20.0,
-                  child: CachedNetworkImage(
-                    imageUrl: data!['avatar'],
-                    imageBuilder: (context, imageProvider) => Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                            image: imageProvider, fit: BoxFit.cover),
+          return InkWell(
+            onTap: () async {
+              Map dataUser = data as Map;
+              await Navigator.push(context,
+                  MaterialPageRoute(builder: (BuildContext context) {
+                return ProfileOthers(data: dataUser);
+              }));
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 20.0,
+                    height: 20.0,
+                    child: CachedNetworkImage(
+                      imageUrl: data!['avatar'],
+                      imageBuilder: (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(width: 2, color: Colors.white),
+                          // borderRadius: BorderRadius.circular(100),
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                              image: imageProvider, fit: BoxFit.cover),
+                        ),
+                      ),
+                      errorWidget: (context, url, error) =>
+                          Icon(Icons.no_accounts_rounded),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    child: SizedBox(
+                      child: Text(
+                        data['displayName'],
+                        style: TextStyle(fontSize: 16, color: Colors.cyan),
                       ),
                     ),
-                    errorWidget: (context, url, error) =>
-                        Icon(Icons.no_accounts_rounded),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                  child: SizedBox(
-                    child: Text(
-                      data['displayName'],
-                      style: TextStyle(fontSize: 16, color: Colors.cyan),
-                    ),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         });
   }
+}
+
+Future<void> moveStock(String productID, data, int amount, PUA) async {
+  final CollectionReference SourceCollection =
+      FirebaseFirestore.instance.collection('Products');
+  final CollectionReference DestinationCollection =
+      FirebaseFirestore.instance.collection('Instalives');
+  final DocumentReference sourceReference = SourceCollection.doc(productID);
+  final DocumentReference destinationReference =
+      DestinationCollection.doc(productID);
+  User? _user = FirebaseAuth.instance.currentUser;
+
+  await FirebaseFirestore.instance
+      .runTransaction((Transaction transaction) async {
+    //start
+    DocumentSnapshot sourceSnapshot = await transaction.get(sourceReference);
+    DocumentSnapshot destinationSnapshot =
+        await transaction.get(destinationReference);
+
+    int sourceStock = data['stock'];
+    //    int destinationStock = destinationSnapshot.data()['qty'];
+    DocumentSnapshot<Map<String?, dynamic>> docDestination =
+        await FirebaseFirestore.instance
+            .collection('Instalives')
+            .doc(productID)
+            .get();
+
+    if (sourceStock >= amount) {
+      if (docDestination.exists) {
+        await transaction
+            .update(sourceReference, {'stock': sourceStock - amount});
+        await transaction.update(destinationReference, {
+          'createdAt': Timestamp.now().toDate(),
+          'category': data['category'],
+          'model': data['model'],
+          'description': data['description'],
+          'size': data['size'],
+          'prixAchat': data['prixAchat'],
+          'prixVente': data['prixVente'],
+          'stock': data['stock'],
+          'codebar': data['codebar'],
+          'oldStock': data['oldStock'],
+          'origine': data['origine'],
+          'user': _user!.uid, //data['user'],
+          'qty': FieldValue.increment(amount),
+          'state': true,
+          //'earn': earn,
+          'PUA': PUA,
+        });
+      } else {
+        await transaction
+            .update(sourceReference, {'stock': sourceStock - amount});
+        await transaction.set(destinationReference, {
+          'createdAt': Timestamp.now().toDate(),
+          'category': data['category'],
+          'model': data['model'],
+          'description': data['description'],
+          'size': data['size'],
+          'prixAchat': data['prixAchat'],
+          'prixVente': data['prixVente'],
+          'stock': data['stock'],
+          'codebar': data['codebar'],
+          'oldStock': data['oldStock'],
+          'origine': data['origine'],
+          'user': _user!.uid, //data['user'],
+          'qty': FieldValue.increment(amount),
+          'state': true,
+          //'earn': earn,
+          'PUA': PUA,
+        });
+      }
+    } else {
+      throw Exception('Not enough stock in source product');
+    }
+  });
 }

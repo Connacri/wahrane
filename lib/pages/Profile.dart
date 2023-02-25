@@ -205,19 +205,22 @@ class Profile extends StatelessWidget {
                     },
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 50, vertical: 50),
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.add_box_rounded,
-                      color: Colors.blue,
-                    ),
-                    onPressed: () async {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => upload_random()));
-                    },
-                  ),
-                ),
+                data['email'] == 'forslog@gmail.com'
+                    ? Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 50, vertical: 50),
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.add_box_rounded,
+                            color: Colors.blue,
+                          ),
+                          onPressed: () async {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => upload_random()));
+                          },
+                        ),
+                      )
+                    : Container(),
               ])),
               SliverList(
                 delegate: SliverChildListDelegate([
