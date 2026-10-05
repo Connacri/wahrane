@@ -160,7 +160,7 @@ class H1 extends StatelessWidget {
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return CardTopShimmer(); //Text("Loading");
+            return const CardTopShimmer(); //Text("Loading");
           }
 
           return InkWell(
@@ -298,7 +298,7 @@ class TopWidget extends StatelessWidget {
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return CardTopShimmer(); //Text("Loading");
+            return const CardTopShimmer(); //Text("Loading");
           }
 
           return ListView(
@@ -609,7 +609,7 @@ class Top_Hotel extends StatelessWidget {
                 }
 
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return CardTopShimmer();
+                  return const CardTopShimmer();
                 }
                 // return Container(
                 //     child: snapshot.data!.docs.map((DocumentSnapshot document) {
@@ -726,7 +726,7 @@ class Top_Hotelstream extends StatelessWidget {
                 }
 
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return CardTopShimmer();
+                  return const CardTopShimmer();
                 }
                 return Container(
                     child: snapshot.data!.docs.map((DocumentSnapshot document) {
@@ -900,7 +900,7 @@ class Top_Hotelstream extends StatelessWidget {
                                   }
                                   if (snapshot.connectionState ==
                                       ConnectionState.waiting) {
-                                    return CardTopShimmer();
+                                    return const CardTopShimmer();
                                   }
                                   return Container(
                                       child: snapshot.data!.docs
@@ -908,8 +908,7 @@ class Top_Hotelstream extends StatelessWidget {
                                     Map<String, dynamic> data2 =
                                         document.data() as Map<String, dynamic>;
 
-                                    return data2 != null //snapshot.data != null
-                                        ? Row(
+                                    return Row(
                                             children: [
                                               Padding(
                                                 padding: const EdgeInsets.only(
@@ -934,8 +933,7 @@ class Top_Hotelstream extends StatelessWidget {
                                                     fontFamily: 'Oswald'),
                                               ),
                                             ],
-                                          )
-                                        : const Text('');
+                                          );
                                   }));
                                 }),
                           ),
@@ -1095,11 +1093,9 @@ class SliderH extends StatelessWidget {
     required Future<QuerySnapshot<Object?>> TopHotelFuture,
     required bool enabled,
   })  : _TopHotelFuture = TopHotelFuture,
-        _enabled = enabled,
         super(key: key);
 
   final Future<QuerySnapshot<Object?>> _TopHotelFuture;
-  final bool _enabled;
 
   @override
   Widget build(BuildContext context) {
@@ -1111,7 +1107,7 @@ class SliderH extends StatelessWidget {
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
           // return Shimmer.fromColors(
@@ -1182,11 +1178,10 @@ class Cardless extends StatelessWidget {
   const Cardless({
     Key? key,
     required Map? data,
-    required String dataid,
+    required this.dataid,
     //required Function like,
     //required Function Dislike,
   })  : _data = data,
-        dataid = dataid,
         //like = like,
         //Dislike = Dislike,
         super(key: key);
@@ -1199,10 +1194,6 @@ class Cardless extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
-    bool isLiked = false;
-    bool hasBackground = false;
-    int likeCount = 17;
-    final key = GlobalKey<LikeButtonState>();
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(6),
@@ -1579,6 +1570,8 @@ class Cardless extends StatelessWidget {
 // }
 
 class CardTopShimmer extends StatelessWidget {
+  const CardTopShimmer({super.key});
+
   @override
   Widget build(BuildContext context) {
     bool enabled = true;

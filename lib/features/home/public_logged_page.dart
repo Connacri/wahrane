@@ -1,6 +1,5 @@
 import 'dart:math';
 import 'dart:ui';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -13,7 +12,6 @@ import 'package:flutterflow_paginate_firestore/widgets/bottom_loader.dart';
 import 'package:flutterflow_paginate_firestore/widgets/empty_display.dart';
 import 'package:flutterflow_paginate_firestore/widgets/empty_separator.dart';
 import 'package:flutterflow_paginate_firestore/widgets/initial_loader.dart';
-import 'package:intl/intl.dart' as intl;
 import 'package:wahrane/features/auth/auth_page.dart';
 import 'package:wahrane/features/home/item_details_page.dart';
 
@@ -24,7 +22,7 @@ class PublicLoggedPage extends StatelessWidget {
   }) : super(key: key);
 
   final DocumentSnapshot<Object?>? datta;
-  User? user = FirebaseAuth.instance.currentUser;
+  final User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -86,7 +84,7 @@ class PublicLoggedPage extends StatelessWidget {
                                         blendMode: BlendMode.darken,
                                         child: Container(
                                           height: 50,
-                                          decoration: BoxDecoration(
+                                          decoration: const BoxDecoration(
                                             image: DecorationImage(
                                               image: CachedNetworkImageProvider(
                                                 'https://firebasestorage.googleapis.com/v0/b/adventure-eb4ca.appspot.com/o/wall%2Fwall%20(4).jpg?alt=media&token=c5c01dca-4b32-4b9d-88fe-717e976ac2f5',
@@ -103,9 +101,9 @@ class PublicLoggedPage extends StatelessWidget {
                                             Navigator.of(context).push(
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        AuthPage()));
+                                                        const AuthPage()));
                                           },
-                                          child: Text(
+                                          child: const Text(
                                             'Google Sign in',
                                             style: TextStyle(
                                                 fontSize: 20,
@@ -153,7 +151,7 @@ class PublicLoggedPage extends StatelessWidget {
                       //             )),
                       //   ),
                       // ),
-                      Container(
+                      SizedBox(
                         height: 200,
                         child: StreamBuilder(
                             stream: FirebaseFirestore.instance
@@ -163,7 +161,7 @@ class PublicLoggedPage extends StatelessWidget {
                                 AsyncSnapshot<QuerySnapshot> snapshot) {
                               if (snapshot.connectionState ==
                                   ConnectionState.waiting) {
-                                return Text('');
+                                return const Text('');
                               } else {
                                 return //Text(snapshot.data!.size.toString());
                                     Padding(
@@ -200,7 +198,7 @@ class PublicLoggedPage extends StatelessWidget {
                                                 image: DecorationImage(
                                                   image:
                                                       CachedNetworkImageProvider(
-                                                    'https://firebasestorage.googleapis.com/v0/b/adventure-eb4ca.appspot.com/o/wall%2Fwall%20(${index}).jpg?alt=media&token=c5c01dca-4b32-4b9d-88fe-717e976ac2f5',
+                                                    'https://firebasestorage.googleapis.com/v0/b/adventure-eb4ca.appspot.com/o/wall%2Fwall%20($index).jpg?alt=media&token=c5c01dca-4b32-4b9d-88fe-717e976ac2f5',
                                                   ),
                                                   fit: BoxFit.cover,
                                                   alignment:
@@ -209,7 +207,7 @@ class PublicLoggedPage extends StatelessWidget {
                                               ),
                                             ),
                                           ),
-                                          Container(
+                                          SizedBox(
                                             height: 250,
                                             width: 100,
                                             // decoration: BoxDecoration(
@@ -226,10 +224,10 @@ class PublicLoggedPage extends StatelessWidget {
                                                 filter: ImageFilter.blur(
                                                     sigmaX: 3, sigmaY: 3),
                                                 child: Container(
-                                                  padding: EdgeInsets.all(15),
+                                                  padding: const EdgeInsets.all(15),
                                                   alignment: Alignment.center,
                                                   color: Colors.grey
-                                                      .withOpacity(0.1),
+                                                      .withValues(alpha: 0.1),
                                                 ),
                                               ),
                                             ),
@@ -273,7 +271,7 @@ class PublicLoggedPage extends StatelessWidget {
                                                 //     ),
                                                 //   ),
                                                 // ),
-                                                Container(
+                                                SizedBox(
                                                   width: 80,
                                                   height: 40,
                                                   child: FittedBox(
@@ -284,7 +282,7 @@ class PublicLoggedPage extends StatelessWidget {
                                                               ['displayName']
                                                           .toString()
                                                           .toUpperCase(),
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                           color: Colors.white70,
                                                           fontSize: 28,
                                                           fontWeight:
@@ -300,7 +298,7 @@ class PublicLoggedPage extends StatelessWidget {
                                                             BlendMode.srcIn,
                                                         shaderCallback: (Rect
                                                                 bounds) =>
-                                                            LinearGradient(
+                                                            const LinearGradient(
                                                               colors: <Color>[
                                                                 Colors.red,
                                                                 Colors
@@ -324,7 +322,7 @@ class PublicLoggedPage extends StatelessWidget {
                                                                   ['role']
                                                               .toString()
                                                               .toUpperCase(),
-                                                          style: TextStyle(
+                                                          style: const TextStyle(
                                                               color:
                                                                   Colors.white,
                                                               fontSize: 20,
@@ -337,7 +335,7 @@ class PublicLoggedPage extends StatelessWidget {
                                                             .docs[index]['role']
                                                             .toString()
                                                             .toUpperCase(),
-                                                        style: TextStyle(
+                                                        style: const TextStyle(
                                                             color: Colors.white,
                                                             fontSize: 20,
                                                             fontWeight:
@@ -358,9 +356,9 @@ class PublicLoggedPage extends StatelessWidget {
                                       enableInfiniteScroll: true,
                                       reverse: false,
                                       autoPlay: true,
-                                      autoPlayInterval: Duration(seconds: 3),
+                                      autoPlayInterval: const Duration(seconds: 3),
                                       autoPlayAnimationDuration:
-                                          Duration(milliseconds: 800),
+                                          const Duration(milliseconds: 800),
                                       autoPlayCurve: Curves.fastOutSlowIn,
                                       enlargeCenterPage: true,
                                       enlargeFactor: 0.3,
@@ -372,11 +370,11 @@ class PublicLoggedPage extends StatelessWidget {
                               }
                             }),
                       ),
-                      Container(
+                      SizedBox(
                         height: 200.0,
                         child: ListView.builder(
                           shrinkWrap: true,
-                          physics: BouncingScrollPhysics(),
+                          physics: const BouncingScrollPhysics(),
                           scrollDirection: Axis.horizontal,
                           itemCount: 12,
                           itemBuilder: (BuildContext context, int index) {
@@ -393,17 +391,17 @@ class PublicLoggedPage extends StatelessWidget {
                 footer: SliverToBoxAdapter(
                   child: Column(
                     children: [
-                      Container(
+                      SizedBox(
                         height: 200.0,
                         child: ListView.builder(
                           shrinkWrap: true,
-                          physics: BouncingScrollPhysics(),
+                          physics: const BouncingScrollPhysics(),
                           scrollDirection: Axis.horizontal,
                           itemCount: 16,
                           itemBuilder: (BuildContext context, int index) {
                             return UnsplashSlider(
                               UnsplashUrl:
-                                  'https://firebasestorage.googleapis.com/v0/b/adventure-eb4ca.appspot.com/o/mob%2Fmob%20(${index}).jpg?alt=media&token=e307d1db-a16f-42f9-a472-1f3a2f47ee79',
+                                  'https://firebasestorage.googleapis.com/v0/b/adventure-eb4ca.appspot.com/o/mob%2Fmob%20($index).jpg?alt=media&token=e307d1db-a16f-42f9-a472-1f3a2f47ee79',
                             );
                           },
                         ),
@@ -425,10 +423,10 @@ class PublicLoggedPage extends StatelessWidget {
                 itemBuilder: (BuildContext, DocumentSnapshot, int) {
                   var data = DocumentSnapshot[int].data() as Map?;
                   String dataid = DocumentSnapshot[int].id;
-                  Random random = new Random();
+                  Random random = Random();
                   var randomNumber = random.nextInt(31);
                   String randomPhoto =
-                      'https://firebasestorage.googleapis.com/v0/b/wahrane-a42eb.appspot.com/o/pub%2Fpub(${randomNumber}).jpg?alt=media&token=65512912-41f1-4c47-9529-b2124b18cd8f';
+                      'https://firebasestorage.googleapis.com/v0/b/wahrane-a42eb.appspot.com/o/pub%2Fpub($randomNumber).jpg?alt=media&token=65512912-41f1-4c47-9529-b2124b18cd8f';
                   if (int % 5 == 0 && int != 0) {
                     return Card(
                       margin: const EdgeInsets.all(5),
@@ -506,7 +504,7 @@ class PublicLoggedPage extends StatelessWidget {
                                       data['category'],
                                       overflow: TextOverflow.fade,
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 11,
                                           fontWeight: FontWeight.w500),
@@ -525,15 +523,15 @@ class PublicLoggedPage extends StatelessWidget {
                                           NumberFormat.compact()
                                               .format(data['likes']),
                                           textAlign: TextAlign.end,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.white70,
                                             fontSize: 12,
                                           ),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 3,
                                         ),
-                                        Icon(
+                                        const Icon(
                                           FontAwesomeIcons.eye,
                                           size: 11,
                                           color: Colors.white70,
@@ -552,7 +550,7 @@ class PublicLoggedPage extends StatelessWidget {
                                   child: Text(
                                     data['item'],
                                     overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: Colors.white70,
                                         fontSize: 12,
                                         fontWeight: FontWeight.w500),
@@ -572,7 +570,7 @@ class PublicLoggedPage extends StatelessWidget {
                                                   decimalDigits: 2)
                                               .format(data['price']),
                                       overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           //backgroundColor: Colors.black45,
                                           fontSize: 16,
                                           fontWeight: FontWeight.w500,
@@ -583,7 +581,7 @@ class PublicLoggedPage extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            child: Center(
+                            child: const Center(
                               child: Text(''),
                             ),
                           ),
@@ -679,7 +677,7 @@ class UnsplashAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Container(
+      child: SizedBox(
         width: 40.0,
         height: 40.0,
         child: CachedNetworkImage(
@@ -690,7 +688,7 @@ class UnsplashAvatar extends StatelessWidget {
               image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
             ),
           ),
-          errorWidget: (context, url, error) => Icon(Icons.no_accounts_rounded),
+          errorWidget: (context, url, error) => const Icon(Icons.no_accounts_rounded),
         ),
       ),
     );

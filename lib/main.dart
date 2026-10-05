@@ -27,7 +27,7 @@ Future<void> main() async {
 //FlutterNativeSplash.remove();
 
 Future initialization(BuildContext? context) async {
-  Future.delayed(Duration(seconds: 5));
+  Future.delayed(const Duration(seconds: 5));
 }
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -55,7 +55,7 @@ class WahaneApp extends StatelessWidget {
           useMaterial3: true,
           fontFamily: "Oswald",
           primarySwatch: Colors.blue,
-          appBarTheme: AppBarTheme(
+          appBarTheme: const AppBarTheme(
             systemOverlayStyle: SystemUiOverlayStyle(
               statusBarColor: Colors.transparent,
             ),
@@ -67,7 +67,7 @@ class WahaneApp extends StatelessWidget {
             //     child: Text('Scaffold Test Statue Bar'),
             //   ),
             // ) //SignInScreen(),
-            AuthGate(),
+            const AuthGate(),
       ),
     );
   }
@@ -96,7 +96,7 @@ class _verifi_authState extends State<AuthGate> {
               final userD = snapshot.data!.uid;
               return CheckRole(userD); //MultiProviderWidget();
             } else {
-              return UnloggedPublicPage(); //publicHomeList(); //
+              return const UnloggedPublicPage(); //publicHomeList(); //
             }
           },
         ),
@@ -106,7 +106,7 @@ class _verifi_authState extends State<AuthGate> {
 class CheckRole extends StatelessWidget {
   final String documentId;
 
-  CheckRole(this.documentId);
+  const CheckRole(this.documentId, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +118,7 @@ class CheckRole extends StatelessWidget {
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasError) {
           // Handle error
@@ -131,7 +131,7 @@ class CheckRole extends StatelessWidget {
           var userRole = data['role'];
           // Check user role
           if (userRole == "admin") {
-            return AdminLoggedPage();
+            return const AdminLoggedPage();
           } else {
             return MyApp(
               userDoc: data,
@@ -143,14 +143,14 @@ class CheckRole extends StatelessWidget {
             //   datta: data,
             // );
           }
-        } else
+        } else {
           return Scaffold(
             body: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text('Marhba Bik'),
+                  const Text('Marhba Bik'),
                   // ElevatedButton(
                   //     onPressed: () => Navigator.pushNamedAndRemoveUntil(
                   //         context, '/', (_) => false),
@@ -164,7 +164,7 @@ class CheckRole extends StatelessWidget {
                               borderRadius: BorderRadius.circular(15)),
                           elevation: 4.0,
                           minimumSize: const Size.fromHeight(50)),
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.cancel,
                         color: Colors.red,
                       ),
@@ -187,6 +187,7 @@ class CheckRole extends StatelessWidget {
               ),
             ),
           );
+        }
       },
     );
 

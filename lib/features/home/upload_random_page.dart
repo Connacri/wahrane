@@ -329,9 +329,6 @@ class _upload_randomState extends State<UploadRandom> {
       int randomPhone = (listPhones..shuffle()).first;
 
       int prix = Random().nextInt(5000);
-      String catego = listCat[0];
-      String items = listItem[0];
-      String desc = listDesc[0];
       double lat = 34 * Random().nextDouble(); //-90,90
       double long = -1 * Random().nextDouble(); //-180,180
       GeoPoint ramdomPosition = GeoPoint(lat, long);
@@ -447,28 +444,6 @@ class _upload_randomState extends State<UploadRandom> {
         "Quentin Fillon-Maillet : «Avec deux fautes au tir, je n'imaginais pas pouvoir jouer la victoire»",
         "ENQUÊTE - Faute d’avoir pu s’acquitter d’une traite faramineuse, le promoteur immobilier le plus fantasque de Los Angeles a perdu le contrôle de la gigantesque villa qu’il avait fait construire et dont il espérait tirer 500 millions de dollars. Son concepteur, ruiné, s’est exilé à Zurich.",
       ];
-      List<String> listnames = [
-        'Liam',
-        'Noah',
-        'Oliver',
-        'Elijah',
-        'James',
-        'William',
-        'Benjamin',
-        'Lucas',
-        'Henry',
-        'Theodore',
-        'Olivia',
-        'Emma',
-        'Charlotte',
-        'Amelia',
-        'Ava',
-        'Sophia',
-        'Isabella',
-        'Mia',
-        'Evelyn',
-        'Harper',
-      ];
       List<String> listLevel = [
         'gold',
         'silver',
@@ -499,12 +474,8 @@ class _upload_randomState extends State<UploadRandom> {
       String randomDesc = (listDesc..shuffle()).first;
       String randomItem = (listItem..shuffle()).first;
       String randomUserId = (listuserId..shuffle()).first;
-      String randomNames = (listnames..shuffle()).first;
       int randomPhones = (listPhones..shuffle()).first;
       int prix = Random().nextInt(5000);
-      String catego = listCat[0];
-      String items = listItem[0];
-      String desc = listDesc[0];
       double lat = 34 * Random().nextDouble(); //-90,90
       double long = -1 * Random().nextDouble(); //-180,180
       GeoPoint ramdomPosition = GeoPoint(lat, long);
@@ -600,28 +571,6 @@ class _upload_randomState extends State<UploadRandom> {
         "Quentin Fillon-Maillet : «Avec deux fautes au tir, je n'imaginais pas pouvoir jouer la victoire»",
         "ENQUÊTE - Faute d’avoir pu s’acquitter d’une traite faramineuse, le promoteur immobilier le plus fantasque de Los Angeles a perdu le contrôle de la gigantesque villa qu’il avait fait construire et dont il espérait tirer 500 millions de dollars. Son concepteur, ruiné, s’est exilé à Zurich.",
       ];
-      List<String> listnames = [
-        'Liam',
-        'Noah',
-        'Oliver',
-        'Elijah',
-        'James',
-        'William',
-        'Benjamin',
-        'Lucas',
-        'Henry',
-        'Theodore',
-        'Olivia',
-        'Emma',
-        'Charlotte',
-        'Amelia',
-        'Ava',
-        'Sophia',
-        'Isabella',
-        'Mia',
-        'Evelyn',
-        'Harper',
-      ];
       List<String> listLevel = [
         'gold',
         'silver',
@@ -655,13 +604,9 @@ class _upload_randomState extends State<UploadRandom> {
       String randomDesc = (listDesc..shuffle()).first;
       String randomItem = (listItem..shuffle()).first;
       String randomUserId = (listuserId..shuffle()).first;
-      String randomNames = (listnames..shuffle()).first;
       int randomPhones = (listPhones..shuffle()).first;
 
       int prix = Random().nextInt(5000);
-      String catego = listCat[0];
-      String items = listItem[0];
-      String desc = listDesc[0];
       double lat = 34 * Random().nextDouble(); //-90,90
       double long = -1 * Random().nextDouble(); //-180,180
       GeoPoint ramdomPosition = GeoPoint(lat, long);

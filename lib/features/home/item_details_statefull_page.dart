@@ -25,9 +25,9 @@ class ItemDetailsStatefull extends StatefulWidget {
 
   final Map? datam;
   final User? user;
-  String docid;
-  bool isLiked;
-  String docidd;
+  final String docid;
+  final bool isLiked;
+  final String docidd;
 
   final GlobalKey keyQr = GlobalKey(debugLabel: 'keyQr');
 
@@ -49,13 +49,6 @@ class _item_details_statefullState extends State<ItemDetailsStatefull> {
 
   List<Placemark> placemarks = [];
   String? _locality;
-
-  Position? _position;
-  String? _isoCountryCode;
-  String? _country;
-  String? _administrativeArea;
-  String? _street;
-  String? _subLocality;
 
   Future<Position?> _determinePosition() async {
     bool serviceEnabled;
@@ -110,21 +103,8 @@ class _item_details_statefullState extends State<ItemDetailsStatefull> {
     if (mounted) {
       setState(() {
         //_position = widget.datam!['position'];
-        _isoCountryCode = placemarks.first.isoCountryCode ?? '';
-
-        _country =
-            placemarks.first.country == null ? '' : placemarks.first.country!;
-
-        _administrativeArea = placemarks.first.administrativeArea == null
-            ? ''
-            : placemarks.first.administrativeArea!;
         _locality =
             placemarks.first.locality == null ? '' : placemarks.first.locality!;
-        _street =
-            placemarks.first.street == null ? '' : placemarks.first.street!;
-        _subLocality = placemarks.first.subLocality == null
-            ? ''
-            : placemarks.first.street!;
       });
     }
     print('latitude');
@@ -136,6 +116,7 @@ class _item_details_statefullState extends State<ItemDetailsStatefull> {
 
     print(placemarks[0].locality); //Ain El Turk
     print(placemarks.length);
+    return null;
     //return null;
   }
 
@@ -314,7 +295,7 @@ class _item_details_statefullState extends State<ItemDetailsStatefull> {
                         }
                       }),
                 ),
-                Spacer(),
+                const Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -324,22 +305,22 @@ class _item_details_statefullState extends State<ItemDetailsStatefull> {
                         widget.datam!['likes'],
                         // iitem.documents[index]['likes']
                       ),
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white70,
                         fontSize: 10,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 2,
                     ),
-                    Icon(
+                    const Icon(
                       Icons.remove_red_eye_rounded,
                       color: Colors.white70,
                       size: 16,
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 )
               ],
@@ -696,7 +677,7 @@ class _item_details_statefullState extends State<ItemDetailsStatefull> {
                               width: 100,
                               height: 100,
                               point: point,
-                              builder: (ctx) => Icon(
+                              builder: (ctx) => const Icon(
                                     Icons.location_on,
                                     color: Colors.red,
                                   ))
@@ -736,14 +717,14 @@ class _item_details_statefullState extends State<ItemDetailsStatefull> {
                         ),
                       ),
                       ElevatedButton(
-                          child: Text('choisir Option'), onPressed: () {})
+                          child: const Text('choisir Option'), onPressed: () {})
                     ],
                   ),
                 ), // availibility,
               ),
             );
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.qr_code,
             size: 25,
           ),
@@ -841,7 +822,7 @@ class _item_details_statefullState extends State<ItemDetailsStatefull> {
       //     ),
       //   ),
       // ), //Description
-      SliverToBoxAdapter(
+      const SliverToBoxAdapter(
         child: SizedBox(
           height: 200,
         ),

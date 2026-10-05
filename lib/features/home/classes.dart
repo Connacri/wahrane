@@ -79,7 +79,7 @@ class ItemsA {
         prixVente: double.parse(json['prixVente']!.toString()),
         stock: json['stock']! as int,
         oldStock: json['oldStock']! as int,
-        codebar: json['codebar']!.toString() as String,
+        codebar: json['codebar']!.toString(),
         origine: json['origine']! as String,
         user: json['user']! as String,
       );

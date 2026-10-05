@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -10,6 +9,8 @@ import 'package:path/path.dart' as Path;
 import 'package:wahrane/features/hotel/global_rooms_page.dart';
 
 class AddBook extends StatefulWidget {
+  const AddBook({super.key});
+
   @override
   _AddBookState createState() => _AddBookState();
 }
@@ -169,9 +170,9 @@ class _AddBookState extends State<AddBook> {
                   child: TextButton(
                     style: ButtonStyle(
                       foregroundColor:
-                          MaterialStateProperty.all<Color>(Colors.white),
+                          WidgetStateProperty.all<Color>(Colors.white),
                       backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.blue),
+                          WidgetStateProperty.all<Color>(Colors.blue),
                     ),
                     onPressed: () async {
                       DateTime? pickedDate = await showDatePicker(
@@ -209,9 +210,9 @@ class _AddBookState extends State<AddBook> {
                   child: TextButton(
                     style: ButtonStyle(
                       foregroundColor:
-                          MaterialStateProperty.all<Color>(Colors.white),
+                          WidgetStateProperty.all<Color>(Colors.white),
                       backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.blue),
+                          WidgetStateProperty.all<Color>(Colors.blue),
                     ),
                     onPressed: () async {
                       DateTime? pickedDate = await showDatePicker(
@@ -300,7 +301,6 @@ class _AddBookState extends State<AddBook> {
     setState(() {
       _image.add(File(pickedFile!.path));
     });
-    if (pickedFile!.path == null) retrieveLostData();
   }
 
   Future<void> retrieveLostData() async {
@@ -372,13 +372,6 @@ class _AddBookState extends State<AddBook> {
             );
     final numbers = List.generate(100, (index) => index + 1);
     for (final number in numbers) {
-      List<String> listCat = [
-        'Hotel',
-        'Residence',
-        'Agence',
-        'Autres',
-        'Sponsors',
-      ];
       List<int> listnum = [1, 2, 3, 4, 5];
       List<String> listItem = [
         'Adams',
@@ -419,13 +412,9 @@ class _AddBookState extends State<AddBook> {
         'Zafarta',
       ];
 
-      var randomCat = (listCat..shuffle()).first;
       var randomItem = (listItem..shuffle()).first;
       var randomNum = (listnum..shuffle()).first;
 
-      var prix = Random().nextInt(5000);
-      var catego = listCat[0];
-      var items = listItem[0];
       DateTime datenow = DateTime.now();
       int numran = number + randomNum;
 

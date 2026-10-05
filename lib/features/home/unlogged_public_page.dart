@@ -17,7 +17,7 @@ class UnloggedPublicPage extends StatelessWidget {
                   const EdgeInsets.symmetric(horizontal: 80.0, vertical: 20),
               child: Image.asset('assets/images/ic_launcher/1024.png'),
             ),
-            Text(
+            const Text(
               'Welcome To Oran\nHabibi',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 40, fontWeight: FontWeight.w300),
@@ -46,7 +46,7 @@ class UnloggedPublicPage extends StatelessWidget {
                         blendMode: BlendMode.darken,
                         child: Container(
                           height: 50,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             image: DecorationImage(
                               image: CachedNetworkImageProvider(
                                 'https://firebasestorage.googleapis.com/v0/b/adventure-eb4ca.appspot.com/o/wall%2Fwall%20(1).jpg?alt=media&token=c5c01dca-4b32-4b9d-88fe-717e976ac2f5',
@@ -61,9 +61,9 @@ class UnloggedPublicPage extends StatelessWidget {
                         child: TextButton(
                           onPressed: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => AuthPage()));
+                                builder: (context) => const AuthPage()));
                           },
-                          child: Text(
+                          child: const Text(
                             'Marhaba',
                             style: TextStyle(
                                 fontSize: 20,

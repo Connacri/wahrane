@@ -6,6 +6,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 
 class VerifyEmailPage extends StatefulWidget {
+  const VerifyEmailPage({super.key});
+
   //const VerifyEmailPage({Key? key}) : super(key: key);
 
   @override
@@ -73,7 +75,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return isEmailVerified
-        ? Scaffold(body: Center(child: Text('Profil'),),)
+        ? const Scaffold(body: Center(child: Text('Profil'),),)
         : Scaffold(
             // appBar: AppBar(
             //   title: Text('Verify Email'),

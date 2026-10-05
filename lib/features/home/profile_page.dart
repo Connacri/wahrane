@@ -8,8 +8,6 @@ import 'package:flutterflow_paginate_firestore/widgets/bottom_loader.dart';
 import 'package:flutterflow_paginate_firestore/widgets/empty_display.dart';
 import 'package:flutterflow_paginate_firestore/widgets/empty_separator.dart';
 import 'package:flutterflow_paginate_firestore/widgets/initial_loader.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:wahrane/features/auth/google_sign_in_provider.dart';
 import 'package:wahrane/features/home/upload_random_page.dart';
@@ -31,11 +29,11 @@ class Profile extends StatelessWidget {
         builder:
             (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
           if (snapshot.hasError) {
-            return Icon(Icons.error);
+            return const Icon(Icons.error);
           }
 
           if (snapshot.hasData && !snapshot.data!.exists) {
-            return Icon(Icons.account_box);
+            return const Icon(Icons.account_box);
           }
 
           if (snapshot.connectionState == ConnectionState.done) {
@@ -59,20 +57,20 @@ class Profile extends StatelessWidget {
                         child: Text(
                           data['displayName'] ?? 'null',
                           overflow: TextOverflow.fade,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontFamily: 'oswald',
                               color: Colors.white,
                               fontSize: 16,
                               fontWeight: FontWeight.w500),
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 2),
                         child: Text(
                           data['email'],
-                          style: TextStyle(fontSize: 8),
+                          style: const TextStyle(fontSize: 8),
                         ),
                       ),
                     ],
@@ -110,14 +108,14 @@ class Profile extends StatelessWidget {
                           endRadius: 60.0,
                           child: Material(
                             elevation: 8.0,
-                            shape: CircleBorder(),
+                            shape: const CircleBorder(),
                             child: CircleAvatar(
                               backgroundImage: NetworkImage(data['avatar']),
                               radius: 30.0,
                             ),
                           ),
                         ),
-                        Positioned(
+                        const Positioned(
                           right: 27,
                           bottom: 27,
                           child: Icon(
@@ -133,11 +131,11 @@ class Profile extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         userGoo.emailVerified == true
-                            ? Icon(
+                            ? const Icon(
                                 Icons.check_circle,
                                 color: Colors.blue,
                               )
-                            : Icon(
+                            : const Icon(
                                 Icons.not_interested_outlined,
                                 color: Colors.red,
                               ),
@@ -165,7 +163,7 @@ class Profile extends StatelessWidget {
                             borderRadius: BorderRadius.circular(15)),
                         elevation: 4.0,
                         minimumSize: const Size.fromHeight(50)),
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.cancel,
                       color: Colors.red,
                     ),
@@ -208,15 +206,15 @@ class Profile extends StatelessWidget {
                 data['email'] == 'forslog@gmail.com'
                     ? Padding(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 50, vertical: 50),
+                            const EdgeInsets.symmetric(horizontal: 50, vertical: 50),
                         child: IconButton(
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.add_box_rounded,
                             color: Colors.blue,
                           ),
                           onPressed: () async {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => UploadRandom()));
+                                builder: (context) => const UploadRandom()));
                           },
                         ),
                       )
@@ -225,7 +223,7 @@ class Profile extends StatelessWidget {
               SliverList(
                 delegate: SliverChildListDelegate([
                   PaginateFirestore(
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     itemsPerPage: 10000,
                     onEmpty: const EmptyDisplay(),
                     separator: const EmptySeparator(),
@@ -244,7 +242,7 @@ class Profile extends StatelessWidget {
                       var document = list[index];
                       return ListTile(
                         trailing: IconButton(
-                          icon: Icon(Icons.delete),
+                          icon: const Icon(Icons.delete),
                           onPressed: () async {
                             await showConfirmationDialog(
                                 context, list[index].id);
@@ -254,13 +252,13 @@ class Profile extends StatelessWidget {
                           onDoubleTap: () =>
                               Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => SilverdetailItem(
-                              data: data!,
+                              data: data,
                               idDoc: list[index].id,
                             ),
                           )),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(5),
-                            child: Container(
+                            child: SizedBox(
                               height: 50,
                               width: 50,
                               child: CachedNetworkImage(
@@ -270,7 +268,7 @@ class Profile extends StatelessWidget {
                             ),
                           ),
                         ),
-                        title: new Text(
+                        title: Text(
                           document["item"],
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -342,7 +340,7 @@ class Profile extends StatelessWidget {
             ]);
           }
 
-          return Text("loading");
+          return const Text("loading");
         },
       ),
     );
@@ -354,15 +352,15 @@ Future<bool?> showConfirmationDialog(BuildContext context, String documentID) {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text('Confirmation'),
-        content: Text('Etes Vous Sur De Proceder à La Supression?'),
+        title: const Text('Confirmation'),
+        content: const Text('Etes Vous Sur De Proceder à La Supression?'),
         actions: <Widget>[
           ElevatedButton(
-            child: Text('No'),
+            child: const Text('No'),
             onPressed: () => Navigator.of(context).pop(false),
           ),
           ElevatedButton(
-            child: Text('Yes'),
+            child: const Text('Yes'),
             onPressed: () async {
               await FirebaseFirestore.instance
                   .collection('Products')

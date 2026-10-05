@@ -7,7 +7,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
-import 'package:wahrane/main.dart';
 
 import 'package:wahrane/features/auth/google_sign_in_provider.dart';
 
@@ -86,7 +85,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                             children: [
                               Stack(
                                 children: [
-                                  Container(
+                                  const SizedBox(
                                     height: 300,
                                     width: 200,
                                   ),
@@ -119,7 +118,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                             BorderRadius.circular(15)),
                                     elevation: 4.0,
                                     minimumSize: const Size.fromHeight(50)),
-                                icon: Icon(
+                                icon: const Icon(
                                   FontAwesomeIcons.google,
                                   color: Colors.red,
                                 ),
@@ -130,7 +129,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 ),
                                 onPressed: () async {
                                   final provider =
-                                      await Provider.of<GoogleSignInProvider>(
+                                      Provider.of<GoogleSignInProvider>(
                                           context,
                                           listen: false);
 
@@ -172,8 +171,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 height: 16,
                               ),
                               RichText(
-                                  text: TextSpan(
-                                      style: const TextStyle(
+                                  text: const TextSpan(
+                                      style: TextStyle(
                                         fontFamily: 'Oswald',
                                         color: Colors.black54,
                                       ),
@@ -183,7 +182,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                         // recognizer: TapGestureRecognizer()
                                         //   ..onTap = widget.onClickedSignUp,
                                         text: 'S\'Enregistrer',
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                             decoration:
                                                 TextDecoration.underline,
                                             fontFamily: 'Oswald',

@@ -831,20 +831,19 @@ class page_detail extends StatefulWidget {
 
   final List? _imagesList;
   final User? user;
-  String locationventeSelected;
-  String typeSelected;
-  String itemController;
-  String priceController;
-  String telContactController;
-  String descriptionController;
-  int phoneController;
+  final String locationventeSelected;
+  final String typeSelected;
+  final String itemController;
+  final String priceController;
+  final String telContactController;
+  final String descriptionController;
+  final int phoneController;
 
   @override
   State<page_detail> createState() => _page_detailState();
 }
 
 class _page_detailState extends State<page_detail> {
-  String _typeSelected = '';
   bool uploading = false; //**************************************************
   double val = 0;
   late firebase_storage.Reference ref;
@@ -1034,11 +1033,11 @@ class _page_detailState extends State<page_detail> {
                       ? ElevatedButton(
                           style: ButtonStyle(
                             backgroundColor:
-                                MaterialStateProperty.all(Colors.green),
+                                WidgetStateProperty.all(Colors.green),
                             foregroundColor:
-                                MaterialStateProperty.all(Colors.white),
+                                WidgetStateProperty.all(Colors.white),
                             minimumSize:
-                                MaterialStateProperty.all(const Size(200, 40)),
+                                WidgetStateProperty.all(const Size(200, 40)),
                           ),
                           onPressed: () async {
                             // setState(() {
@@ -1053,12 +1052,12 @@ class _page_detailState extends State<page_detail> {
 
                             uploadFile().whenComplete(() => Navigator.push(
                                     context, MaterialPageRoute(builder: (_) {
-                                  return AuthGate();
+                                  return const AuthGate();
                                 })));
                           },
                           child: uploading == false
                               ? const Text('Publier')
-                              : Center(
+                              : const Center(
                                   child: CircularProgressIndicator(),
                                   /*child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -1076,14 +1075,14 @@ class _page_detailState extends State<page_detail> {
                       : ElevatedButton(
                           style: ButtonStyle(
                             backgroundColor:
-                                MaterialStateProperty.all(Colors.transparent),
+                                WidgetStateProperty.all(Colors.transparent),
                             foregroundColor:
-                                MaterialStateProperty.all(Colors.white),
+                                WidgetStateProperty.all(Colors.white),
                             minimumSize:
-                                MaterialStateProperty.all(const Size(40, 40)),
+                                WidgetStateProperty.all(const Size(40, 40)),
                           ),
                           onPressed: () async {},
-                          child: Center(
+                          child: const Center(
                             child: CircularProgressIndicator(),
                           ),
                         ),
@@ -1099,29 +1098,20 @@ class _page_detailState extends State<page_detail> {
     String userID = widget.user!.uid;
     String item = widget.itemController;
     int price = int.parse(widget.priceController);
-    String telContact = widget.telContactController;
     String description = widget.descriptionController;
     int likes = int.parse(widget.priceController);
-    String? userEmail = widget.user?.email;
-    String? userAvatar = widget.user?.photoURL;
-    String? userDisplayName = widget.user!.displayName;
     List usersLike = ['sans'];
-    int userAge = 20;
-    int userItemsNbr = 0;
     int phone = widget.phoneController; //0687451524;
-    String userSex = 'mal';
-    bool userState = true;
     //Position? position = widget.position;
     // GeoPoint? GeoPosition =
     //GeoPoint(widget.position!.latitude, widget.position!.longitude);
 
-    var now = DateTime.now().millisecondsSinceEpoch;
     List<String> imageFiles = []; //****************
 
-    var _image = widget._imagesList!;
-    for (var img in _image) {
+    var image = widget._imagesList!;
+    for (var img in image) {
       setState(() {
-        val = i / _image.length;
+        val = i / image.length;
       });
       ref = firebase_storage.FirebaseStorage.instance
           .ref()
@@ -1184,12 +1174,12 @@ class TicketData extends StatelessWidget {
         super(key: key);
 
   final User? user;
-  String locationventeSelected;
-  String typeSelected;
-  String itemController;
-  String priceController;
-  String telContactController;
-  String descriptionController;
+  final String locationventeSelected;
+  final String typeSelected;
+  final String itemController;
+  final String priceController;
+  final String telContactController;
+  final String descriptionController;
 
   @override
   Widget build(BuildContext context) {
@@ -1213,8 +1203,8 @@ class TicketData extends StatelessWidget {
                 ),
               ),
             ),
-            Row(
-              children: const [
+            const Row(
+              children: [
                 Text(
                   'LHR',
                   style: TextStyle(
@@ -1394,19 +1384,18 @@ class page_detail_insta extends StatefulWidget {
 
   final List? _imagesList;
   final User? user;
-  String locationventeSelected;
-  String typeSelected;
-  String itemController;
-  String priceController;
-  String telContactController;
-  String descriptionController;
+  final String locationventeSelected;
+  final String typeSelected;
+  final String itemController;
+  final String priceController;
+  final String telContactController;
+  final String descriptionController;
 
   @override
   State<page_detail_insta> createState() => _page_detail_instaState();
 }
 
 class _page_detail_instaState extends State<page_detail_insta> {
-  String _typeSelected = '';
   bool uploading = false; //**************************************************
   double val = 0;
   late firebase_storage.Reference ref;
@@ -1596,11 +1585,11 @@ class _page_detail_instaState extends State<page_detail_insta> {
                       ? ElevatedButton(
                           style: ButtonStyle(
                             backgroundColor:
-                                MaterialStateProperty.all(Colors.green),
+                                WidgetStateProperty.all(Colors.green),
                             foregroundColor:
-                                MaterialStateProperty.all(Colors.white),
+                                WidgetStateProperty.all(Colors.white),
                             minimumSize:
-                                MaterialStateProperty.all(const Size(200, 40)),
+                                WidgetStateProperty.all(const Size(200, 40)),
                           ),
                           onPressed: () async {
                             // setState(() {
@@ -1615,12 +1604,12 @@ class _page_detail_instaState extends State<page_detail_insta> {
 
                             uploadFile().whenComplete(() => Navigator.push(
                                     context, MaterialPageRoute(builder: (_) {
-                                  return AuthGate();
+                                  return const AuthGate();
                                 })));
                           },
                           child: uploading == false
                               ? const Text('Publier')
-                              : Center(
+                              : const Center(
                                   child: CircularProgressIndicator(),
                                   /*child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -1638,14 +1627,14 @@ class _page_detail_instaState extends State<page_detail_insta> {
                       : ElevatedButton(
                           style: ButtonStyle(
                             backgroundColor:
-                                MaterialStateProperty.all(Colors.transparent),
+                                WidgetStateProperty.all(Colors.transparent),
                             foregroundColor:
-                                MaterialStateProperty.all(Colors.white),
+                                WidgetStateProperty.all(Colors.white),
                             minimumSize:
-                                MaterialStateProperty.all(const Size(40, 40)),
+                                WidgetStateProperty.all(const Size(40, 40)),
                           ),
                           onPressed: () async {},
-                          child: Center(
+                          child: const Center(
                             child: CircularProgressIndicator(),
                           ),
                         ),
@@ -1661,29 +1650,19 @@ class _page_detail_instaState extends State<page_detail_insta> {
     String userID = widget.user!.uid;
     String item = widget.itemController;
     int price = int.parse(widget.priceController);
-    String telContact = widget.telContactController;
     String description = widget.descriptionController;
     int likes = int.parse(widget.priceController);
-    String? userEmail = widget.user?.email;
-    String? userAvatar = widget.user?.photoURL;
-    String? userDisplayName = widget.user!.displayName;
     List usersLike = ['sans'];
-    int userAge = 20;
-    int userItemsNbr = 0;
-    int userPhone = 0687451524;
-    String userSex = 'mal';
-    bool userState = true;
     //Position? position = widget.position;
     // GeoPoint? GeoPosition =
     //GeoPoint(widget.position!.latitude, widget.position!.longitude);
 
-    var now = DateTime.now().millisecondsSinceEpoch;
     List<String> imageFiles = []; //****************
 
-    var _image = widget._imagesList!;
-    for (var img in _image) {
+    var image = widget._imagesList!;
+    for (var img in image) {
       setState(() {
-        val = i / _image.length;
+        val = i / image.length;
       });
       ref = firebase_storage.FirebaseStorage.instance
           .ref()

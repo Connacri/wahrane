@@ -14,12 +14,6 @@ class GlobalRooms extends StatefulWidget {
 
 class _global_roomsState extends State<GlobalRooms> {
   late DateTime _selectedDate;
-  late DateTime _selectedDate1;
-  late DateTime _selectedDate2;
-  late DateTime _selectedDate3;
-  late DateTime _selectedDate4;
-  late DateTime _selectedDate5;
-  late DateTime _selectedDate6;
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
@@ -31,12 +25,6 @@ class _global_roomsState extends State<GlobalRooms> {
 
   void _resetSelectedDate() {
     _selectedDate = DateTime.now();
-    _selectedDate1 = _selectedDate.add(const Duration(days: 1));
-    _selectedDate2 = _selectedDate.add(const Duration(days: 2));
-    _selectedDate3 = _selectedDate.add(const Duration(days: 3));
-    _selectedDate4 = _selectedDate.add(const Duration(days: 4));
-    _selectedDate5 = _selectedDate.add(const Duration(days: 5));
-    _selectedDate6 = _selectedDate.add(const Duration(days: 6));
   }
 
   @override
@@ -49,7 +37,7 @@ class _global_roomsState extends State<GlobalRooms> {
           IconButton(
             onPressed: () {
               Navigator.push(context, MaterialPageRoute(builder: (_) {
-                return AddBook();
+                return const AddBook();
               }));
             },
             icon: const Icon(Icons.add),
@@ -92,13 +80,7 @@ class _global_roomsState extends State<GlobalRooms> {
               lastDate: DateTime.now().add(const Duration(days: 365)),
               onDateSelected: (date) {
                 setState(() {
-                  _selectedDate = date!;
-                  _selectedDate1 = date.add(const Duration(days: 1));
-                  _selectedDate2 = date.add(const Duration(days: 2));
-                  _selectedDate3 = date.add(const Duration(days: 3));
-                  _selectedDate4 = date.add(const Duration(days: 4));
-                  _selectedDate5 = date.add(const Duration(days: 5));
-                  _selectedDate6 = date.add(const Duration(days: 6));
+                  _selectedDate = date;
                 });
               },
               //onDateSelected: (date) => print(date),
@@ -120,7 +102,7 @@ class _global_roomsState extends State<GlobalRooms> {
                 child: TextButton(
                   style: ButtonStyle(
                       backgroundColor:
-                          MaterialStateProperty.all(Colors.teal[200])),
+                          WidgetStateProperty.all(Colors.teal[200])),
                   child: const Text('Aujourd\'hui',
                       style: TextStyle(color: Color(0xFF333A47))),
                   onPressed: () => setState(() => _resetSelectedDate()),
@@ -133,11 +115,11 @@ class _global_roomsState extends State<GlobalRooms> {
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 var data = snapshot.data;
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Column(
+                  return const Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const CircularProgressIndicator(),
+                      CircularProgressIndicator(),
                     ],
                   );
                 } else if (snapshot.connectionState == ConnectionState.active ||
@@ -229,7 +211,6 @@ class _global_roomsState extends State<GlobalRooms> {
                     return const Text('Empty data');
                   }
                 } else {
-                  final List<DocumentSnapshot> documents = snapshot.data.docs;
                   return ListView(
                     scrollDirection: Axis.horizontal,
                     physics: const NeverScrollableScrollPhysics(),

@@ -7,14 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:path/path.dart' as Path;
 
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:wahrane/features/home/add_post_detail_page.dart';
 
 class StepperWidget extends StatefulWidget {
   StepperWidget({Key? key, required this.ccollection}) : super(key: key);
-  String ccollection;
+  final String ccollection;
 
   @override
   State<StepperWidget> createState() => _stepper_widgetState();
@@ -28,11 +27,8 @@ class _stepper_widgetState extends State<StepperWidget> {
   final multiPicker = ImagePicker();
   final TextEditingController _itemController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
-  final TextEditingController _codeController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
-  final TextEditingController _likesController = TextEditingController();
   final TextEditingController _telContactController = TextEditingController();
-  final TextEditingController _generaleController = TextEditingController();
   final user = FirebaseAuth.instance.currentUser;
   String _typeSelected = '';
   String _locationventeSelected = '';
@@ -55,7 +51,6 @@ class _stepper_widgetState extends State<StepperWidget> {
 
   late bool isSelected = false;
   late bool isSwitched = false;
-  @override
   Widget _buildLocationVente(String locavente) {
     return ElevatedButton.icon(
       onPressed: () {
@@ -69,10 +64,10 @@ class _stepper_widgetState extends State<StepperWidget> {
       style: ButtonStyle(
           animationDuration: const Duration(milliseconds: 500),
           backgroundColor: _locationventeSelected == locavente
-              ? MaterialStateProperty.all(Colors.green)
+              ? WidgetStateProperty.all(Colors.green)
               : null, //MaterialStateProperty.all(Colors.greenAccent),
           foregroundColor: _locationventeSelected == locavente
-              ? MaterialStateProperty.all(Colors.white)
+              ? WidgetStateProperty.all(Colors.white)
               : null),
       icon: _locationventeSelected == locavente
           ? const Icon(Icons.check)
@@ -84,34 +79,6 @@ class _stepper_widgetState extends State<StepperWidget> {
           fontFamily: 'oswald',
         ),
       ),
-    );
-  }
-
-  @override
-  Widget _buildType(String catego) {
-    return InkWell(
-      child: Container(
-        //height: 45,
-        width: MediaQuery.of(context).size.width * 0.25,
-        decoration: BoxDecoration(
-          color: _typeSelected == catego
-              ? Colors.green
-              : Theme.of(context).colorScheme.secondary,
-          borderRadius: BorderRadius.circular(5),
-        ),
-        child: Center(
-          child: Text(
-            catego,
-            style: const TextStyle(
-                fontSize: 18, color: Colors.white, fontFamily: 'oswald'),
-          ),
-        ),
-      ),
-      onTap: () {
-        setState(() {
-          _typeSelected = catego;
-        });
-      },
     );
   }
 
@@ -312,11 +279,11 @@ class _stepper_widgetState extends State<StepperWidget> {
                                 child: Text(
                                   'Ajouter Moins de ${4 - _imagesList.length} Photos',
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontFamily: 'oswald', fontSize: 14),
                                 ),
                               ),
-                              _imagesList.length == 0
+                              _imagesList.isEmpty
                                   ? Container()
                                   : Center(
                                       child: Row(
@@ -330,13 +297,13 @@ class _stepper_widgetState extends State<StepperWidget> {
                                               _getFromCamera();
                                             },
                                             icon:
-                                                Icon(Icons.camera_alt_rounded),
+                                                const Icon(Icons.camera_alt_rounded),
                                           ),
                                           IconButton(
                                             onPressed: () {
                                               getMultiImagesGallery();
                                             },
-                                            icon: Icon(Icons.image),
+                                            icon: const Icon(Icons.image),
                                           ),
                                         ],
                                       ),
@@ -371,7 +338,7 @@ class _stepper_widgetState extends State<StepperWidget> {
                             child: Container(
                             decoration: BoxDecoration(
                                 border: Border.all(
-                              color: Colors.grey.withOpacity(0.5),
+                              color: Colors.grey.withValues(alpha: 0.5),
                             )),
                             height: 300,
                             width: double.infinity,
@@ -388,15 +355,15 @@ class _stepper_widgetState extends State<StepperWidget> {
                                       onPressed: () {
                                         _getFromCamera();
                                       },
-                                      icon: Icon(Icons.camera_alt_rounded),
-                                      color: Colors.grey.withOpacity(0.5),
+                                      icon: const Icon(Icons.camera_alt_rounded),
+                                      color: Colors.grey.withValues(alpha: 0.5),
                                     ),
                                     IconButton(
                                       onPressed: () {
                                         getMultiImagesGallery();
                                       },
-                                      icon: Icon(Icons.image),
-                                      color: Colors.grey.withOpacity(0.5),
+                                      icon: const Icon(Icons.image),
+                                      color: Colors.grey.withValues(alpha: 0.5),
                                     ),
                                   ],
                                 ),
@@ -415,7 +382,7 @@ class _stepper_widgetState extends State<StepperWidget> {
                                   decoration: BoxDecoration(
                                       color: Colors.white,
                                       border: Border.all(
-                                          color: Colors.grey.withOpacity(0.5))),
+                                          color: Colors.grey.withValues(alpha: 0.5))),
                                   child:
                                       // _imagesList.isEmpty
                                       //     ? InkWell(
@@ -523,7 +490,7 @@ class _stepper_widgetState extends State<StepperWidget> {
                                     ? 'Entrer min 6 characteres.'
                                     : null,
                           ), // titre du produit
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           TextFormField(
@@ -547,7 +514,7 @@ class _stepper_widgetState extends State<StepperWidget> {
                               return null;
                             },
                           ), // prix
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           IntlPhoneField(
@@ -567,7 +534,7 @@ class _stepper_widgetState extends State<StepperWidget> {
                                 return 'Entrer Ton Numero de Tel';
                               } else {
                                 // validate against your regex pattern
-                                RegExp regex = new RegExp(r'^[678][0-9]{8}$');
+                                RegExp regex = RegExp(r'^[678][0-9]{8}$');
                                 if (!regex.hasMatch(value.toString())) {
                                   return 'Entrer Que Ooreddo ou Djezzy ou Mobilis';
                                 }
@@ -586,7 +553,7 @@ class _stepper_widgetState extends State<StepperWidget> {
                             flagsButtonMargin: EdgeInsets.zero,
                             flagsButtonPadding: const EdgeInsets.only(left: 15),
                           ), // mobile
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           TextFormField(
@@ -620,7 +587,7 @@ class _stepper_widgetState extends State<StepperWidget> {
                     'Localisation',
                     style: TextStyle(fontFamily: 'oswald', fontSize: 14),
                   ),
-                  content: Center(child: Text('Map'))),
+                  content: const Center(child: Text('Map'))),
             ],
           ),
         ),
@@ -629,7 +596,7 @@ class _stepper_widgetState extends State<StepperWidget> {
   }
 
   Future getMultiImagesGallery() async {
-    final List<XFile>? selectedImages = (await multiPicker.pickMultiImage(
+    final List<XFile> selectedImages = (await multiPicker.pickMultiImage(
       maxHeight: 1080,
       maxWidth: 1920,
       imageQuality: 40,
@@ -637,7 +604,7 @@ class _stepper_widgetState extends State<StepperWidget> {
 
     setState(() {
       if (_imagesList.length <= 4) {
-        if (selectedImages!.length <= (4 - _imagesList.length)) {
+        if (selectedImages.length <= (4 - _imagesList.length)) {
           // _imagesList.addAll(selectedImages);
           _imagesList.addAll(
               selectedImages.map<File>((XFile) => File(XFile.path)).toList());
@@ -678,10 +645,6 @@ class _stepper_widgetState extends State<StepperWidget> {
       imageQuality: 40,
     );
 
-    if (pickedFile != null) {
-      File imageFile = File(pickedFile.path);
-    }
-
     setState(() {
       List<XFile> selectedImages = [];
       selectedImages.add(pickedFile!);
@@ -720,7 +683,7 @@ class _stepper_widgetState extends State<StepperWidget> {
   }
 
   Future getMultiImagesCamera() async {
-    final List<XFile>? selectedImages = await multiPicker.pickMultiImage(
+    final List<XFile> selectedImages = await multiPicker.pickMultiImage(
       maxHeight: 1080,
       maxWidth: 1920,
       imageQuality: 40,
@@ -728,7 +691,7 @@ class _stepper_widgetState extends State<StepperWidget> {
 
     setState(() {
       if (_imagesList.length <= 4) {
-        if (selectedImages!.length <= (4 - _imagesList.length)) {
+        if (selectedImages.length <= (4 - _imagesList.length)) {
           // _imagesList.addAll(selectedImages);
           _imagesList.addAll(
               selectedImages.map<File>((XFile) => File(XFile.path)).toList());

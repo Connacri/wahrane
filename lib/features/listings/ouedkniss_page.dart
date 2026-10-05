@@ -41,7 +41,7 @@ class _ouedknissState extends State<Ouedkniss> {
     print('titles.length');
     print(titlesc.length);
     setState(() {
-      this.title = titlesc;
+      title = titlesc;
     });
   }
 
@@ -53,10 +53,10 @@ class _ouedknissState extends State<Ouedkniss> {
         centerTitle: true,
       ),
       body: ListView.separated(
-        padding: EdgeInsets.all(12),
+        padding: const EdgeInsets.all(12),
         itemCount: title.length,
         separatorBuilder: (context, index) {
-          return SizedBox(
+          return const SizedBox(
             height: 12,
           );
         },

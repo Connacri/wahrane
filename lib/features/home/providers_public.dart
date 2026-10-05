@@ -13,14 +13,9 @@ import 'package:flutterflow_paginate_firestore/paginate_firestore.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
-import 'package:wahrane/features/hotel/hotel_rooms.dart';
 import 'package:wahrane/features/home/profile_others_page.dart';
 import 'package:wahrane/features/home/insta_page.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import 'package:wahrane/features/hotel/global_rooms_page.dart';
-import 'package:wahrane/features/hotel/hotel_charts_page.dart';
-import 'package:wahrane/features/listings/ouedkniss_page.dart';
-import 'package:wahrane/features/home/public_logged_page.dart';
 import 'package:wahrane/features/auth/auth_page.dart';
 import 'package:wahrane/features/home/upload_random_page.dart';
 import 'package:wahrane/features/home/profile_page.dart';
@@ -126,7 +121,7 @@ class Collection2Data {
 
 class MyApp extends StatelessWidget {
   MyApp({Key? key, required this.userDoc}) : super(key: key);
-  var userDoc;
+  final dynamic userDoc;
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -282,7 +277,7 @@ class MyApp extends StatelessWidget {
 // }
 
 class BottomNavigation extends StatefulWidget {
-  BottomNavigation({Key? key, required this.userDoc}) : super(key: key);
+  const BottomNavigation({Key? key, required this.userDoc}) : super(key: key);
   final userDoc;
 
   @override
@@ -305,7 +300,6 @@ class _bottomNavigationState extends State<BottomNavigation> {
   int currentPageIndex = 0;
   @override
   Widget build(BuildContext context) {
-    final uusers = Provider.of<Collection2Data>(context);
     return Scaffold(
       // floatingActionButton:
       //      FloatingActionButton(
@@ -330,11 +324,11 @@ class _bottomNavigationState extends State<BottomNavigation> {
         },
         selectedIndex: currentPageIndex,
         destinations: <Widget>[
-          NavigationDestination(
+          const NavigationDestination(
             icon: Icon(FontAwesomeIcons.home),
             label: 'Home',
           ),
-          NavigationDestination(
+          const NavigationDestination(
             icon: Icon(FontAwesomeIcons.list),
             label: 'Lives',
           ),
@@ -365,7 +359,7 @@ class _bottomNavigationState extends State<BottomNavigation> {
         ),
         //HotelAvailability(),
         //HotelAvailabilityScreen(),
-        Profile(),
+        const Profile(),
       ][currentPageIndex],
     );
   }
@@ -445,7 +439,7 @@ class HomeList extends StatelessWidget {
                                   blendMode: BlendMode.darken,
                                   child: Container(
                                     height: 50,
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                       image: DecorationImage(
                                         image: CachedNetworkImageProvider(
                                           'https://firebasestorage.googleapis.com/v0/b/adventure-eb4ca.appspot.com/o/wall%2Fwall%20(4).jpg?alt=media&token=c5c01dca-4b32-4b9d-88fe-717e976ac2f5',
@@ -462,9 +456,9 @@ class HomeList extends StatelessWidget {
                                       Navigator.of(context).push(
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  AuthPage()));
+                                                  const AuthPage()));
                                     },
-                                    child: Text(
+                                    child: const Text(
                                       'Google Sign in',
                                       style: TextStyle(
                                           fontSize: 20,
@@ -672,7 +666,7 @@ class HomeList extends StatelessWidget {
                 //     },
                 //   ),
                 // ), // Caroussel
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: 200,
                   child: CarouselSlider.builder(
@@ -734,7 +728,7 @@ class HomeList extends StatelessWidget {
                                       .toString()
                                       .toUpperCase(),
                                   overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.white70,
                                       fontSize: 28,
                                       fontWeight: FontWeight.bold),
@@ -752,8 +746,8 @@ class HomeList extends StatelessWidget {
                       enableInfiniteScroll: true,
                       reverse: false,
                       autoPlay: true,
-                      autoPlayInterval: Duration(seconds: 5),
-                      autoPlayAnimationDuration: Duration(milliseconds: 800),
+                      autoPlayInterval: const Duration(seconds: 5),
+                      autoPlayAnimationDuration: const Duration(milliseconds: 800),
                       autoPlayCurve: Curves.easeInToLinear, //.fastOutSlowIn,
                       enlargeCenterPage: true,
                       enlargeFactor: 0, // 0.3,
@@ -768,7 +762,7 @@ class HomeList extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         'Wallet',
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -776,7 +770,7 @@ class HomeList extends StatelessWidget {
                             fontSize: 20,
                             fontWeight: FontWeight.w500),
                       ),
-                      Text(
+                      const Text(
                         'Coins : ',
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -788,7 +782,7 @@ class HomeList extends StatelessWidget {
                         NumberFormat.currency(symbol: '', decimalDigits: 2)
                             .format(userDoc['coins']),
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.black54,
                             fontSize: 20,
                             fontWeight: FontWeight.w400),
@@ -820,7 +814,7 @@ class HomeList extends StatelessWidget {
                           blendMode: BlendMode.darken,
                           child: Container(
                             height: 50,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               image: DecorationImage(
                                 image: CachedNetworkImageProvider(
                                   'https://firebasestorage.googleapis.com/v0/b/adventure-eb4ca.appspot.com/o/wall%2Fwall%20(1).jpg?alt=media&token=c5c01dca-4b32-4b9d-88fe-717e976ac2f5',
@@ -831,7 +825,7 @@ class HomeList extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Center(
+                        const Center(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -1195,8 +1189,8 @@ class HomeList extends StatelessWidget {
                 //     },
                 //   ),
                 // ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(18, 18, 18, 0),
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(18, 18, 18, 0),
                   child: Row(
                     children: [
                       Text(
@@ -1221,12 +1215,12 @@ class HomeList extends StatelessWidget {
                   ),
                 ),
                 Container(
-                    padding: EdgeInsets.only(left: 6),
+                    padding: const EdgeInsets.only(left: 6),
                     width: MediaQuery.of(context).size.width,
                     height: 200,
                     child: ListView.builder(
                       shrinkWrap: true,
-                      physics: BouncingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
                       itemCount: premiumUsers.length,
                       itemBuilder: (BuildContext context, int index) => Card(
@@ -1268,7 +1262,7 @@ class HomeList extends StatelessWidget {
                                     ShaderMask(
                                         blendMode: BlendMode.srcIn,
                                         shaderCallback: (Rect bounds) =>
-                                            LinearGradient(
+                                            const LinearGradient(
                                               colors: <Color>[
                                                 Colors.red,
                                                 Colors.yellowAccent,
@@ -1282,12 +1276,12 @@ class HomeList extends StatelessWidget {
                                           premiumUsers[index]['levelUser']
                                               .toString()
                                               .toUpperCase(),
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold),
                                         )),
-                                    Container(
+                                    SizedBox(
                                       width: 70,
                                       child: FittedBox(
                                         child: RatingBar.builder(
@@ -1301,9 +1295,9 @@ class HomeList extends StatelessWidget {
                                           direction: Axis.horizontal,
                                           allowHalfRating: true,
                                           itemCount: 5,
-                                          itemPadding: EdgeInsets.symmetric(
+                                          itemPadding: const EdgeInsets.symmetric(
                                               horizontal: 4.0),
-                                          itemBuilder: (context, _) => Icon(
+                                          itemBuilder: (context, _) => const Icon(
                                             Icons.star,
                                             color: Colors.amber,
                                           ),
@@ -1313,7 +1307,7 @@ class HomeList extends StatelessWidget {
                                         ),
                                       ),
                                     ),
-                                    Container(
+                                    SizedBox(
                                       width: 70,
                                       height: 25,
                                       child: FittedBox(
@@ -1321,7 +1315,7 @@ class HomeList extends StatelessWidget {
                                           premiumUsers[index]['displayName']
                                               .toString()
                                               .toUpperCase(),
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               color: Colors.white70,
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold),
@@ -1330,8 +1324,8 @@ class HomeList extends StatelessWidget {
                                     ),
                                     Padding(
                                       padding:
-                                          EdgeInsets.fromLTRB(0, 10, 0, 20),
-                                      child: Container(
+                                          const EdgeInsets.fromLTRB(0, 10, 0, 20),
+                                      child: SizedBox(
                                         width: 50.0,
                                         height: 50.0,
                                         child: CachedNetworkImage(
@@ -1351,7 +1345,7 @@ class HomeList extends StatelessWidget {
                                             ),
                                           ),
                                           errorWidget: (context, url, error) =>
-                                              Icon(Icons.no_accounts_rounded),
+                                              const Icon(Icons.no_accounts_rounded),
                                         ),
                                       ),
                                     ),
@@ -1501,8 +1495,8 @@ class HomeList extends StatelessWidget {
                       //   ),
                       // ),
                     )), //Users Premium
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(18, 18, 18, 0),
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(18, 18, 18, 0),
                   child: Row(
                     children: [
                       Text(
@@ -1527,11 +1521,11 @@ class HomeList extends StatelessWidget {
                   ),
                 ), // FlashSell
                 Container(
-                  padding: EdgeInsets.only(left: 6),
+                  padding: const EdgeInsets.only(left: 6),
                   height: 220,
                   child: ListView.builder(
                     shrinkWrap: true,
-                    physics: BouncingScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
                     itemCount: itm
                         .length, //1, //(iitem.documents.length / 3).truncate(),
@@ -1574,7 +1568,7 @@ class HomeList extends StatelessWidget {
                                     blendMode: BlendMode.darken,
                                     child: CachedNetworkImage(
                                       alignment: Alignment.topCenter,
-                                      fadeInDuration: Duration(seconds: 2),
+                                      fadeInDuration: const Duration(seconds: 2),
                                       fit: BoxFit.cover,
                                       width: 100,
                                       height: 130,
@@ -1603,15 +1597,15 @@ class HomeList extends StatelessWidget {
                                             // iitem.documents[index]['likes']
                                           ),
                                           textAlign: TextAlign.end,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.white70,
                                             fontSize: 10,
                                           ),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 3,
                                         ),
-                                        Icon(
+                                        const Icon(
                                           FontAwesomeIcons.eye,
                                           size: 9,
                                           color: Colors.white70,
@@ -1621,7 +1615,7 @@ class HomeList extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              Container(
+                              SizedBox(
                                 width: 100,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -1630,11 +1624,11 @@ class HomeList extends StatelessWidget {
                                     itm[index]['item'],
                                     // iitem.documents[index]['item'],
                                     overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(fontSize: 12),
+                                    style: const TextStyle(fontSize: 12),
                                   ),
                                 ),
                               ),
-                              Container(
+                              SizedBox(
                                 width: 100,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -1650,7 +1644,7 @@ class HomeList extends StatelessWidget {
                                                   //iitem.documents[index]['price']
                                                   ),
                                           overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(fontSize: 14),
+                                          style: const TextStyle(fontSize: 14),
                                         )
                                       : Text(
                                           NumberFormat.currency(
@@ -1660,11 +1654,11 @@ class HomeList extends StatelessWidget {
                                                   //iitem.documents[index]['price']
                                                   ),
                                           overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(fontSize: 14),
+                                          style: const TextStyle(fontSize: 14),
                                         ),
                                 ),
                               ),
-                              Container(
+                              SizedBox(
                                 width: 100,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -1673,11 +1667,11 @@ class HomeList extends StatelessWidget {
                                     '${itm[index]['category']}-${itm[index]['levelItem']}',
                                     //   '${iitem.documents[index]['category']}  ${iitem.documents[index]['levelItem']}',
                                     overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(fontSize: 12),
+                                    style: const TextStyle(fontSize: 12),
                                   ),
                                 ),
                               ),
-                              Container(
+                              SizedBox(
                                 width: 100,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -1688,7 +1682,7 @@ class HomeList extends StatelessWidget {
                                         .toDate()
                                         .toString(),
                                     overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(fontSize: 9),
+                                    style: const TextStyle(fontSize: 9),
                                   ),
                                 ),
                               ),
@@ -1706,7 +1700,7 @@ class HomeList extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10)),
                     clipBehavior: Clip.antiAliasWithSaveLayer,
                     elevation: 5,
-                    child: Container(
+                    child: SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: Stack(
                         children: [
@@ -1722,7 +1716,7 @@ class HomeList extends StatelessWidget {
                             blendMode: BlendMode.darken,
                             child: Container(
                               height: MediaQuery.of(context).size.height * 0.38,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 image: DecorationImage(
                                   image: CachedNetworkImageProvider(
                                     'https://firebasestorage.googleapis.com/v0/b/adventure-eb4ca.appspot.com/o/wall%2Fwall%20(2).jpg?alt=media&token=c5c01dca-4b32-4b9d-88fe-717e976ac2f5',
@@ -1737,7 +1731,7 @@ class HomeList extends StatelessWidget {
                             filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
                             child: Container(
                               alignment: Alignment.center,
-                              color: Colors.grey.withOpacity(0.1),
+                              color: Colors.grey.withValues(alpha: 0.1),
                             ),
                           ),
                           Column(
@@ -1812,8 +1806,8 @@ class HomeList extends StatelessWidget {
                               //     ),
                               //   ),
                               // ),
-                              Padding(
-                                padding: const EdgeInsets.all(15.0),
+                              const Padding(
+                                padding: EdgeInsets.all(15.0),
                                 child: Center(
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -1861,7 +1855,7 @@ class HomeList extends StatelessWidget {
                                 ),
                               ),
                               Container(
-                                padding: EdgeInsets.only(left: 6),
+                                padding: const EdgeInsets.only(left: 6),
                                 height: 200,
                                 // child: ListView.builder(
                                 //   shrinkWrap: true,
@@ -1907,7 +1901,7 @@ class HomeList extends StatelessWidget {
                                 // ),
                                 child: ListView.builder(
                                   shrinkWrap: true,
-                                  physics: BouncingScrollPhysics(),
+                                  physics: const BouncingScrollPhysics(),
                                   scrollDirection: Axis.horizontal,
                                   itemCount: itmm.length,
                                   itemBuilder:
@@ -1960,7 +1954,7 @@ class HomeList extends StatelessWidget {
                                                     alignment:
                                                         Alignment.topCenter,
                                                     fadeInDuration:
-                                                        Duration(seconds: 2),
+                                                        const Duration(seconds: 2),
                                                     fit: BoxFit.cover,
                                                     width: 100,
                                                     height: 130,
@@ -2034,7 +2028,7 @@ class HomeList extends StatelessWidget {
                                                                   ),
                                                           overflow: TextOverflow
                                                               .ellipsis,
-                                                          style: TextStyle(
+                                                          style: const TextStyle(
                                                               fontSize: 14,
                                                               color: Colors
                                                                   .greenAccent),
@@ -2052,7 +2046,7 @@ class HomeList extends StatelessWidget {
                                                                   ),
                                                           overflow: TextOverflow
                                                               .ellipsis,
-                                                          style: TextStyle(
+                                                          style: const TextStyle(
                                                               fontSize: 14,
                                                               color: Colors
                                                                   .greenAccent),
@@ -2060,7 +2054,7 @@ class HomeList extends StatelessWidget {
                                                 ),
                                               ],
                                             ),
-                                            Container(
+                                            SizedBox(
                                               width: 100,
                                               child: Padding(
                                                 padding:
@@ -2072,11 +2066,11 @@ class HomeList extends StatelessWidget {
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                   style:
-                                                      TextStyle(fontSize: 12),
+                                                      const TextStyle(fontSize: 12),
                                                 ),
                                               ),
                                             ),
-                                            Container(
+                                            SizedBox(
                                               width: 100,
                                               child: Padding(
                                                 padding:
@@ -2088,11 +2082,11 @@ class HomeList extends StatelessWidget {
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                   style:
-                                                      TextStyle(fontSize: 12),
+                                                      const TextStyle(fontSize: 12),
                                                 ),
                                               ),
                                             ),
-                                            Container(
+                                            SizedBox(
                                               width: 100,
                                               child: Padding(
                                                 padding:
@@ -2105,7 +2099,7 @@ class HomeList extends StatelessWidget {
                                                       .toString(),
                                                   overflow:
                                                       TextOverflow.ellipsis,
-                                                  style: TextStyle(fontSize: 9),
+                                                  style: const TextStyle(fontSize: 9),
                                                 ),
                                               ),
                                             ),
@@ -2127,7 +2121,7 @@ class HomeList extends StatelessWidget {
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
                     '${iitem.documents.length} Articles Les Plus Recent Par Pertinance. ',
-                    style: TextStyle(fontStyle: FontStyle.italic),
+                    style: const TextStyle(fontStyle: FontStyle.italic),
                   ),
                 ),
               ],
@@ -2169,10 +2163,10 @@ class HomeList extends StatelessWidget {
           itemBuilder: (BuildContext, DocumentSnapshot, int) {
             var data = DocumentSnapshot[int].data() as Map?;
             String dataid = DocumentSnapshot[int].id;
-            Random random = new Random();
+            Random random = Random();
             var randomNumber = random.nextInt(27);
             String randomPhoto =
-                'https://firebasestorage.googleapis.com/v0/b/wahrane-a42eb.appspot.com/o/pub%2Fpub(${randomNumber}).jpg?alt=media&token=5d9e0764-23f6-4b18-95f4-e085736659cc';
+                'https://firebasestorage.googleapis.com/v0/b/wahrane-a42eb.appspot.com/o/pub%2Fpub($randomNumber).jpg?alt=media&token=5d9e0764-23f6-4b18-95f4-e085736659cc';
             if (int % 5 == 0 && int != 0) {
               return Card(
                 //  margin: const EdgeInsets.all(5),
@@ -2199,7 +2193,7 @@ class HomeList extends StatelessWidget {
                         imageUrl: randomPhoto,
                       ),
                     ),
-                    Center(
+                    const Center(
                       child: Text(
                         'PubArea',
                         style: TextStyle(
@@ -2278,7 +2272,7 @@ class HomeList extends StatelessWidget {
                                     data['category'],
                                     overflow: TextOverflow.fade,
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 11,
                                         fontWeight: FontWeight.w500),
@@ -2296,15 +2290,15 @@ class HomeList extends StatelessWidget {
                                         NumberFormat.compact()
                                             .format(data['likes']),
                                         textAlign: TextAlign.end,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           color: Colors.white70,
                                           fontSize: 12,
                                         ),
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         width: 3,
                                       ),
-                                      Icon(
+                                      const Icon(
                                         FontAwesomeIcons.eye,
                                         size: 11,
                                         color: Colors.white70,
@@ -2315,7 +2309,7 @@ class HomeList extends StatelessWidget {
                               ],
                             ),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           Column(
                             children: [
                               Padding(
@@ -2324,7 +2318,7 @@ class HomeList extends StatelessWidget {
                                 child: Text(
                                   data['item'].toString().toUpperCase(),
                                   overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.white70,
                                       fontSize: 12,
                                       fontWeight: FontWeight.w500),
@@ -2344,7 +2338,7 @@ class HomeList extends StatelessWidget {
                                                 decimalDigits: 2)
                                             .format(data['price']),
                                     overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         //backgroundColor: Colors.black45,
                                         fontSize: 16,
                                         fontWeight: FontWeight.w500,
@@ -2487,7 +2481,7 @@ class UnsplashAvatarProvider extends StatelessWidget {
         future: docRef.get(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return Center(
+            return const Center(
               child: Text('Loading..'),
             );
           }
@@ -2505,7 +2499,7 @@ class UnsplashAvatarProvider extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
+                  SizedBox(
                     width: 20.0,
                     height: 20.0,
                     child: CachedNetworkImage(
@@ -2520,7 +2514,7 @@ class UnsplashAvatarProvider extends StatelessWidget {
                         ),
                       ),
                       errorWidget: (context, url, error) =>
-                          Icon(Icons.no_accounts_rounded),
+                          const Icon(Icons.no_accounts_rounded),
                     ),
                   ),
                   Padding(
@@ -2528,7 +2522,7 @@ class UnsplashAvatarProvider extends StatelessWidget {
                     child: SizedBox(
                       child: Text(
                         data['displayName'],
-                        style: TextStyle(fontSize: 16, color: Colors.cyan),
+                        style: const TextStyle(fontSize: 16, color: Colors.cyan),
                       ),
                     ),
                   ),
@@ -2548,14 +2542,13 @@ Future<void> moveStock(String productID, data, int amount, PUA) async {
   final DocumentReference sourceReference = SourceCollection.doc(productID);
   final DocumentReference destinationReference =
       DestinationCollection.doc(productID);
-  User? _user = FirebaseAuth.instance.currentUser;
+  User? user = FirebaseAuth.instance.currentUser;
 
   await FirebaseFirestore.instance
       .runTransaction((Transaction transaction) async {
     //start
-    DocumentSnapshot sourceSnapshot = await transaction.get(sourceReference);
-    DocumentSnapshot destinationSnapshot =
-        await transaction.get(destinationReference);
+    await transaction.get(sourceReference);
+    await transaction.get(destinationReference);
 
     int sourceStock = data['stock'];
     //    int destinationStock = destinationSnapshot.data()['qty'];
@@ -2567,9 +2560,9 @@ Future<void> moveStock(String productID, data, int amount, PUA) async {
 
     if (sourceStock >= amount) {
       if (docDestination.exists) {
-        await transaction
+        transaction
             .update(sourceReference, {'stock': sourceStock - amount});
-        await transaction.update(destinationReference, {
+        transaction.update(destinationReference, {
           'createdAt': Timestamp.now().toDate(),
           'category': data['category'],
           'model': data['model'],
@@ -2581,16 +2574,16 @@ Future<void> moveStock(String productID, data, int amount, PUA) async {
           'codebar': data['codebar'],
           'oldStock': data['oldStock'],
           'origine': data['origine'],
-          'user': _user!.uid, //data['user'],
+          'user': user!.uid, //data['user'],
           'qty': FieldValue.increment(amount),
           'state': true,
           //'earn': earn,
           'PUA': PUA,
         });
       } else {
-        await transaction
+        transaction
             .update(sourceReference, {'stock': sourceStock - amount});
-        await transaction.set(destinationReference, {
+        transaction.set(destinationReference, {
           'createdAt': Timestamp.now().toDate(),
           'category': data['category'],
           'model': data['model'],
@@ -2602,7 +2595,7 @@ Future<void> moveStock(String productID, data, int amount, PUA) async {
           'codebar': data['codebar'],
           'oldStock': data['oldStock'],
           'origine': data['origine'],
-          'user': _user!.uid, //data['user'],
+          'user': user!.uid, //data['user'],
           'qty': FieldValue.increment(amount),
           'state': true,
           //'earn': earn,

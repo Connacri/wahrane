@@ -7,7 +7,6 @@ import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wahrane/features/home/public_logged_page.dart';
 import 'package:timeago/timeago.dart' as timeago;
-import 'package:wahrane/features/home/public_logged_page.dart';
 import 'package:wahrane/features/home/profile_others_page.dart';
 
 class SilverdetailItem extends StatelessWidget {
@@ -47,20 +46,20 @@ class SilverdetailItem extends StatelessWidget {
                     child: Text(
                       data['category'] ?? 'null',
                       overflow: TextOverflow.fade,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontFamily: 'oswald',
                           color: Colors.white,
                           fontSize: 16,
                           fontWeight: FontWeight.w500),
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                     child: Text(
                       '${data['likes']} Vue',
-                      style: TextStyle(fontSize: 8),
+                      style: const TextStyle(fontSize: 8),
                     ),
                   ),
                 ],
@@ -110,11 +109,11 @@ class SilverdetailItem extends StatelessWidget {
                 builder: (BuildContext context,
                     AsyncSnapshot<DocumentSnapshot> snapshot) {
                   if (snapshot.hasError) {
-                    return Icon(Icons.error);
+                    return const Icon(Icons.error);
                   }
 
                   if (snapshot.hasData && !snapshot.data!.exists) {
-                    return Icon(Icons.account_box);
+                    return const Icon(Icons.account_box);
                   }
 
                   if (snapshot.connectionState == ConnectionState.done) {
@@ -133,7 +132,7 @@ class SilverdetailItem extends StatelessWidget {
                           Container(
                             width: 40.0,
                             height: 40.0,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               shape: BoxShape.circle,
                             ),
                             child: CachedNetworkImage(
@@ -147,26 +146,26 @@ class SilverdetailItem extends StatelessWidget {
                                 ),
                               ),
                               errorWidget: (context, url, error) =>
-                                  Icon(Icons.error),
+                                  const Icon(Icons.error),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 5,
                           ),
                           Text(
                             "${dataU['displayName']}", // - ${data['email']}",
-                            style: TextStyle(fontSize: 14),
+                            style: const TextStyle(fontSize: 14),
                           ),
-                          Expanded(
+                          const Expanded(
                               child: SizedBox(
                             width: 50,
                           )),
                           Text(
                             "+213${data['phone']}", // - ${data['email']}",
-                            style: TextStyle(fontSize: 14),
+                            style: const TextStyle(fontSize: 14),
                           ),
                           IconButton(
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.call,
                                 color: Colors.green,
                               ),
@@ -181,7 +180,7 @@ class SilverdetailItem extends StatelessWidget {
                                 }
                               }),
                           IconButton(
-                              icon: Icon(
+                              icon: const Icon(
                                 FontAwesomeIcons.whatsapp,
                                 color: Colors.green,
                               ),
@@ -189,13 +188,8 @@ class SilverdetailItem extends StatelessWidget {
                                 //var phone = 00971566129156;
                                 String msg = 'Hello Oran';
                                 var whatsappUrl =
-                                    "whatsapp://send?phone=+213${data['phone']}" +
-                                        "&text=${Uri.encodeComponent(msg)}";
+                                    "whatsapp://send?phone=+213${data['phone']}" "&text=${Uri.encodeComponent(msg)}";
 
-                                final Uri launchUrlRW = Uri(
-                                    scheme: 'Tel',
-                                    path: "+213${data['phone']}" +
-                                        "&text=${Uri.encodeComponent(msg)}");
                                 try {
                                   launch(whatsappUrl);
                                 } catch (e) {
@@ -208,7 +202,7 @@ class SilverdetailItem extends StatelessWidget {
                     );
                   }
 
-                  return Text("loading");
+                  return const Text("loading");
                 },
               ),
             ),
@@ -217,10 +211,10 @@ class SilverdetailItem extends StatelessWidget {
             delegate: SliverChildListDelegate(
               [
                 Padding(
-                  padding: new EdgeInsets.symmetric(horizontal: 20.0),
-                  child: new Text(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Text(
                     data['item'],
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                         fontFamily: 'oswald'),
@@ -229,13 +223,12 @@ class SilverdetailItem extends StatelessWidget {
                 Align(
                   alignment: Alignment.centerRight,
                   child: Padding(
-                    padding: new EdgeInsets.symmetric(horizontal: 20.0),
-                    child: new Text(
-                      'Price : ' +
-                          NumberFormat.currency(symbol: 'DZ ', decimalDigits: 2)
-                              .format(data['price']),
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Text(
+                      'Price : ${NumberFormat.currency(symbol: 'DZ ', decimalDigits: 2)
+                              .format(data['price'])}',
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
+                      style: const TextStyle(
                           //backgroundColor: Colors.black45,
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
@@ -245,11 +238,11 @@ class SilverdetailItem extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8),
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
                   height: 200.0,
                   child: ListView.builder(
                     shrinkWrap: true,
-                    physics: BouncingScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
                     itemCount: data['imageUrls'].length,
                     itemBuilder: (BuildContext context, int index) {
@@ -260,10 +253,10 @@ class SilverdetailItem extends StatelessWidget {
                 ),
                 Center(
                   child: Padding(
-                    padding: new EdgeInsets.all(20.0),
+                    padding: const EdgeInsets.all(20.0),
                     child: Text(
                       'Size : ' + data['item'],
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Colors.red,
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
@@ -272,10 +265,10 @@ class SilverdetailItem extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: new EdgeInsets.symmetric(horizontal: 20.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Text(
                     'Description : ' + data['Description'],
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                         fontFamily: 'oswald'),
@@ -324,21 +317,22 @@ class SilverdetailItem extends StatelessWidget {
                           .snapshots(),
                       builder: (BuildContext context,
                           AsyncSnapshot<QuerySnapshot> snapshot) {
-                        if (snapshot.hasError)
-                          return new Text('Error: ${snapshot.error}');
+                        if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        }
                         switch (snapshot.connectionState) {
                           case ConnectionState.waiting:
-                            return new Text('Loading...');
+                            return const Text('Loading...');
                           default:
-                            return new ListView(
-                              physics: NeverScrollableScrollPhysics(),
+                            return ListView(
+                              physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                               children: snapshot.data!.docs
                                   .map((DocumentSnapshot document) {
-                                return new ListTile(
+                                return ListTile(
                                   leading: ClipRRect(
                                     borderRadius: BorderRadius.circular(5),
-                                    child: Container(
+                                    child: SizedBox(
                                       height: 50,
                                       width: 50,
                                       child: CachedNetworkImage(
@@ -347,7 +341,7 @@ class SilverdetailItem extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  title: new Text(
+                                  title: Text(
                                     document["item"],
                                     overflow: TextOverflow.ellipsis,
                                   ),
@@ -393,7 +387,7 @@ class SilverdetailItem extends StatelessWidget {
                           // Handle the error
                         });
                       },
-                      child: Text('Delete'),
+                      child: const Text('Delete'),
                     ),
                   ),
                 )

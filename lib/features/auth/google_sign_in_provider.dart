@@ -54,7 +54,7 @@ Future<bool> checkIfDocExists(String uid) async {
     doc.exists ? updateUserDoc(userGoo!) : setUserDoc(userGoo!);
     return doc.exists;
   } catch (e) {
-    throw e;
+    rethrow;
   }
 }
 

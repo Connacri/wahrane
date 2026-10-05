@@ -15,7 +15,6 @@ class ProfileOthers extends StatelessWidget {
 
   final double coverHeight = 200;
   final double profileHeight = 90;
-  final bool _enabled = true;
 
   @override
   Widget build(BuildContext context) {
@@ -189,9 +188,9 @@ class ProfileOthers extends StatelessWidget {
                         isThreeLine: true,
                         dense: true,
                         trailing: userm!.uid != datauser!['userID']
-                            ? Text('')
+                            ? const Text('')
                             : IconButton(
-                                icon: Icon(Icons.delete),
+                                icon: const Icon(Icons.delete),
                                 // onPressed: () {
                                 //   FirebaseFirestore.instance
                                 //       .collection('Products')

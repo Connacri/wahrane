@@ -18,7 +18,7 @@ class _adminLoggedPageState extends State<AdminLoggedPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
+            const Text(
               'ADMIN',
               style: TextStyle(fontSize: 40),
             ),
@@ -31,7 +31,7 @@ class _adminLoggedPageState extends State<AdminLoggedPage> {
                         borderRadius: BorderRadius.circular(15)),
                     elevation: 4.0,
                     minimumSize: const Size.fromHeight(50)),
-                icon: Icon(
+                icon: const Icon(
                   Icons.cancel,
                   color: Colors.red,
                 ),

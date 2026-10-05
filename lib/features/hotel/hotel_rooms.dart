@@ -1,7 +1,5 @@
 import 'package:calendar_timeline/calendar_timeline.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class Room {
   final String id;
@@ -26,7 +24,7 @@ class RoomTimeline extends StatelessWidget {
   final Room room;
   final List<DateTime> dates;
 
-  const RoomTimeline({required this.room, required this.dates});
+  const RoomTimeline({super.key, required this.room, required this.dates});
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +52,8 @@ class RoomTimeline extends StatelessWidget {
                 orElse: () => Reservation(start: date, end: date),
               );
 
-              final isReserved = reservation != null;
+              final isReserved = reservation.start.isBefore(date) &&
+                  reservation.end.isAfter(date);
               final isFirst = index == 0;
               final isLast = index == dates.length - 1;
               return Expanded(
@@ -94,6 +93,8 @@ class RoomTimeline extends StatelessWidget {
 }
 
 class HotelAvailability extends StatefulWidget {
+  const HotelAvailability({super.key});
+
   @override
   _HotelAvailabilityState createState() => _HotelAvailabilityState();
 }
@@ -149,22 +150,22 @@ class _HotelAvailabilityState extends State<HotelAvailability> {
               },
             ),
           ),
-          Container(
+          SizedBox(
             height: 100,
             child: CalendarTimeline(
-              initialDate: DateTime.now().add(Duration(days: 1)),
+              initialDate: DateTime.now().add(const Duration(days: 1)),
               firstDate: DateTime.now(),
-              lastDate: DateTime.now().add(Duration(days: 14)),
+              lastDate: DateTime.now().add(const Duration(days: 14)),
               onDateSelected: (date) {
                 print(date);
               },
               leftMargin: 20,
               monthColor: Colors.black87,
               dayColor: Colors.teal[200],
-              dayNameColor: Color(0xFF333A47),
+              dayNameColor: const Color(0xFF333A47),
               activeDayColor: Colors.white,
               activeBackgroundDayColor: Colors.teal[300],
-              dotsColor: Color(0xFF333A47),
+              dotsColor: const Color(0xFF333A47),
               selectableDayPredicate: (date) => date.isAfter(DateTime.now()),
               //locale: 'fr_FR',
             ),
@@ -179,7 +180,7 @@ class RoomListItem extends StatelessWidget {
   final Room room;
   final List<DateTime> dates;
 
-  const RoomListItem({
+  const RoomListItem({super.key, 
     required this.room,
     required this.dates,
   });
@@ -216,7 +217,7 @@ class RoomListItem extends StatelessWidget {
                 );
 
                 final isAvailable = reservations.isEmpty;
-                return Container(
+                return SizedBox(
                   width: 80,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,

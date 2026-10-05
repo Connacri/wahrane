@@ -35,7 +35,6 @@ class _InstaPageState extends State<InstaPage> {
     // Add french messages
     timeago.setLocaleMessages('fr', timeago.FrMessages());
     final userm = FirebaseAuth.instance.currentUser;
-    final bool _enabled = true;
     var user = FirebaseAuth.instance.currentUser;
     final uusers = Provider.of<Collection2Data>(context);
 
@@ -106,7 +105,7 @@ class _InstaPageState extends State<InstaPage> {
                                   blendMode: BlendMode.darken,
                                   child: Container(
                                     height: 50,
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                       image: DecorationImage(
                                         image: CachedNetworkImageProvider(
                                           'https://firebasestorage.googleapis.com/v0/b/adventure-eb4ca.appspot.com/o/wall%2Fwall%20(4).jpg?alt=media&token=c5c01dca-4b32-4b9d-88fe-717e976ac2f5',
@@ -123,9 +122,9 @@ class _InstaPageState extends State<InstaPage> {
                                       Navigator.of(context).push(
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  AuthPage()));
+                                                  const AuthPage()));
                                     },
-                                    child: Text(
+                                    child: const Text(
                                       'Google Sign in',
                                       style: TextStyle(
                                           fontSize: 20,
@@ -140,7 +139,7 @@ class _InstaPageState extends State<InstaPage> {
                         ),
                       )
                     : Container(),
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: 200,
                   child: CarouselSlider.builder(
@@ -188,7 +187,7 @@ class _InstaPageState extends State<InstaPage> {
                                       .toString()
                                       .toUpperCase(),
                                   overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.white70,
                                       fontSize: 28,
                                       fontWeight: FontWeight.bold),
@@ -206,8 +205,8 @@ class _InstaPageState extends State<InstaPage> {
                       enableInfiniteScroll: true,
                       reverse: false,
                       autoPlay: true,
-                      autoPlayInterval: Duration(seconds: 5),
-                      autoPlayAnimationDuration: Duration(milliseconds: 800),
+                      autoPlayInterval: const Duration(seconds: 5),
+                      autoPlayAnimationDuration: const Duration(milliseconds: 800),
                       autoPlayCurve: Curves.easeInToLinear, //.fastOutSlowIn,
                       enlargeCenterPage: true,
                       enlargeFactor: 0, // 0.3,
@@ -222,7 +221,7 @@ class _InstaPageState extends State<InstaPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         'Wallet',
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -230,7 +229,7 @@ class _InstaPageState extends State<InstaPage> {
                             fontSize: 20,
                             fontWeight: FontWeight.w500),
                       ),
-                      Text(
+                      const Text(
                         'Coins : ',
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -242,7 +241,7 @@ class _InstaPageState extends State<InstaPage> {
                         NumberFormat.currency(symbol: '', decimalDigits: 2)
                             .format(widget.userDoc['coins']),
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.black54,
                             fontSize: 20,
                             fontWeight: FontWeight.w400),
@@ -250,8 +249,8 @@ class _InstaPageState extends State<InstaPage> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(18, 18, 18, 0),
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(18, 18, 18, 0),
                   child: Row(
                     children: [
                       Text(
@@ -319,12 +318,12 @@ class _InstaPageState extends State<InstaPage> {
                 //   ),
                 // ),
                 Container(
-                    padding: EdgeInsets.only(left: 6),
+                    padding: const EdgeInsets.only(left: 6),
                     width: MediaQuery.of(context).size.width,
                     height: 200,
                     child: ListView.builder(
                       shrinkWrap: true,
-                      physics: BouncingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
                       itemCount: premiumUsers.length,
                       itemBuilder: (BuildContext context, int index) => Card(
@@ -367,7 +366,7 @@ class _InstaPageState extends State<InstaPage> {
                                       ShaderMask(
                                           blendMode: BlendMode.srcIn,
                                           shaderCallback: (Rect bounds) =>
-                                              LinearGradient(
+                                              const LinearGradient(
                                                 colors: <Color>[
                                                   Colors.red,
                                                   Colors.yellowAccent,
@@ -381,12 +380,12 @@ class _InstaPageState extends State<InstaPage> {
                                             premiumUsers[index]['levelUser']
                                                 .toString()
                                                 .toUpperCase(),
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.bold),
                                           )),
-                                      Container(
+                                      SizedBox(
                                         width: 70,
                                         child: FittedBox(
                                           child: RatingBar.builder(
@@ -400,9 +399,9 @@ class _InstaPageState extends State<InstaPage> {
                                             direction: Axis.horizontal,
                                             allowHalfRating: true,
                                             itemCount: 5,
-                                            itemPadding: EdgeInsets.symmetric(
+                                            itemPadding: const EdgeInsets.symmetric(
                                                 horizontal: 4.0),
-                                            itemBuilder: (context, _) => Icon(
+                                            itemBuilder: (context, _) => const Icon(
                                               Icons.star,
                                               color: Colors.amber,
                                             ),
@@ -412,7 +411,7 @@ class _InstaPageState extends State<InstaPage> {
                                           ),
                                         ),
                                       ),
-                                      Container(
+                                      SizedBox(
                                         width: 70,
                                         height: 25,
                                         child: FittedBox(
@@ -420,7 +419,7 @@ class _InstaPageState extends State<InstaPage> {
                                             premiumUsers[index]['displayName']
                                                 .toString()
                                                 .toUpperCase(),
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 color: Colors.white70,
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.bold),
@@ -429,8 +428,8 @@ class _InstaPageState extends State<InstaPage> {
                                       ),
                                       Padding(
                                         padding:
-                                            EdgeInsets.fromLTRB(0, 10, 0, 20),
-                                        child: Container(
+                                            const EdgeInsets.fromLTRB(0, 10, 0, 20),
+                                        child: SizedBox(
                                           width: 50.0,
                                           height: 50.0,
                                           child: CachedNetworkImage(
@@ -451,7 +450,7 @@ class _InstaPageState extends State<InstaPage> {
                                             ),
                                             errorWidget: (context, url,
                                                     error) =>
-                                                Icon(Icons.no_accounts_rounded),
+                                                const Icon(Icons.no_accounts_rounded),
                                           ),
                                         ),
                                       ),
@@ -612,8 +611,8 @@ class _InstaPageState extends State<InstaPage> {
 
                 //Users Premium
 
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(18, 18, 18, 0),
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(18, 18, 18, 0),
                   child: Row(
                     children: [
                       Text(
@@ -638,11 +637,11 @@ class _InstaPageState extends State<InstaPage> {
                   ),
                 ), // FlashSell
                 Container(
-                  padding: EdgeInsets.only(left: 6),
+                  padding: const EdgeInsets.only(left: 6),
                   height: 220,
                   child: ListView.builder(
                     shrinkWrap: true,
-                    physics: BouncingScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
                     itemCount: itm
                         .length, //1, //(iitem.documents.length / 3).truncate(),
@@ -685,7 +684,7 @@ class _InstaPageState extends State<InstaPage> {
                                     blendMode: BlendMode.darken,
                                     child: CachedNetworkImage(
                                       alignment: Alignment.topCenter,
-                                      fadeInDuration: Duration(seconds: 2),
+                                      fadeInDuration: const Duration(seconds: 2),
                                       fit: BoxFit.cover,
                                       width: 100,
                                       height: 130,
@@ -714,15 +713,15 @@ class _InstaPageState extends State<InstaPage> {
                                             // iitem.documents[index]['likes']
                                           ),
                                           textAlign: TextAlign.end,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.white70,
                                             fontSize: 10,
                                           ),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 3,
                                         ),
-                                        Icon(
+                                        const Icon(
                                           FontAwesomeIcons.eye,
                                           size: 9,
                                           color: Colors.white70,
@@ -732,7 +731,7 @@ class _InstaPageState extends State<InstaPage> {
                                   ),
                                 ],
                               ),
-                              Container(
+                              SizedBox(
                                 width: 100,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -741,11 +740,11 @@ class _InstaPageState extends State<InstaPage> {
                                     itm[index]['item'],
                                     // iitem.documents[index]['item'],
                                     overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(fontSize: 12),
+                                    style: const TextStyle(fontSize: 12),
                                   ),
                                 ),
                               ),
-                              Container(
+                              SizedBox(
                                 width: 100,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -761,7 +760,7 @@ class _InstaPageState extends State<InstaPage> {
                                                   //iitem.documents[index]['price']
                                                   ),
                                           overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(fontSize: 14),
+                                          style: const TextStyle(fontSize: 14),
                                         )
                                       : Text(
                                           NumberFormat.currency(
@@ -771,11 +770,11 @@ class _InstaPageState extends State<InstaPage> {
                                                   //iitem.documents[index]['price']
                                                   ),
                                           overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(fontSize: 14),
+                                          style: const TextStyle(fontSize: 14),
                                         ),
                                 ),
                               ),
-                              Container(
+                              SizedBox(
                                 width: 100,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -784,11 +783,11 @@ class _InstaPageState extends State<InstaPage> {
                                     '${itm[index]['category']}-${itm[index]['levelItem']}',
                                     //   '${iitem.documents[index]['category']}  ${iitem.documents[index]['levelItem']}',
                                     overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(fontSize: 12),
+                                    style: const TextStyle(fontSize: 12),
                                   ),
                                 ),
                               ),
-                              Container(
+                              SizedBox(
                                 width: 100,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -799,7 +798,7 @@ class _InstaPageState extends State<InstaPage> {
                                         .toDate()
                                         .toString(),
                                     overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(fontSize: 9),
+                                    style: const TextStyle(fontSize: 9),
                                   ),
                                 ),
                               ),
@@ -817,7 +816,7 @@ class _InstaPageState extends State<InstaPage> {
                         borderRadius: BorderRadius.circular(10)),
                     clipBehavior: Clip.antiAliasWithSaveLayer,
                     elevation: 5,
-                    child: Container(
+                    child: SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: Stack(
                         children: [
@@ -833,7 +832,7 @@ class _InstaPageState extends State<InstaPage> {
                             blendMode: BlendMode.darken,
                             child: Container(
                               height: MediaQuery.of(context).size.height * 0.38,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 image: DecorationImage(
                                   image: CachedNetworkImageProvider(
                                     'https://firebasestorage.googleapis.com/v0/b/adventure-eb4ca.appspot.com/o/wall%2Fwall%20(3).jpg?alt=media&token=c5c01dca-4b32-4b9d-88fe-717e976ac2f5',
@@ -848,7 +847,7 @@ class _InstaPageState extends State<InstaPage> {
                             filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
                             child: Container(
                               alignment: Alignment.center,
-                              color: Colors.grey.withOpacity(0.1),
+                              color: Colors.grey.withValues(alpha: 0.1),
                             ),
                           ),
                           Column(
@@ -923,8 +922,8 @@ class _InstaPageState extends State<InstaPage> {
                               //     ),
                               //   ),
                               // ),
-                              Padding(
-                                padding: const EdgeInsets.all(15.0),
+                              const Padding(
+                                padding: EdgeInsets.all(15.0),
                                 child: Center(
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -972,7 +971,7 @@ class _InstaPageState extends State<InstaPage> {
                                 ),
                               ),
                               Container(
-                                padding: EdgeInsets.only(left: 6),
+                                padding: const EdgeInsets.only(left: 6),
                                 height: 200,
                                 // child: ListView.builder(
                                 //   shrinkWrap: true,
@@ -1018,7 +1017,7 @@ class _InstaPageState extends State<InstaPage> {
                                 // ),
                                 child: ListView.builder(
                                   shrinkWrap: true,
-                                  physics: BouncingScrollPhysics(),
+                                  physics: const BouncingScrollPhysics(),
                                   scrollDirection: Axis.horizontal,
                                   itemCount: itmm.length,
                                   itemBuilder:
@@ -1071,7 +1070,7 @@ class _InstaPageState extends State<InstaPage> {
                                                     alignment:
                                                         Alignment.topCenter,
                                                     fadeInDuration:
-                                                        Duration(seconds: 2),
+                                                        const Duration(seconds: 2),
                                                     fit: BoxFit.cover,
                                                     width: 100,
                                                     height: 130,
@@ -1145,7 +1144,7 @@ class _InstaPageState extends State<InstaPage> {
                                                                   ),
                                                           overflow: TextOverflow
                                                               .ellipsis,
-                                                          style: TextStyle(
+                                                          style: const TextStyle(
                                                               fontSize: 14,
                                                               color: Colors
                                                                   .greenAccent),
@@ -1163,7 +1162,7 @@ class _InstaPageState extends State<InstaPage> {
                                                                   ),
                                                           overflow: TextOverflow
                                                               .ellipsis,
-                                                          style: TextStyle(
+                                                          style: const TextStyle(
                                                               fontSize: 14,
                                                               color: Colors
                                                                   .greenAccent),
@@ -1171,7 +1170,7 @@ class _InstaPageState extends State<InstaPage> {
                                                 ),
                                               ],
                                             ),
-                                            Container(
+                                            SizedBox(
                                               width: 100,
                                               child: Padding(
                                                 padding:
@@ -1183,11 +1182,11 @@ class _InstaPageState extends State<InstaPage> {
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                   style:
-                                                      TextStyle(fontSize: 12),
+                                                      const TextStyle(fontSize: 12),
                                                 ),
                                               ),
                                             ),
-                                            Container(
+                                            SizedBox(
                                               width: 100,
                                               child: Padding(
                                                 padding:
@@ -1199,11 +1198,11 @@ class _InstaPageState extends State<InstaPage> {
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                   style:
-                                                      TextStyle(fontSize: 12),
+                                                      const TextStyle(fontSize: 12),
                                                 ),
                                               ),
                                             ),
-                                            Container(
+                                            SizedBox(
                                               width: 100,
                                               child: Padding(
                                                 padding:
@@ -1216,7 +1215,7 @@ class _InstaPageState extends State<InstaPage> {
                                                       .toString(),
                                                   overflow:
                                                       TextOverflow.ellipsis,
-                                                  style: TextStyle(fontSize: 9),
+                                                  style: const TextStyle(fontSize: 9),
                                                 ),
                                               ),
                                             ),
@@ -1238,7 +1237,7 @@ class _InstaPageState extends State<InstaPage> {
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
                     '${iitem.documents.length} Articles Les Plus Recent Par Pertinance. ',
-                    style: TextStyle(fontStyle: FontStyle.italic),
+                    style: const TextStyle(fontStyle: FontStyle.italic),
                   ),
                 ),
               ],
@@ -1266,15 +1265,7 @@ class _InstaPageState extends State<InstaPage> {
             print(data['price']);
             print(
                 '/////////////////////////////////////********/////////////////////////////////////////////');
-            return data == null
-                ? const Text(
-                    'Error in data',
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Oswald'),
-                  )
-                : InkWell(
+            return InkWell(
                     child: like_instagram(
                       data: data,
                       user: userm,
@@ -1376,9 +1367,9 @@ class like_instagram extends StatefulWidget {
 
   final Map? datam;
   final User? user;
-  String docid;
-  bool isLiked;
-  String docidd;
+  final String docid;
+  final bool isLiked;
+  final String docidd;
 
   @override
   State<like_instagram> createState() => _like_instagramState();
@@ -1386,6 +1377,13 @@ class like_instagram extends StatefulWidget {
 
 class _like_instagramState extends State<like_instagram> {
   bool isHeartAnimating = false;
+  bool _likedLocal = false;
+
+  @override
+  void didUpdateWidget(covariant like_instagram oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _likedLocal = false;
+  }
 
   //bool isLiked = false;
 
@@ -1407,18 +1405,18 @@ class _like_instagramState extends State<like_instagram> {
                       //color: Colors.green,
                       child: HeartAnimationWidget(
                         alwaysAnimate: true,
-                        isAnimating: widget.isLiked,
+                        isAnimating: widget.isLiked || _likedLocal,
                         dataid: '',
                         user: '',
                         child: IconButton(
-                          icon: widget.isLiked
+                          icon: widget.isLiked || _likedLocal
                               ? const Icon(
                                   Icons.favorite,
                                   color: Colors.red,
                                 )
                               : const Icon(Icons.favorite_border_outlined,
                                   color: Colors.blueGrey),
-                          onPressed: widget.isLiked
+                          onPressed: widget.isLiked || _likedLocal
                               ? () async {
                                   await FirebaseFirestore.instance
                                       .collection('Instalives')
@@ -1655,17 +1653,6 @@ class _like_instagramState extends State<like_instagram> {
                                                   (BuildContext context) {
                                             return ProfileOthers(
                                                 data: snapshot.data.data());
-
-                                            Container(
-                                              child: Center(
-                                                child: Text(
-                                                  snapshot.data.data()[
-                                                      'userDisplayName'],
-                                                  style: const TextStyle(
-                                                      color: Colors.redAccent),
-                                                ),
-                                              ),
-                                            );
                                           }));
                                         })),
                                 Padding(
@@ -1763,14 +1750,14 @@ class _like_instagramState extends State<like_instagram> {
           ],
         ),
         onDoubleTap: () {
-          widget.isLiked
+          (widget.isLiked || _likedLocal)
               ? setState(() {
                   isHeartAnimating = false;
                   //widget.isLiked = false;
                 })
               : setState(() {
                   isHeartAnimating = true;
-                  widget.isLiked = true;
+                  _likedLocal = true;
                   FirebaseFirestore.instance
                       .collection('Instalives')
                       .doc(widget.docid)
