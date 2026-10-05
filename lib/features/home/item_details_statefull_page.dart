@@ -663,8 +663,8 @@ class _item_details_statefullState extends State<ItemDetailsStatefull> {
                             widget.datam!['position'].longitude),
                         zoom: 16.0,
                       ),
-                      layers: [
-                        TileLayerOptions(
+                      children: [
+                        TileLayer(
                           minZoom: 1,
                           maxZoom: 18,
                           backgroundColor: Colors.black,
@@ -672,7 +672,7 @@ class _item_details_statefullState extends State<ItemDetailsStatefull> {
                               'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                           subdomains: ['a', 'b', 'c'],
                         ),
-                        MarkerLayerOptions(markers: [
+                        MarkerLayer(markers: [
                           Marker(
                               width: 100,
                               height: 100,
