@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
-import 'Oauth/Ogoogle/googleSignInProvider.dart';
-import 'pages/ProvidersPublic.dart';
-import 'pages/adminLoggedPage.dart';
-import 'pages/unloggerPublicPage.dart';
+import 'package:wahrane/features/auth/google_sign_in_provider.dart';
+import 'package:wahrane/features/home/providers_public.dart';
+import 'package:wahrane/features/home/admin_logged_page.dart';
+import 'package:wahrane/features/home/unlogged_public_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +21,7 @@ Future<void> main() async {
   SystemChrome.setEnabledSystemUIMode(
       SystemUiMode.edgeToEdge, //.immersiveSticky,
       overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
-  runApp(Materialclass());
+  runApp(WahaneApp());
 }
 
 //FlutterNativeSplash.remove();
@@ -33,16 +33,16 @@ Future initialization(BuildContext? context) async {
 final navigatorKey = GlobalKey<NavigatorState>();
 
 /// This is the main application widget.
-class Materialclass extends StatelessWidget {
-  Materialclass({Key? key}) : super(key: key);
+class WahaneApp extends StatelessWidget {
+  WahaneApp({Key? key}) : super(key: key);
 
-  static const String _title = 'Oran ';
+  static const String _title = 'Wahrane';
   final GoogleUser2 = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => googleSignInProvider(),
+      create: (context) => GoogleSignInProvider(),
       //lazy: true,
       child: MaterialApp(
         locale: const Locale('fr', ''),
@@ -56,7 +56,6 @@ class Materialclass extends StatelessWidget {
           fontFamily: "Oswald",
           primarySwatch: Colors.blue,
           appBarTheme: AppBarTheme(
-            backwardsCompatibility: false, // 1
             systemOverlayStyle: SystemUiOverlayStyle(
               statusBarColor: Colors.transparent,
             ),
@@ -68,20 +67,20 @@ class Materialclass extends StatelessWidget {
             //     child: Text('Scaffold Test Statue Bar'),
             //   ),
             // ) //SignInScreen(),
-            verifi_auth(),
+            AuthGate(),
       ),
     );
   }
 }
 
-class verifi_auth extends StatefulWidget {
-  const verifi_auth({Key? key}) : super(key: key);
+class AuthGate extends StatefulWidget {
+  const AuthGate({Key? key}) : super(key: key);
 
   @override
-  State<verifi_auth> createState() => _verifi_authState();
+  State<AuthGate> createState() => _verifi_authState();
 }
 
-class _verifi_authState extends State<verifi_auth> {
+class _verifi_authState extends State<AuthGate> {
   @override
   Widget build(BuildContext context) => Scaffold(
         body: StreamBuilder<User?>(
@@ -97,7 +96,7 @@ class _verifi_authState extends State<verifi_auth> {
               final userD = snapshot.data!.uid;
               return CheckRole(userD); //MultiProviderWidget();
             } else {
-              return unloggedPublicPage(); //publicHomeList(); //
+              return UnloggedPublicPage(); //publicHomeList(); //
             }
           },
         ),
@@ -132,7 +131,7 @@ class CheckRole extends StatelessWidget {
           var userRole = data['role'];
           // Check user role
           if (userRole == "admin") {
-            return adminLoggedPage();
+            return AdminLoggedPage();
           } else {
             return MyApp(
               userDoc: data,
@@ -140,7 +139,7 @@ class CheckRole extends StatelessWidget {
             // NavigationExample(
             //   userDoc: data,
             // );
-            //     publicLoggerPage(
+            //     PublicLoggedPage(
             //   datta: data,
             // );
           }
@@ -160,7 +159,7 @@ class CheckRole extends StatelessWidget {
                     padding: const EdgeInsets.all(28.0),
                     child: ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
-                          primary: Colors.black54,
+                          backgroundColor: Colors.black54,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15)),
                           elevation: 4.0,
@@ -175,7 +174,7 @@ class CheckRole extends StatelessWidget {
                       ),
                       onPressed: () async {
                         FirebaseAuth.instance.signOut();
-                        final provider = Provider.of<googleSignInProvider>(
+                        final provider = Provider.of<GoogleSignInProvider>(
                             context,
                             listen: false);
                         await provider.logouta();
@@ -221,7 +220,7 @@ class CheckRole extends StatelessWidget {
     //                   child: ElevatedButton(
     //                     child: Text('Log Out'),
     //                     onPressed: () {
-    //                       googleSignInProvider().logouta();
+    //                       GoogleSignInProvider().logouta();
     //                     },
     //                   ),
     //                 ),
@@ -246,9 +245,9 @@ class CheckRole extends StatelessWidget {
     //       Map<String, dynamic> userRole =
     //           snapshot.data!.data() as Map<String, dynamic>;
     //       if (userRole['Role'] == 'admin') {
-    //         return adminLoggedPage();
+    //         return AdminLoggedPage();
     //       } else {
-    //         return publicLoggerPage();
+    //         return PublicLoggedPage();
     //       }
     //     }
     //
