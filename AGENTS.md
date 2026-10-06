@@ -744,3 +744,62 @@ Every change should make the project:
 * easier to deploy
 
 Do not create technical debt merely to finish a task quickly.
+
+---
+
+## 30. ABSOLUTE COMPLETION — NO SKIPPED TASKS
+
+These rules are **binding without exception**. A task is not
+done until every step in `§28 STANDARD TASK WORKFLOW` has been
+actually executed and its result verified in the real environment.
+
+### 30.1 Never mark a step as done without executing it
+
+Each arrow in the §28 pipeline must correspond to a **real, observable
+action** (command run, file changed, log fetched, URL checked). No
+skipping, no "assumed success", no "this will be handled later".
+
+### 30.2 The Git cycle is mandatory after every completed task
+
+```text
+git status
+git add
+git commit
+git push
+→ GitHub Actions run starts
+→ inspect the real run result (gh run view / gh run watch)
+```
+
+If CI fails: inspect the log → fix → commit → push → **wait for the
+next run** → verify it succeeds. Never claim green without the actual
+`success` conclusion.
+
+### 30.3 Never shortcut the proof
+
+- `flutter build apk --debug` locally ≠ release works.
+- "The CI config exists" ≠ CI succeeded.
+- "README mentions the URL" ≠ the URL resolves.
+- "I wrote the code" ≠ the feature is merged and deployed.
+
+### 30.4 Work through tasks one by one, in order
+
+When multiple tasks are requested, execute them **one after another**,
+finishing the §28 pipeline (including commit/push/CI-verification)
+for each before starting the next. Do not batch several tasks into a
+single push.
+
+### 30.5 No task is complete while a required step fails
+
+If any step in the pipeline cannot be completed (missing secret,
+missing Firebase project, etc.), **stop and ask the user**. Never
+report completion with an outstanding failure.
+
+---
+
+## 31. I18N / STATE HANDLING ENFORCEMENT
+
+- New user-facing strings must go through `AppLocalizations` (see
+  `lib/l10n/`) in **both** `fr` and `en`.
+- Every interactive screen must visibly handle: loading, success,
+  empty, error, offline, retry — no silent failures.
+

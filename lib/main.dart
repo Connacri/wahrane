@@ -9,6 +9,7 @@ import 'package:wahrane/features/auth/google_sign_in_provider.dart';
 import 'package:wahrane/features/home/providers_public.dart';
 import 'package:wahrane/features/home/admin_logged_page.dart';
 import 'package:wahrane/features/home/unlogged_public_page.dart';
+import 'package:wahrane/l10n/app_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,7 +46,8 @@ class WahaneApp extends StatelessWidget {
       create: (context) => GoogleSignInProvider(),
       //lazy: true,
       child: MaterialApp(
-        locale: const Locale('fr', ''),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
         //scaffoldMessengerKey: Utils.messengerKey,
         navigatorKey: navigatorKey,
         debugShowCheckedModeBanner: false,
@@ -90,7 +92,7 @@ class _verifi_authState extends State<AuthGate> {
             //   return const CircularProgressIndicator();
             // } else
             if (snapshot.hasError) {
-              return const Center(child: Text('Probleme de Connexion'));
+              return Center(child: Text(AppLocalizations.of(context)!.connectionProblem));
             }
             if (snapshot.hasData) {
               final userD = snapshot.data!.uid;
@@ -150,7 +152,7 @@ class CheckRole extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Text('Marhba Bik'),
+                  Text(AppLocalizations.of(context)!.welcome),
                   // ElevatedButton(
                   //     onPressed: () => Navigator.pushNamedAndRemoveUntil(
                   //         context, '/', (_) => false),
@@ -168,8 +170,8 @@ class CheckRole extends StatelessWidget {
                         Icons.cancel,
                         color: Colors.red,
                       ),
-                      label: const Text(
-                        'Deconnexion',
+                      label: Text(
+                        AppLocalizations.of(context)!.logout,
                         style: TextStyle(fontSize: 24, color: Colors.white),
                       ),
                       onPressed: () async {
