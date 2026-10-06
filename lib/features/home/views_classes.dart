@@ -1330,13 +1330,11 @@ class Cardless extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(2, 0, 0, 0),
                     child: _data!['usersLike'].toString().contains(user.uid)
-                        ? const Icon(
-                            FontAwesomeIcons.solidHeart,
+                        ? const FaIcon(                            FontAwesomeIcons.solidHeart,
                             color: Colors.redAccent,
                             size: 15,
                           )
-                        : const Icon(
-                            FontAwesomeIcons.heart,
+                        : const FaIcon(                            FontAwesomeIcons.heart,
                             color: Colors.blue,
                             size: 15,
                           ),
@@ -1840,8 +1838,7 @@ Card buildCardDetail(Map<dynamic, dynamic> data, dataid) {
                                 dotSecondaryColor: Color(0xffb71c1c),
                               ),
                               likeBuilder: (bool isLiked) {
-                                return const Icon(
-                                  FontAwesomeIcons.solidHeart,
+                                return const FaIcon(                                  FontAwesomeIcons.solidHeart,
                                   color: Colors.redAccent,
                                   size: 20,
                                 );
@@ -1873,8 +1870,7 @@ Card buildCardDetail(Map<dynamic, dynamic> data, dataid) {
                                 dotSecondaryColor: Color(0xff1c31b7),
                               ),
                               likeBuilder: (bool isLiked) {
-                                return const Icon(
-                                  FontAwesomeIcons.heart,
+                                return const FaIcon(                                  FontAwesomeIcons.heart,
                                   color: Colors.blue,
                                   size: 20,
                                 );

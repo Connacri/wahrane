@@ -118,8 +118,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                             BorderRadius.circular(15)),
                                     elevation: 4.0,
                                     minimumSize: const Size.fromHeight(50)),
-                                icon: const Icon(
-                                  FontAwesomeIcons.google,
+                                icon: const FaIcon(                                  FontAwesomeIcons.google,
                                   color: Colors.red,
                                 ),
                                 label: const Text(

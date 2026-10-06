@@ -180,8 +180,7 @@ class SilverdetailItem extends StatelessWidget {
                                 }
                               }),
                           IconButton(
-                              icon: const Icon(
-                                FontAwesomeIcons.whatsapp,
+                              icon: const FaIcon(                                FontAwesomeIcons.whatsapp,
                                 color: Colors.green,
                               ),
                               onPressed: () async {

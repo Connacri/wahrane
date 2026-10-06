@@ -238,11 +238,11 @@ class MyApp extends StatelessWidget {
 //           selectedIndex: currentPageIndex,
 //           destinations: <Widget>[
 //             NavigationDestination(
-//               icon: Icon(FontAwesomeIcons.home),
+//               icon: FaIcon(FontAwesomeIcons.home),
 //               label: 'Home',
 //             ),
 //             NavigationDestination(
-//               icon: Icon(FontAwesomeIcons.list),
+//               icon: FaIcon(FontAwesomeIcons.list),
 //               label: 'Insta',
 //             ),
 //             NavigationDestination(
@@ -325,15 +325,15 @@ class _bottomNavigationState extends State<BottomNavigation> {
         selectedIndex: currentPageIndex,
         destinations: <Widget>[
           const NavigationDestination(
-            icon: Icon(FontAwesomeIcons.home),
+            icon: FaIcon(FontAwesomeIcons.home),
             label: 'Home',
           ),
           const NavigationDestination(
-            icon: Icon(FontAwesomeIcons.list),
+            icon: FaIcon(FontAwesomeIcons.list),
             label: 'Lives',
           ),
           // NavigationDestination(
-          //   icon: Icon(FontAwesomeIcons.hotel),
+          //   icon: FaIcon(FontAwesomeIcons.hotel),
           //   label: 'hotel_charts',
           // ),
           NavigationDestination(
@@ -400,8 +400,7 @@ class HomeList extends StatelessWidget {
             );
           }));
         },
-        child: const Icon(
-          FontAwesomeIcons.add,
+        child: const FaIcon(          FontAwesomeIcons.add,
           color: Colors.black54,
         ),
       ),
@@ -1605,8 +1604,7 @@ class HomeList extends StatelessWidget {
                                         const SizedBox(
                                           width: 3,
                                         ),
-                                        const Icon(
-                                          FontAwesomeIcons.eye,
+                                        const FaIcon(                                          FontAwesomeIcons.eye,
                                           size: 9,
                                           color: Colors.white70,
                                         )
@@ -2298,8 +2296,7 @@ class HomeList extends StatelessWidget {
                                       const SizedBox(
                                         width: 3,
                                       ),
-                                      const Icon(
-                                        FontAwesomeIcons.eye,
+                                      const FaIcon(                                        FontAwesomeIcons.eye,
                                         size: 11,
                                         color: Colors.white70,
                                       )

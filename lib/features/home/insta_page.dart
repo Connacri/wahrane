@@ -64,8 +64,7 @@ class _InstaPageState extends State<InstaPage> {
             );
           }));
         },
-        child: const Icon(
-          FontAwesomeIcons.signsPost,
+        child: const FaIcon(          FontAwesomeIcons.signsPost,
           color: Colors.black54,
         ),
       ),
@@ -721,8 +720,7 @@ class _InstaPageState extends State<InstaPage> {
                                         const SizedBox(
                                           width: 3,
                                         ),
-                                        const Icon(
-                                          FontAwesomeIcons.eye,
+                                        const FaIcon(                                          FontAwesomeIcons.eye,
                                           size: 9,
                                           color: Colors.white70,
                                         )

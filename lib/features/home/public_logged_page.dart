@@ -39,12 +39,12 @@ class PublicLoggedPage extends StatelessWidget {
         //           // Navigator.of(context).pop();
         //           // Navigator.pop(context, true);
         //         },
-        //         icon: Icon(FontAwesomeIcons.signOut)),
+        //         icon: FaIcon(FontAwesomeIcons.signOut)),
         //     IconButton(
         //         onPressed: () => Navigator.of(context).push(MaterialPageRoute(
         //               builder: (context) => StepperWidget(),
         //             )),
-        //         icon: Icon(FontAwesomeIcons.add)),
+        //         icon: FaIcon(FontAwesomeIcons.add)),
         //   ],
         //   automaticallyImplyLeading: true,
         // ),
@@ -531,8 +531,7 @@ class PublicLoggedPage extends StatelessWidget {
                                         const SizedBox(
                                           width: 3,
                                         ),
-                                        const Icon(
-                                          FontAwesomeIcons.eye,
+                                        const FaIcon(                                          FontAwesomeIcons.eye,
                                           size: 11,
                                           color: Colors.white70,
                                         )

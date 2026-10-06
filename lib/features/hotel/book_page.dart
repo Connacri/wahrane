@@ -292,7 +292,7 @@ class _AddBookState extends State<AddBook> {
   }
 
   chooseImage() async {
-    final pickedFile = await picker.getImage(
+    final pickedFile = await picker.pickImage(
         source: ImageSource.gallery,
         imageQuality: 40,
         maxHeight: 1080,
@@ -304,7 +304,7 @@ class _AddBookState extends State<AddBook> {
   }
 
   Future<void> retrieveLostData() async {
-    final LostData response = await picker.getLostData();
+    final LostDataResponse response = await picker.retrieveLostData();
     if (response.isEmpty) {
       return;
     }
@@ -312,8 +312,14 @@ class _AddBookState extends State<AddBook> {
       setState(() {
         _image.add(File(response.file!.path));
       });
+    } else if (response.files != null && response.files!.isNotEmpty) {
+      setState(() {
+        for (final xfile in response.files!) {
+          _image.add(File(xfile.path));
+        }
+      });
     } else {
-      print(response.file);
+      print(response.exception);
     }
   }
 
